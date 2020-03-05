@@ -130,19 +130,18 @@
             $sql->execute();
         }
 
-        public function alterarHistoricoDataSaida($idHistorico, $idHospital, $idPaciente, $idDiagnostico, $motivo, $dataEntrada, $dataSaida){
+        public function alterarHistoricoDataSaida($idHistorico, $idHospital, $idPaciente, $idDiagnostico, $motivo, $dataSaida){
             //global $pdo;
-            $sql = $this->pdo->prepare("UPDATE historico SET id_hospital = :idHospital, id_paciente = :idPaciente, 
-                                            id_diagnostico = :idDiagnostico, data_entrada = :dataEntrada, data_saida = :dataSaida 
-                                            WHERE id = :idHistorico");
+            $sql = $this->pdo->prepare("UPDATE historico SET id_diagnostico = :idDiagnostico, 
+                                                data_saida = :dataSaida 
+                                                WHERE id = :idHistorico");
             $sql->bindValue(":idHistorico", $idHistorico);
-            $sql->bindValue(":idHospital", $idHospital);
-            $sql->bindValue(":idPaciente", $idPaciente);
             $sql->bindValue(":idDiagnostico", $idDiagnostico);
-            $sql->bindValue(":dataEntrada", $dataEntrada);
             $sql->bindValue(":dataSaida", $dataSaida);
             $sql->execute();
 
+            //Adicionar verificação para que, caso o paciente já tenha tido alta ou morrido, no mesmo histório, não haver a
+            //inclusão na tabela de alta e obito.
             if($motivo == 1){
                 $sql = $this->pdo->prepare("INSERT INTO alta SET id_historico = :idHistorico, id_paciente = :idPaciente,
                                                 id_hospital = :idHospital, data = :dataSaida");
@@ -160,6 +159,7 @@
                 $sql->bindValue(":idHistorico", $idHistorico);
                 $sql->execute();
             }
+            return true;
         }
 
         public function getHistoricoPacienteAlta($idHistorico, $dataSaida){

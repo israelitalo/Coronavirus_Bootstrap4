@@ -99,7 +99,7 @@ if(isset($_GET['busca'])){
                     <td class="text-center" style="width: 15%>">
                         <a class="btn btn-outline-warning" href="alterar-historico.php?id=<?php echo $historico['id'] ;?>"><img width="26" height="26" onmouseover="alterarAtivo($(this))" id="icone-editar" src="assets/images/icones/alterar.png"></a>
                         <a class="btn btn-outline-danger" href="excluir-historico.php?id=<?php echo $historico['id'] ;?>"><img id="icone-excluir" src="assets/images/icones/excluir.png"></a>
-                        <a class="btn btn-outline-info" href="alterar-historico-data-saida.php?id=<?php echo $historico['id']; ?>"><img id="icone-lista" src="assets/images/icones/documento.png"></a>
+                        <a class="btn btn-outline-info" href="alterar-historico-data-saida.php?id=<?php echo $historico['id']; ?>&paciente=<?php echo $historico['paciente']; ?>"><img id="icone-lista" src="assets/images/icones/documento.png"></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
