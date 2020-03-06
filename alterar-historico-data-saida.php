@@ -56,15 +56,11 @@ if(isset($_POST['hospital']) && !empty($_POST['hospital']) && isset($_POST['paci
     $historico->setIdHospital(addslashes($_POST['hospital']));
     $historico->setIdPaciente(addslashes($_POST['paciente']));
     $historico->setIdDiagnostico(addslashes($_POST['diagnostico']));
-    $motivo = addslashes($_POST['motivo']);//Não é um atributo do banco de dados.
+    $historico->setMotivoAlta(addslashes($_POST['motivo']));
     $historico->setDataSaida(addslashes($_POST['saida']));
 
-    if($hd->alterarHistoricoDataSaida($historico->getId(), $historico->getIdHospital(), $historico->getIdPaciente(), $historico->getIdDiagnostico(), $motivo, $historico->getDataSaida())==true){
-        if($motivo == 1){
-            $_SESSION['msg'] = "Data de saída atualizada com sucesso. Informação enviada para a tabela de altas médicas.";
-        }elseif($motivo == 2){
-            $_SESSION['msg'] = "Data de saída atualizada com sucesso. Informação enviada para a tabela de óbitos.";
-        }
+    if($hd->alterarHistoricoDataSaida($historico->getId(), $historico->getIdHospital(), $historico->getIdPaciente(), $historico->getIdDiagnostico(), $historico->getMotivoAlta(), $historico->getDataSaida())==true){
+        $_SESSION['msg'] = "Data de saída atualizada com sucesso. Informação enviada para a tabela de altas médicas.";
         header('Location: gerenciar-historico-pacientes.php');
     }else{
         $_SESSION['msg'] = "Erro ao tentar lançar a data de saída.";
@@ -90,15 +86,12 @@ if(isset($_POST['hospital']) && !empty($_POST['hospital']) && isset($_POST['paci
         $msg = $_SESSION['msg'];
         if($msg = "Data de saída atualizada com sucesso. Informação enviada para a tabela de altas médicas."){
             ?>
-            <div class="alert-sucesso"><?php echo $msg;?></div>
+            <div class="alert alert-success"><?php echo $msg;?></div>
             <?php
-        }elseif($msg = "Data de saída atualizada com sucesso. Informação enviada para a tabela de óbitos."){
+        }else{
+            $msg = "Erro ao tentar lançar a data de saída.";
             ?>
-            <div class="alert-sucesso"><?php echo $msg;?></div>
-            <?php
-        }elseif($msg = "Erro ao tentar lançar a data de saída."){
-            ?>
-            <div class="alert-erro"><?php echo $msg;?></div>
+            <div class="alert alert-danger"><?php echo $msg;?></div>
             <?php
         }
         unset($_SESSION['msg']);
@@ -148,8 +141,8 @@ if(isset($_POST['hospital']) && !empty($_POST['hospital']) && isset($_POST['paci
                 <label class="col-form-label-lg" for="motivo">Motivo da saída</label>
                 <select class="form-control" name="motivo" id="motivo" required>
                     <option></option>
-                    <option value="1">Alta Médica</option>
-                    <option value="2">Óbito</option>
+                    <option value="1" <?php echo ($info['motivoalta'] == 1)?'selected = "selected"':'';?> >Alta Médica</option>
+                    <option value="2" <?php echo ($info['motivoalta'] == 2)?'selected = "selected"':'';?> >Óbito</option>
                 </select>
             </div>
 

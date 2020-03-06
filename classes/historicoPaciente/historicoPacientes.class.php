@@ -7,6 +7,7 @@
         private $idDiagnostico;
         private $dataEntrada;
         private $dataSaida;
+        private $motivoAlta;
 
         public function getId()
         {
@@ -66,6 +67,16 @@
         public function setDataSaida($dataSaida)
         {
             $this->dataSaida = $dataSaida;
+        }
+
+        public function getMotivoAlta()
+        {
+            return $this->motivoAlta;
+        }
+
+        public function setMotivoAlta($motivoAlta)
+        {
+            $this->motivoAlta = $motivoAlta;
         }
 
     }

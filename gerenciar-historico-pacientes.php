@@ -35,17 +35,21 @@ if(isset($_GET['busca'])){
     <?php
     if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){
         $msg = $_SESSION['msg'];
-        if($msg == "Data de saída atualizada com sucesso. Informação enviada para a tabela de altas médicas."){
+        if($msg == "Data da alta alterada com sucesso."){
             ?>
-            <div class="alert-sucesso"><?php echo $msg;?></div>
+            <div class="alert alert-success"><?php echo $msg;?></div>
             <?php
-        }elseif($msg == "Data de saída atualizada com sucesso. Informação enviada para a tabela de óbitos."){
+        }elseif($msg == "Data da alta inserida com sucesso."){
             ?>
-            <div class="alert-sucesso"><?php echo $msg;?></div>
+            <div class="alert alert-success"><?php echo $msg;?></div>
             <?php
-        }elseif($msg == "Erro ao tentar lançar a data de saída."){
+        }elseif($msg == "Data do obito alterada com sucesso."){
             ?>
-            <div class="alert-erro"><?php echo $msg;?></div>
+            <div class="alert alert-success"><?php echo $msg;?></div>
+            <?php
+        }elseif($msg == "Data do obito inserida com sucesso."){
+            ?>
+            <div class="alert alert-success"><?php echo $msg;?></div>
             <?php
         }
         unset($_SESSION['msg']);

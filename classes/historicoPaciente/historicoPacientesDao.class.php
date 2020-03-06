@@ -128,38 +128,95 @@
             $sql->bindValue(":idDiagnostico", $idDiagnostico);
             $sql->bindValue(":dataEntrada", $dataEntrada);
             $sql->execute();
+            return true;
         }
 
-        public function alterarHistoricoDataSaida($idHistorico, $idHospital, $idPaciente, $idDiagnostico, $motivo, $dataSaida){
+        public function alterarHistorico($idHistorico, $idHospital, $idPaciente, $idDiagnostico, $dataEntrada){
+            $sql = $this->pdo->prepare("UPDATE historico SET id_hospital = :idHospital, id_paciente = :idPaciente,
+                                                    id_diagnostico = :idDiagnostico, data_entrada = :dataEntrada
+                                                    WHERE historico.id = :idHistorico");
+            $sql->bindValue(":idHistorico", $idHistorico);
+            $sql->bindValue(":idHospital", $idHospital);
+            $sql->bindValue(":idPaciente", $idPaciente);
+            $sql->bindValue(":idDiagnostico", $idDiagnostico);
+            $sql->bindValue(":dataEntrada", $dataEntrada);
+            $sql->execute();
+            return true;
+        }
+
+        public function alterarHistoricoDataSaida($idHistorico, $idDiagnostico, $motivo, $dataSaida){
             //global $pdo;
             $sql = $this->pdo->prepare("UPDATE historico SET id_diagnostico = :idDiagnostico, 
-                                                data_saida = :dataSaida 
+                                                data_saida = :dataSaida, motivoalta = :motivoAlta 
                                                 WHERE id = :idHistorico");
             $sql->bindValue(":idHistorico", $idHistorico);
             $sql->bindValue(":idDiagnostico", $idDiagnostico);
             $sql->bindValue(":dataSaida", $dataSaida);
+            $sql->bindValue(":motivoAlta", $motivo);
             $sql->execute();
 
-            //Adicionar verificação para que, caso o paciente já tenha tido alta ou morrido, no mesmo histório, não haver a
-            //inclusão na tabela de alta e obito.
-            if($motivo == 1){
-                $sql = $this->pdo->prepare("INSERT INTO alta SET id_historico = :idHistorico, id_paciente = :idPaciente,
-                                                id_hospital = :idHospital, data = :dataSaida");
-                $sql->bindValue(":idPaciente", $idPaciente);
-                $sql->bindValue(":idHospital", $idHospital);
-                $sql->bindValue(":dataSaida", $dataSaida);
-                $sql->bindValue(":idHistorico", $idHistorico);
-                $sql->execute();
-            }elseif($motivo == 2){
-                $sql = $this->pdo->prepare("INSERT INTO obito SET id_historico = :idHistorico, id_paciente = :idPaciente,
-                                                id_hospital = :idHospital, data = :dataSaida");
-                $sql->bindValue(":idPaciente", $idPaciente);
-                $sql->bindValue(":idHospital", $idHospital);
-                $sql->bindValue(":dataSaida", $dataSaida);
-                $sql->bindValue(":idHistorico", $idHistorico);
-                $sql->execute();
-            }
             return true;
+
+            /*if($motivo == 1){
+                //Se o count for maior que 0, significa que existe uma alta pra aquele paciente e historico, sendo necessário atualizar a data
+                //e não inserir um novo dado na tabela.
+                $sql = $this->pdo->prepare("SELECT alta.id FROM alta WHERE alta.id_historico = :idHistorico
+                                                    AND alta.id_paciente = :idPaciente AND alta.id_hospital = :idHospital
+                                                    AND alta.data = :dataSaida");
+                $sql->bindValue(":idHistorico", $idHistorico);
+                $sql->bindValue(":idPaciente", $idPaciente);
+                $sql->bindValue(":idHospital", $idHospital);
+                $sql->bindValue(":dataSaida", $dataSaida);
+                $sql->execute();
+
+                if($sql->rowCount() > 0){
+                    $idAlta = $sql->fetch();
+                    $sql = $this->pdo->prepare("UPDATE alta SET alta.data = :dataSaida WHERE alta.id = :idAlta");
+                    $sql->bindValue(":idAlta", $idAlta);
+                    $sql->bindValue(":dataSaida", $dataSaida);
+                    $_SESSION['msg'] = "Data da alta alterada com sucesso.";
+                    return true;
+                }else{
+                    $sql = $this->pdo->prepare("INSERT INTO alta SET id_historico = :idHistorico, id_paciente = :idPaciente,
+                                                id_hospital = :idHospital, data = :dataSaida");
+                    $sql->bindValue(":idPaciente", $idPaciente);
+                    $sql->bindValue(":idHospital", $idHospital);
+                    $sql->bindValue(":dataSaida", $dataSaida);
+                    $sql->bindValue(":idHistorico", $idHistorico);
+                    $sql->execute();
+                    $_SESSION['msg'] = "Data da alta inserida com sucesso.";
+                    return true;
+                }
+            }elseif($motivo == 2){
+
+                $sql = $this->pdo->prepare("SELECT obito.id FROM obito WHERE obito.id_historico = :idHistorico
+                                                    AND obito.id_paciente = :idPaciente AND obito.id_hospital = :idHospital
+                                                    AND obito.data = :dataSaida");
+                $sql->bindValue(":idHistorico", $idHistorico);
+                $sql->bindValue(":idPaciente", $idPaciente);
+                $sql->bindValue(":idHospital", $idHospital);
+                $sql->bindValue(":dataSaida", $dataSaida);
+                $sql->execute();
+
+                if($sql->rowCount() > 0){
+                    $idObito = $sql->fetch();
+                    $sql = $this->pdo->prepare("UPDATE obito SET obito.data = :dataSaida WHERE obito.id = :idObito");
+                    $sql->bindValue(":idObito", $idObito);
+                    $sql->bindValue(":dataSaida", $dataSaida);
+                    $_SESSION['msg'] = "Data do obito alterada com sucesso.";
+                    return true;
+                }else{
+                    $sql = $this->pdo->prepare("INSERT INTO obito SET id_historico = :idHistorico, id_paciente = :idPaciente,
+                                                id_hospital = :idHospital, data = :dataSaida");
+                    $sql->bindValue(":idPaciente", $idPaciente);
+                    $sql->bindValue(":idHospital", $idHospital);
+                    $sql->bindValue(":dataSaida", $dataSaida);
+                    $sql->bindValue(":idHistorico", $idHistorico);
+                    $sql->execute();
+                    $_SESSION['msg'] = "Data do obito inserida com sucesso.";
+                    return true;
+                }
+            }*/
         }
 
         public function getHistoricoPacienteAlta($idHistorico, $dataSaida){
