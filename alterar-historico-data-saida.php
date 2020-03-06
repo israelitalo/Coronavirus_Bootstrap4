@@ -78,8 +78,8 @@ if(isset($_POST['hospital']) && !empty($_POST['hospital']) && isset($_POST['paci
     <div style="margin-top: 20px; margin-bottom: 20px">
         <h2><span class="badge badge-secondary">Registrar Saída do Paciente</span></h2>
     </div>
-    <div class="jumbotron" style="margin-bottom: 5px">
-        <h3>Paciente <?php echo $selectedPaciente->getNome();?></h3>
+    <div class="jumbotron text-center" style="margin-bottom: 5px">
+        <h3 style="color: whitesmoke">Paciente: <?php echo $selectedPaciente->getNome();?></h3>
     </div>
     <?php
     if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){

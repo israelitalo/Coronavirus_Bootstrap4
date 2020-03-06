@@ -26,6 +26,17 @@
             }
         }
 
+        public function getNomeUsuario($idUsuario){
+            $sql = $this->pdo->prepare("SELECT nome FROM usuario WHERE id = :idUsuario");
+            $sql->bindValue(":idUsuario", $idUsuario);
+            $sql->execute();
+
+            if($sql->rowCount() > 0){
+                $nomeusuario = $sql->fetch();
+                return $nomeusuario['nome'];
+            }
+        }
+
         public function getUsuarios(){
             //global $pdo;
             $array = array();

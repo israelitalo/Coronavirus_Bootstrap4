@@ -1,0 +1,34 @@
+body{
+    background-color: #efefef;
+}
+.jumbotron{
+    background-color: darkorange;
+    padding: 20px;
+}
+.btn{
+    font-size: 18px;
+}
+.nav-item{
+    font-size: 20px;
+}
+.navbar-text{
+    font-size: 20px;
+}
+.dropdown-item{
+    font-size: 18px;
+}
+table{
+    border-radius: 5px;
+}
+.navbar-text{
+    float: left;
+}
+
+@media only screen and (max-width: 990px){
+    .navbar-text{
+        display: none;
+    }
+}
+.modal-excluir-paciente{
+
+}

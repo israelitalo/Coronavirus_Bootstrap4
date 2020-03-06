@@ -28,6 +28,7 @@ if(isset($_GET['busca'])){
 }
 
 ?>
+
 <div class="container">
     <div style="margin-top: 20px; margin-bottom: 20px">
         <h2><span class="badge badge-secondary">Gerenciar Histórico de Pacientes</span></h2>
@@ -87,14 +88,15 @@ if(isset($_GET['busca'])){
             <tbody>
             <?php foreach ($historicos as $historico): ?>
                 <tr>
-                    <td style="width: 20%"><?php echo ucwords($historico['hospital']); ?></td>
-                    <td style="width: 15%; padding-top: 20px"><a href="historico-paciente.php?id=<?php echo $historico['id'] ;?>&saida=<?php echo $historico['data_saida'];?> " class="badge badge-primary"><?php echo $historico['paciente']; ?></a></td>
+                    <td style="width: 20%; padding-top: 20px"><?php echo ucwords($historico['hospital']); ?></td>
+                    <td style="width: 15%; padding-top: 20px"><a href="historico-paciente.php?id=<?php echo $historico['id'] ;?>&saida=<?php echo $historico['data_saida'];?> " class="badge badge-primary"><span style="font-size: 16px"><?php echo $historico['paciente']; ?></span></a></td>
                     <td style="width: 15%; padding-top: 20px"><?php echo ucwords($historico['diagnostico']); ?></td>
                     <td style="width: 15%; padding-top: 20px"><?php echo date('d/m/Y', strtotime($historico['data_entrada'])); ?></td>
                     <td style="width: 15%; padding-top: 20px"><?php
                         /*A condição abaixo serve para os casos que a data de saída ainda não foi lançada para o histórico do paciente, pois, caso
                         seja usado o date('d/m/Y', strtotime()) em um data como null, será mostrada ao usuário uma data de 1970.*/
                         if($historico['data_saida'] == null){
+                            $historico['data_saida'] = 'aguardando saída';
                             echo $historico['data_saida'];
                         }else{
                             echo date('d/m/Y', strtotime($historico['data_saida']));
@@ -102,7 +104,7 @@ if(isset($_GET['busca'])){
                     </td>
                     <td class="text-center" style="width: 15%>">
                         <a class="btn btn-outline-warning" href="alterar-historico.php?id=<?php echo $historico['id'] ;?>"><img width="26" height="26" onmouseover="alterarAtivo($(this))" id="icone-editar" src="assets/images/icones/alterar.png"></a>
-                        <a class="btn btn-outline-danger" href="excluir-historico.php?id=<?php echo $historico['id'] ;?>"><img id="icone-excluir" src="assets/images/icones/excluir.png"></a>
+                        <a class="btn btn-outline-danger" data-confirm="Deseja realmente excluir o historico selecionado?" href="excluir-historico.php?id=<?php echo $historico['id'] ;?>"><img id="icone-excluir" src="assets/images/icones/excluir.png"></a>
                         <a class="btn btn-outline-info" href="alterar-historico-data-saida.php?id=<?php echo $historico['id']; ?>&paciente=<?php echo $historico['paciente']; ?>"><img id="icone-lista" src="assets/images/icones/documento.png"></a>
                     </td>
                 </tr>
@@ -111,3 +113,4 @@ if(isset($_GET['busca'])){
         </table>
     </div>
 </div>
+<script type="text/javascript" src="modal-excluir-historico.js"></script>

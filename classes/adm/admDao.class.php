@@ -10,7 +10,6 @@
         }
 
         public function login($login, $senha){
-            //global $pdo;
 
             $sql = $this->pdo->prepare("SELECT id FROM adm WHERE login = :login AND senha = :senha");
             $sql->bindValue(":login", $login);
@@ -23,6 +22,17 @@
                 return true;
             }else{
                 return false;
+            }
+        }
+
+        public function getNomeAdm($idAdm){
+            $sql = $this->pdo->prepare("SELECT nome FROM adm WHERE id = :idAdm");
+            $sql->bindValue(":idAdm", $idAdm);
+            $sql->execute();
+
+            if($sql->rowCount() > 0){
+                $nomeAdm = $sql->fetch();
+                return $nomeAdm['nome'];
             }
         }
 

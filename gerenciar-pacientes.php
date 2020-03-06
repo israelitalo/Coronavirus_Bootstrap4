@@ -75,7 +75,7 @@ if(isset($_GET['busca']) && $_GET['busca'] != ''){
             <tbody>
             <?php foreach ($pacientes as $paciente): ?>
                 <tr>
-                    <td style="width: 25%"><?php echo ucwords($paciente['nome']); ?></td>
+                    <td style="width: 25%; padding-top: 20px"><?php echo ucwords($paciente['nome']); ?></td>
                     <td style="width: 18%; padding-top: 20px"><?php echo $paciente['cpf']; ?></td>
                     <td style="width: 22%; padding-top: 20px"><?php echo ucwords($paciente['hospital']); ?></td>
                     <td style="width: 15%; padding-top: 20px"><?php echo $paciente['telefone']; ?></td>

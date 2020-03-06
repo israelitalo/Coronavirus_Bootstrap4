@@ -67,7 +67,7 @@
             <tbody>
             <?php foreach ($hospitais as $hospital): ?>
                 <tr>
-                    <td style="width: 25%"><?php echo ucwords($hospital['nome']); ?></td>
+                    <td style="width: 25%; padding-top: 20px"><?php echo ucwords($hospital['nome']); ?></td>
                     <td style="width: 15%; padding-top: 20px"><?php echo $hospital['cnpj']; ?></td>
                     <td style="width: 15%; padding-top: 20px"><?php echo $hospital['telefone']; ?></td>
                     <td style="width: 15%; padding-top: 20px"><?php echo ucwords($hospital['cidade']); ?></td>

@@ -2,6 +2,23 @@
     if(empty($_SESSION['id_usuario']) && empty($_SESSION['id_adm'])){
         require 'sair.php';
     }
+
+    if(isset($_SESSION['id_adm']) && !empty($_SESSION['id_adm'])){
+        require 'classes/adm/adm.class.php';
+        require 'classes/adm/admDao.class.php';
+
+        $adm = new Adm();
+        $admDao = new AdmDao();
+        $nome = $admDao->getNomeAdm(addslashes($_SESSION['id_adm']));
+    }
+    elseif(isset($_SESSION['id_usuario']) && !empty($_SESSION['id_usuario'])){
+        require 'classes/usuarios/usuarios.class.php';
+        require 'classes/usuarios/usuariosDao.class.php';
+
+        $usuario = new Usuarios();
+        $ud = new UsuarioDao();
+        $nome = $ud->getNomeUsuario(addslashes($_SESSION['id_usuario']));
+    }
 ?>
 <html>
 <head>
@@ -9,6 +26,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
     <title>Estatística - Coronavírus em PE</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <script type="text/javascript" src="assets/js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="assets/js/script.js"></script>
@@ -49,8 +67,9 @@
                     <a href="./sair.php" class="nav-item nav-link" style="color: whitesmoke" >Sair</a>
                 </div>
             </div>
+
             <!-- Se quiser adicionar outro item, deve ser aqui, para deixá-lo no lado direito.-->
-            <span class="navbar-text" style="color: whitesmoke">Nome do usuário</span>
+            <span class="navbar-text" style="color: whitesmoke"><?php echo strtok(ucwords($nome), ' ');?></span>
         </nav>
 
         <!-- MODAL UNIDADE HOSPITALAR -->

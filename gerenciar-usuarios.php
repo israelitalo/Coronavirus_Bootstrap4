@@ -54,7 +54,7 @@ if(isset($_GET['busca'])){
             <tbody>
             <?php foreach ($usuarios as $usuario): ?>
                 <tr>
-                    <td style="width: 25%"><?php echo ucwords($usuario['nome']); ?></td>
+                    <td style="width: 25%; padding-top: 20px"><?php echo ucwords($usuario['nome']); ?></td>
                     <td style="width: 18%; padding-top: 20px"><?php echo $usuario['login']; ?></td>
                     <td style="width: 22%; padding-top: 20px"><?php echo $usuario['hospital']; ?></td>
                     <td style="width: 15%; padding-top: 20px"><?php echo ucwords($usuario['telefone']); ?></td>
