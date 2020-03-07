@@ -86,6 +86,7 @@
             //global $pdo;
             $array = array();
             $sql = $this->pdo->prepare("SELECT h.id, h.id_hospital, h.id_paciente, h.id_diagnostico, h.data_entrada, h.data_saida,
+                                            h.motivoalta,
                                             p.id as id_paciente, p.nome as paciente,
                                             (select nome from hospital where h.id_hospital = hospital.id)
                                             as hospital,
@@ -103,6 +104,7 @@
             //global $pdo;
             $array = array();
             $sql = $this->pdo->prepare("SELECT h.id, h.id_hospital, h.id_paciente, h.id_diagnostico, h.data_entrada, h.data_saida,
+                                            h.motivoalta,
                                             p.id as id_paciente, p.nome as paciente,
                                             (select nome from hospital where h.id_hospital = hospital.id)
                                             as hospital,
