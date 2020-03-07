@@ -134,14 +134,13 @@ if(isset($_GET['busca'])){
                             <div class="modal-body" style="background-color: #efefef">
                                 <p style="font-size: 20px">Motivo da saída: </p>
                                 <?php
-                                    if($historico['motivoalta']==1):
-                                        ?><p class="badge badge-success h4" style="font-size: 18px">Alta Médica</p><?php
-                                    elseif($historico['motivoalta']==2):
-                                        ?><p class="badge badge-danger h4" style="font-size: 18px">Óbito</p><?php
-                                    else:
-                                        ?><p class="badge badge-warning h4" style="font-size: 18px">Paciente encontra-se na unidade</p><?php
-                                    endif;
-                                ?>
+                                    if($historico['motivoalta']==null):?>
+                                    <p class="badge badge-warning h4" style="font-size: 18px">Paciente encontra-se na unidade</p>
+                                    <?php elseif($historico['motivoalta']==1):?>
+                                    <p class="badge badge-success h4" style="font-size: 18px">Alta Médica</p>
+                                    <?php elseif($historico['motivoalta']==2):?>
+                                    <p class="badge badge-danger h4" style="font-size: 18px">Óbito</p>
+                                <?php endif;?>
                             </div>
                             <div class="modal-footer" style="background-color: #efefef">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>

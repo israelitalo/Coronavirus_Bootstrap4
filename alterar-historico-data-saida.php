@@ -55,7 +55,7 @@ if(isset($_POST['hospital']) && !empty($_POST['hospital']) && isset($_POST['paci
     $historico->setMotivoAlta(addslashes($_POST['motivo']));
     $historico->setDataSaida(addslashes($_POST['saida']));
 
-    if($hd->alterarHistoricoDataSaida($historico->getId(), $historico->getMotivoAlta(), $historico->getDataSaida())==true){
+    if($hd->alterarHistoricoDataSaida($historico->getId(), $historico->getMotivoAlta(), $historico->getDataSaida(), $info['id_paciente'])==true){
         $_SESSION['msg'] = "Data de saída atualizada com sucesso. Informação enviada para a tabela de altas médicas.";
         header('Location: gerenciar-historico-pacientes.php');
     }else{
@@ -147,7 +147,7 @@ if(isset($_POST['hospital']) && !empty($_POST['hospital']) && isset($_POST['paci
                 <input class="form-control" value="<?php echo $info['data_saida']; ?>" type="date" name="saida" id="dataSaida" required>
             </div>
             <div class="form-group" style="margin-top: 20px">
-                <button class="btn btn-primary" type="submit">Atualizar Histórico</button>
+                <button class="btn btn-primary" type="submit">Registrar saída</button>
             </div>
         </form>
     </div>

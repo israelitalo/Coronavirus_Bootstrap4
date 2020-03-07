@@ -12,10 +12,10 @@ $pd = new PacienteDao();
 $pacientes = new Paciente();
 
 if(isset($_SESSION['id_adm'])){
-    $pacientes = $pd->getPacientes();
+    $pacientes = $pd->getAllPacientes();
 }elseif(isset($_SESSION['id_usuario'])){
     $idUsuario = addslashes($_SESSION['id_usuario']);
-    $pacientes = $pd->getPacienteForUserLogado($idUsuario);
+    $pacientes = $pd->getAllPacienteForUserLogado($idUsuario);
 }
 
 if(isset($_GET['busca']) && $_GET['busca'] != ''){
@@ -100,7 +100,7 @@ if(isset($_GET['busca']) && $_GET['busca'] != ''){
             </thead>
             <tbody>
             <?php foreach ($pacientes as $paciente): ?>
-                <tr>
+                <tr <?php echo ($paciente['vida']==2)?'style="background-color: #f8d7da"':'';?> >
                     <td style="width: 25%; padding-top: 20px"><?php echo ucwords($paciente['nome']); ?></td>
                     <td style="width: 22%; padding-top: 20px"><?php echo ucwords($paciente['hospital']); ?></td>
                     <td style="width: 18%; padding-top: 20px"><?php echo $paciente['cpf']; ?></td>
@@ -140,6 +140,13 @@ if(isset($_GET['busca']) && $_GET['busca'] != ''){
                                     <hr>
                                     <p class="badge badge-success">Telefone</p>
                                     <p style="font-size: 18px"><?php echo $paciente['telefone'];?></p>
+                                    <hr>
+                                    <p class="badge badge-success">Status</p>
+                                    <?php if($paciente['vida']==1):?>
+                                    <p style="font-size: 18px">Vivo</p>
+                                    <?php else:?>
+                                    <p style="font-size: 18px">Óbito em </p>
+                                    <?php endif;?>
                                 </div>
                             </div>
                             <div class="modal-footer" style="background-color: #efefef">

@@ -50,7 +50,7 @@
             //global $pdo;
             $array = array();
             $sql = $this->pdo->prepare("SELECT h.id, h.id_hospital, h.id_paciente, h.id_diagnostico, h.data_entrada, h.data_saida, 
-                                            u.nome,
+                                            u.nome, h.motivoalta,
                                             (select nome from paciente where h.id_paciente = paciente.id)
                                             as paciente,
                                             (select nome from hospital where h.id_hospital = hospital.id)
@@ -146,13 +146,23 @@
             return true;
         }
 
-        public function alterarHistoricoDataSaida($idHistorico, $motivo, $dataSaida){
+        public function alterarHistoricoDataSaida($idHistorico, $motivo, $dataSaida, $idPaciente){
             $sql = $this->pdo->prepare("UPDATE historico SET data_saida = :dataSaida, motivoalta = :motivoAlta 
                                                   WHERE id = :idHistorico");
             $sql->bindValue(":idHistorico", $idHistorico);
             $sql->bindValue(":dataSaida", $dataSaida);
             $sql->bindValue(":motivoAlta", $motivo);
             $sql->execute();
+
+            //Método para definir a coluna vida como 2, no id do paciente, para tornar um óbito.
+            //Se o paciente morreu, não poderá mais lançar histórico para ele.
+            if($motivo == 2){
+                $sql = $this->pdo->prepare("UPDATE paciente SET paciente.vida = :motivo WHERE 
+                                                      paciente.id = :idPaciente");
+                $sql->bindValue(":motivo", $motivo);
+                $sql->bindValue(":idPaciente", $idPaciente);
+                $sql->execute();
+            }
             return true;
         }
 
