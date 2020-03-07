@@ -89,7 +89,20 @@ if(isset($_GET['busca'])){
             <?php foreach ($historicos as $historico): ?>
                 <tr>
                     <td style="width: 20%; padding-top: 20px"><?php echo ucwords($historico['hospital']); ?></td>
-                    <td style="width: 15%; padding-top: 20px"><a data-toggle="modal" data-target="#exampleModalLong<?php echo $historico['id'] ;?>" href="#" class="badge badge-primary"><span style="font-size: 16px"><?php echo $historico['paciente']; ?></span></a></td>
+                    <td style="width: 15%; padding-top: 20px">
+                        <a data-toggle="modal" data-target="#exampleModalLong<?php echo $historico['id'] ;?>" href="#"
+                           class="badge badge-primary">
+                            <span style="font-size: 16px">
+                                <?php
+                                //Para exibir apenas o primeiro e último nome do Paciente.
+                                $nome = $historico['paciente'];
+                                $temp = explode(" ", $nome);
+                                $novoNome = $temp[0]." ".$temp[count($temp)-1];
+                                echo ucwords($novoNome);
+                                ?>
+                            </span>
+                        </a>
+                    </td>
                     <td style="width: 15%; padding-top: 20px"><?php echo ucwords($historico['diagnostico']); ?></td>
                     <td style="width: 15%; padding-top: 20px"><?php echo date('d/m/Y', strtotime($historico['data_entrada'])); ?></td>
                     <td style="width: 15%; padding-top: 20px"><?php
@@ -112,8 +125,8 @@ if(isset($_GET['busca'])){
                 <div class="modal fade" id="exampleModalLong<?php echo $historico['id'] ;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
-                            <div class="modal-header" style="background-color: #efefef">
-                                <h5 class="modal-title badge badge-primary" style="font-size: 16px" id="exampleModalLongTitle"><?php echo $historico['paciente'];?></h5>
+                            <div class="modal-header" style="background-color: #c8cbcf">
+                                <h5 class="modal-title" style="font-size: 20px" id="exampleModalLongTitle"><?php echo $historico['paciente'];?></h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -121,20 +134,17 @@ if(isset($_GET['busca'])){
                             <div class="modal-body" style="background-color: #efefef">
                                 <p style="font-size: 20px">Motivo da saída: </p>
                                 <?php
-                                    if($historico['motivoalta']==1){
-                                        ?>
-                                        <span class="badge badge-success" style="font-size: 16px">Alta Médica</span>
-                                        <?php
-                                    }
-                                    else{
-                                        ?>
-                                        <span class="badge badge-danger" style="font-size: 16px">Óbito</span>
-                                        <?php
-                                    }
+                                    if($historico['motivoalta']==1):
+                                        ?><p class="badge badge-success h4" style="font-size: 18px">Alta Médica</p><?php
+                                    elseif($historico['motivoalta']==2):
+                                        ?><p class="badge badge-danger h4" style="font-size: 18px">Óbito</p><?php
+                                    else:
+                                        ?><p class="badge badge-warning h4" style="font-size: 18px">Paciente encontra-se na unidade</p><?php
+                                    endif;
                                 ?>
                             </div>
                             <div class="modal-footer" style="background-color: #efefef">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
                             </div>
                         </div>
                     </div>

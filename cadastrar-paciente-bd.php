@@ -12,7 +12,8 @@ require 'classes/pacientes/pacienteDao.class.php';
 
 if(isset($_POST['nome']) && !empty($_POST['nome']) && isset($_POST['hospital']) && !empty($_POST['hospital'])
     && isset($_POST['cpf']) && !empty($_POST['cpf']) && isset($_POST['cep']) && !empty($_POST['cep'])
-    && isset($_POST['cidade']) && !empty($_POST['cidade']) && isset($_POST['estado']) && !empty($_POST['estado'])){
+    && isset($_POST['cidade']) && !empty($_POST['cidade']) && isset($_POST['estado']) && !empty($_POST['estado'])
+    && isset($_POST['sexo']) && !empty($_POST['sexo']) && isset($_POST['data_nascimento']) && !empty($_POST['data_nascimento'])){
 
     $paciente = new Paciente();
     $pd = new PacienteDao();
@@ -20,6 +21,8 @@ if(isset($_POST['nome']) && !empty($_POST['nome']) && isset($_POST['hospital']) 
     $paciente->setIdHospital(addslashes($_POST['hospital']));
     $paciente->setNome(addslashes($_POST['nome']));
     $paciente->setCpf(addslashes($_POST['cpf']));
+    $paciente->setSexo(addslashes($_POST['sexo']));
+    $paciente->setDataNascimento(addslashes($_POST['data_nascimento']));
     $paciente->setRua(addslashes($_POST['rua']));
     $paciente->setNumero(addslashes($_POST['numero']));
     $paciente->setBairro(addslashes($_POST['bairro']));
@@ -28,7 +31,7 @@ if(isset($_POST['nome']) && !empty($_POST['nome']) && isset($_POST['hospital']) 
     $paciente->setCep(addslashes($_POST['cep']));
     $paciente->setTelefone(addslashes($_POST['telefone']));
 
-    if($pd->addPaciente($paciente->getIdHospital(), $paciente->getNome(), $paciente->getCpf(), $paciente->getRua(), $paciente->getNumero(), $paciente->getBairro(), $paciente->getCidade(), $paciente->getEstado(), $paciente->getCep(), $paciente->getTelefone()) == true){
+    if($pd->addPaciente($paciente->getIdHospital(), $paciente->getNome(), $paciente->getCpf(), $paciente->getSexo(), $paciente->getDataNascimento(), $paciente->getRua(), $paciente->getNumero(), $paciente->getBairro(), $paciente->getCidade(), $paciente->getEstado(), $paciente->getCep(), $paciente->getTelefone()) == true){
         $_SESSION['msg'] = "Paciente cadastrado com sucesso.";
         header('Location: cadastrar-paciente.php');
         exit;

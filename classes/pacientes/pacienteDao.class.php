@@ -59,7 +59,7 @@
             //global $pdo;
             $array = array();
             $sql = $this->pdo->prepare("SELECT p.id, p.id_hospital, p.nome, p.cpf, p.rua, p.numero, p.bairro, p.cidade,
-                                            p.estado, p.cep, p.telefone,
+                                            p.estado, p.cep, p.telefone, p.sexo, p.data_nascimento,
                                             (select nome from hospital where p.id_hospital = hospital.id) as hospital 
                                             FROM paciente p, usuario u
                                             WHERE p.id_hospital = u.id_hospital AND p.nome LIKE '%".$busca."%'
@@ -77,7 +77,7 @@
             //global $pdo;
             $array = array();
             $sql = $this->pdo->prepare("SELECT p.id, p.id_hospital, p.nome, p.cpf, p.rua, p.numero, p.bairro, p.cidade,
-                                            p.estado, p.cep, p.telefone,
+                                            p.estado, p.cep, p.telefone,p.sexo, p.data_nascimento,
                                             (select nome from hospital where p.id_hospital = hospital.id) as hospital 
                                             FROM paciente p, usuario u 
                                             WHERE p.id_hospital = u.id_hospital 
@@ -91,14 +91,16 @@
             return $array;
         }
 
-        public function addPaciente($idHospital, $nome, $cpf, $rua, $numero, $bairro, $cidade, $estado, $cep, $telefone){
+        public function addPaciente($idHospital, $nome, $cpf, $sexo, $dataNascimento, $rua, $numero, $bairro, $cidade, $estado, $cep, $telefone){
             //global $pdo;
             $sql = $this->pdo->prepare("INSERT INTO paciente SET id_hospital = :idHospital, nome = :nome, cpf = :cpf,
-                                            rua = :rua, numero = :numero, bairro = :bairro, cidade = :cidade, estado = :estado,
-                                            cep = :cep, telefone = :telefone");
+                                            sexo = :sexo, data_nascimento = :dataNascimento, rua = :rua, numero = :numero, bairro = :bairro, 
+                                            cidade = :cidade, estado = :estado, cep = :cep, telefone = :telefone");
             $sql->bindValue(":idHospital", $idHospital);
             $sql->bindValue(":nome", $nome);
             $sql->bindValue(":cpf", $cpf);
+            $sql->bindValue(":sexo", $sexo);
+            $sql->bindValue(":dataNascimento", $dataNascimento);
             $sql->bindValue(":rua", $rua);
             $sql->bindValue(":numero", $numero);
             $sql->bindValue(":bairro", $bairro);
@@ -110,14 +112,16 @@
             return true;
         }
 
-        public function alterarPaciente( $idPaciente, $idHospital, $nome, $cpf, $rua, $numero, $bairro, $cidade, $estado, $cep, $telefone){
-            $sql = $this->pdo->prepare("UPDATE paciente SET id_hospital = :idHospital, nome = :nome, cpf = :cpf,
-                                            rua = :rua, numero = :numero, bairro = :bairro, cidade = :cidade, estado = :estado,
-                                            cep = :cep, telefone = :telefone WHERE id = :id");
+        public function alterarPaciente( $idPaciente, $idHospital, $nome, $cpf, $sexo, $dataNascimento, $rua, $numero, $bairro, $cidade, $estado, $cep, $telefone){
+            $sql = $this->pdo->prepare("UPDATE paciente SET id_hospital = :idHospital, nome = :nome, cpf = :cpf, sexo = :sexo,
+                                            data_nascimento = :dataNascimento, rua = :rua, numero = :numero, bairro = :bairro, cidade = :cidade, 
+                                            estado = :estado, cep = :cep, telefone = :telefone WHERE id = :id");
             $sql->bindValue(":id", $idPaciente);
             $sql->bindValue(":idHospital", $idHospital);
             $sql->bindValue(":nome", $nome);
             $sql->bindValue(":cpf", $cpf);
+            $sql->bindValue(":sexo", $sexo);
+            $sql->bindValue(":dataNascimento", $dataNascimento);
             $sql->bindValue(":rua", $rua);
             $sql->bindValue(":numero", $numero);
             $sql->bindValue(":bairro", $bairro);

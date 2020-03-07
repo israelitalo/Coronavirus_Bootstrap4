@@ -50,16 +50,12 @@ if(isset($_SESSION['id_usuario'])){
 }
 
 if(isset($_POST['hospital']) && !empty($_POST['hospital']) && isset($_POST['paciente']) && !empty($_POST['paciente'])
-    && isset($_POST['diagnostico']) && !empty($_POST['diagnostico']) && isset($_POST['saida']) && !empty($_POST['saida'])
-    && isset($_POST['motivo']) && !empty($_POST['motivo'])){
+   && isset($_POST['saida']) && !empty($_POST['saida']) && isset($_POST['motivo']) && !empty($_POST['motivo'])){
 
-    $historico->setIdHospital(addslashes($_POST['hospital']));
-    $historico->setIdPaciente(addslashes($_POST['paciente']));
-    $historico->setIdDiagnostico(addslashes($_POST['diagnostico']));
     $historico->setMotivoAlta(addslashes($_POST['motivo']));
     $historico->setDataSaida(addslashes($_POST['saida']));
 
-    if($hd->alterarHistoricoDataSaida($historico->getId(), $historico->getIdHospital(), $historico->getIdPaciente(), $historico->getIdDiagnostico(), $historico->getMotivoAlta(), $historico->getDataSaida())==true){
+    if($hd->alterarHistoricoDataSaida($historico->getId(), $historico->getMotivoAlta(), $historico->getDataSaida())==true){
         $_SESSION['msg'] = "Data de saída atualizada com sucesso. Informação enviada para a tabela de altas médicas.";
         header('Location: gerenciar-historico-pacientes.php');
     }else{
@@ -128,8 +124,8 @@ if(isset($_POST['hospital']) && !empty($_POST['hospital']) && isset($_POST['paci
             </select>
 
             <div>
-                <label class="col-form-label-lg" for="diagnostico">Diagnóstico</label>
-                <select class="form-control" name="diagnostico" required>
+                <label class="col-form-label-lg" hidden for="diagnostico">Diagnóstico</label>
+                <select class="form-control" hidden name="diagnostico" required>
                     <option></option>
                     <?php foreach ($diagnosticos as $diagnostico): ?>
                         <option value="<?php echo $diagnostico['id']; ?>" <?php echo ($info['id_diagnostico']==$diagnostico['id'])?'selected="selected"':''; ?>><?php echo ucwords($diagnostico['status']);?></option>

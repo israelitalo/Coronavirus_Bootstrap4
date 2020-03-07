@@ -146,12 +146,10 @@
             return true;
         }
 
-        public function alterarHistoricoDataSaida($idHistorico, $idDiagnostico, $motivo, $dataSaida){
-            $sql = $this->pdo->prepare("UPDATE historico SET id_diagnostico = :idDiagnostico, 
-                                                data_saida = :dataSaida, motivoalta = :motivoAlta 
-                                                WHERE id = :idHistorico");
+        public function alterarHistoricoDataSaida($idHistorico, $motivo, $dataSaida){
+            $sql = $this->pdo->prepare("UPDATE historico SET data_saida = :dataSaida, motivoalta = :motivoAlta 
+                                                  WHERE id = :idHistorico");
             $sql->bindValue(":idHistorico", $idHistorico);
-            $sql->bindValue(":idDiagnostico", $idDiagnostico);
             $sql->bindValue(":dataSaida", $dataSaida);
             $sql->bindValue(":motivoAlta", $motivo);
             $sql->execute();

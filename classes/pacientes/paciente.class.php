@@ -7,6 +7,8 @@
         private $idHospital;
         private $nome;
         private $cpf;
+        private $sexo;
+        private $dataNascimento;
         private $rua;
         private $numero;
         private $bairro;
@@ -53,6 +55,26 @@
         public function setCpf($cpf)
         {
             $this->cpf = $cpf;
+        }
+
+        public function getSexo()
+        {
+            return $this->sexo;
+        }
+
+        public function setSexo($sexo)
+        {
+            $this->sexo = $sexo;
+        }
+
+        public function getDataNascimento()
+        {
+            return $this->dataNascimento;
+        }
+
+        public function setDataNascimento($dataNascimento)
+        {
+            $this->dataNascimento = $dataNascimento;
         }
 
         public function getRua()
