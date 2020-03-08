@@ -51,12 +51,14 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
 
         if($histDao->alterarHistorico($historico->getId(), $historico->getIdHospital(), $historico->getIdPaciente(), $historico->getIdDiagnostico(), $historico->getDataEntrada())==true){
             $_SESSION['msg'] = "Histórico alterado com sucesso.";
-            header("Location: alterar-historico.php");
-            exit;
+            ?>
+            <script type="text/javascript">window.location.href="gerenciar-historico-pacientes.php";</script>
+            <?php
         }else{
             $_SESSION['msg'] = "Erro ao tentar alterar Histórico.";
-            header("Location: alterar-historico.php");
-            exit;
+            ?>
+            <script type="text/javascript">window.location.href="gerenciar-historico-pacientes.php";</script>
+            <?php
         }
     }
 
@@ -66,21 +68,6 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
     <div style="margin-top: 20px; margin-bottom: 20px">
         <h2><span class="badge badge-secondary">Alterar Histórico de Pacientes</span></h2>
     </div>
-    <?php
-    if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){
-        $msg = $_SESSION['msg'];
-        if($msg = "Histórico alterado com sucesso."){
-            ?>
-            <div class="alert alert-success"><?php echo $msg;?></div>
-            <?php
-        }elseif($msg = "Erro ao tentar alterar Histórico."){
-            ?>
-            <div class="alert alert-danger"><?php echo $msg;?></div>
-            <?php
-        }
-        unset($_SESSION['msg']);
-    }
-    ?>
     <div class="col">
         <form class="form-group" method="POST">
             <div class="row">

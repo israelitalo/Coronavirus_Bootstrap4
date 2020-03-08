@@ -61,7 +61,7 @@ if(isset($_GET['busca'])){
                     <td class="text-center" style="width: 20%>">
                         <a class="btn btn-outline-warning" href="alterar-usuario.php?id=<?php echo $usuario['id'] ;?>"><img width="26" height="26" onmouseover="alterarAtivo($(this))" id="icone-editar" src="assets/images/icones/alterar.png"></a>
                         <a class="btn btn-outline-danger" href="excluir-usuario.php?id=<?php echo $usuario['id'] ;?>"><img id="icone-excluir" src="assets/images/icones/excluir.png"></a>
-                        <a class="btn btn-outline-info" href="#"><img id="icone-lista" src="assets/images/icones/icons8-informações-26.png"></a>
+                        <a class="btn btn-outline-info" href="#"><img id="icone-lista" src="assets/images/icones/informacoes.png"></a>
                     </td>
                 </tr>
             <?php endforeach; ?>

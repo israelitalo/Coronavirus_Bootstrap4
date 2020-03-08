@@ -48,9 +48,29 @@ if(isset($_GET['busca'])){
             ?>
             <div class="alert alert-success"><?php echo $msg;?></div>
             <?php
-        }elseif ($msg = "Erro ao tentar excluir histórico de paciente."){
+        }elseif ($msg == "Erro ao tentar excluir histórico de paciente."){
             ?>
             <div class="alert alert-danger"><?php echo $msg;?></div>
+            <?php
+        }elseif($msg == "Histórico alterado com sucesso."){
+            ?>
+            <div class="alert alert-success"><?php echo $msg;?></div>
+            <?php
+        }elseif($msg == "Erro ao tentar alterar Histórico."){
+            ?>
+            <div class="alert alert-danger"><?php echo $msg;?></div>
+            <?php
+        }elseif($msg == "Histórico de paciente cadastrado com sucesso."){
+            ?>
+            <div class="alert alert-success"><?php echo $msg;?></div>
+            <?php
+        }elseif($msg == "Verifique se o paciente em questão veio a óbito."){
+            ?>
+            <div class="alert alert-danger"><?php echo $msg;?></div>
+            <?php
+        }elseif($msg == "Preencha todos os campos e tente realizar o registro novamente."){
+            ?>
+            <div class="alert alert-warning"><?php echo $msg;?></div>
             <?php
         }
         unset($_SESSION['msg']);

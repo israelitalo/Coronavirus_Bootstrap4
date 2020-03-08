@@ -47,10 +47,14 @@ if(isset($_POST['saida']) && !empty($_POST['saida']) && isset($_POST['motivo']) 
 
     if($hd->alterarHistoricoDataSaida($historico->getId(), $historico->getMotivoAlta(), $historico->getDataSaida(), $info['id_paciente'])==true){
         $_SESSION['msg'] = "Data de saída atualizada com sucesso.";
-        header('Location: gerenciar-historico-pacientes.php');
+        ?>
+        <script type="text/javascript">window.location.href="gerenciar-historico-pacientes.php";</script>
+        <?php
     }else{
         $_SESSION['msg'] = "Erro ao tentar lançar a data de saída.";
-        header('Location: gerenciar-historico-pacientes.php');
+        ?>
+        <script type="text/javascript">window.location.href="gerenciar-historico-pacientes.php";</script>
+        <?php
     }
 
 }

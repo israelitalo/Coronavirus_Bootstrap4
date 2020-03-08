@@ -22,17 +22,21 @@ if(isset($_POST['hospital']) && !empty($_POST['hospital']) && isset($_POST['paci
 
     if($hd->addHistorico($historico->getIdHospital(), $historico->getIdPaciente(), $historico->getIdDiagnostico(), $historico->getDataEntrada())==true){
         $_SESSION['msg'] = "Histórico de paciente cadastrado com sucesso.";
-        header('Location: cadastrar-historico.php');
-        exit;
+        ?>
+        <script type="text/javascript">window.location.href="gerenciar-historico-pacientes.php";</script>
+        <?php
     }else{
         $_SESSION['msg'] = "Verifique se o paciente em questão veio a óbito.";
-        header('Location: cadastrar-historico.php');
-        exit;
+        ?>
+        <script type="text/javascript">window.location.href="gerenciar-historico-pacientes.php";</script>
+        <?php
     }
 }
 else{
     $_SESSION['msg'] = "Preencha todos os campos e tente realizar o registro novamente.";
-    header('Location: cadastrar-historico.php');
+    ?>
+    <script type="text/javascript">window.location.href="gerenciar-historico-pacientes.php";</script>
+    <?php
 }
 
 ?>

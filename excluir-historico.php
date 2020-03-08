@@ -22,12 +22,13 @@ $historico->setId(addslashes($_GET['id']));
 
 if($hd->excluirHistorico($historico->getId())==true){
     $_SESSION['msg'] = "Histórico de paciente excluído com sucesso.";
-    header("Location: gerenciar-historico-pacientes.php");
-    exit;
+    ?>
+    <script type="text/javascript">window.location.href="gerenciar-historico-pacientes.php";</script>
+    <?php
 }else{
-    $_SESSION['msg'] = "Erro ao tentar excluir histórico de paciente.";
-    header("Location: gerenciar-historico-pacientes.php");
-    exit;
+    ?>
+    <script type="text/javascript">window.location.href="gerenciar-historico-pacientes.php";</script>
+    <?php
 }
 
 ?>

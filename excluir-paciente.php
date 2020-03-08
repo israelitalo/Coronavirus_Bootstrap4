@@ -22,12 +22,14 @@ $paciente->setId(addslashes($_GET['id']));
 
 if($pd->excluirPaciente($paciente->getId())==true){
     $_SESSION['msg'] = "Paciente excluído(a) com sucesso.";
-    header("Location: gerenciar-pacientes.php");
-    exit;
+    ?>
+    <script type="text/javascript">window.location.href="gerenciar-pacientes.php";</script>
+    <?php
 }else{
     $_SESSION['msg'] = "Erro ao tentar excluir o(a) paciente.";
-    header("Location: gerenciar-pacientes.php");
-    exit;
+    ?>
+    <script type="text/javascript">window.location.href="gerenciar-pacientes.php";</script>
+    <?php
 }
 
 ?>

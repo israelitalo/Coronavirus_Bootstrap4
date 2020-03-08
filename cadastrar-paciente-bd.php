@@ -33,18 +33,21 @@ if(isset($_POST['nome']) && !empty($_POST['nome']) && isset($_POST['hospital']) 
 
     if($pd->addPaciente($paciente->getIdHospital(), $paciente->getNome(), $paciente->getCpf(), $paciente->getSexo(), $paciente->getDataNascimento(), $paciente->getRua(), $paciente->getNumero(), $paciente->getBairro(), $paciente->getCidade(), $paciente->getEstado(), $paciente->getCep(), $paciente->getTelefone()) == true){
         $_SESSION['msg'] = "Paciente cadastrado com sucesso.";
-        header('Location: cadastrar-paciente.php');
-        exit;
+        ?>
+        <script type="text/javascript">window.location.href="gerenciar-pacientes.php";</script>
+        <?php
     }else{
         $_SESSION['msg'] = "Erro ao cadastrar paciente.";
-        header('Location: cadastrar-paciente.php');
-        exit;
+        ?>
+        <script type="text/javascript">window.location.href="gerenciar-pacientes.php";</script>
+        <?php
     }
 }
 else{
     $_SESSION['msg'] = "Preencha todos os campos e tente realizar o registro novamente.";
-    header('Location: cadastrar-paciente.php');
-    exit;
+    ?>
+    <script type="text/javascript">window.location.href="gerenciar-pacientes.php";</script>
+    <?php
 }
 
 ?>

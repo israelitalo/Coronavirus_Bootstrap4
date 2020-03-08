@@ -42,15 +42,15 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
     <?php
     if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){
         $msg = $_SESSION['msg'];
-        if($msg = "Histórico de paciente cadastrado com sucesso."){
+        if($msg == "Histórico de paciente cadastrado com sucesso."){
             ?>
             <div class="alert alert-success"><?php echo $msg;?></div>
             <?php
-        }elseif($msg = "Verifique se o paciente em questão veio a óbito."){
+        }elseif($msg == "Verifique se o paciente em questão veio a óbito."){
             ?>
             <div class="alert alert-danger"><?php echo $msg;?></div>
             <?php
-        }elseif($msg = "Preencha todos os campos e tente realizar o registro novamente."){
+        }elseif($msg == "Preencha todos os campos e tente realizar o registro novamente."){
             ?>
             <div class="alert alert-warning"><?php echo $msg;?></div>
             <?php

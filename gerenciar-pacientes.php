@@ -66,6 +66,18 @@ if(isset($_GET['busca']) && $_GET['busca'] != ''){
                 ?>
                 <div class="alert alert-danger"><?php echo $msg?></div>
                 <?php
+            }elseif($msg == "Erro ao cadastrar paciente."){
+                ?>
+                <div class="alert alert-danger"><?php echo $msg;?></div>
+                <?php
+            }elseif($msg == "Preencha todos os campos e tente realizar o registro novamente."){
+                ?>
+                <div class="alert alert-warning"><?php echo $msg;?></div>
+                <?php
+            }elseif($msg == "Paciente cadastrado com sucesso."){
+                ?>
+                <div class="alert alert-success"><?php echo $msg;?></div>
+                <?php
             }
             unset($_SESSION['msg']);
         }
@@ -126,7 +138,7 @@ if(isset($_GET['busca']) && $_GET['busca'] != ''){
                     <td class="text-center" style="width: 20%>">
                         <a class="btn btn-outline-warning" href="alterar-paciente.php?id=<?php echo $paciente['id']; ?>"><img width="26" height="26" onmouseover="alterarAtivo($(this))" id="icone-editar" src="assets/images/icones/alterar.png"></a>
                         <a class="btn btn-outline-danger" excluir-paciente="Deseja excluir este paciente?" href="excluir-paciente.php?id=<?php echo $paciente['id'] ;?>"><img id="icone-excluir" src="assets/images/icones/excluir.png"></a>
-                        <a class="btn btn-outline-info" data-toggle="modal" data-target="#modalDetalhesPaciente<?php echo $paciente['id'] ;?>"><img id="icone-lista" src="assets/images/icones/icons8-informações-26.png"></a>
+                        <a class="btn btn-outline-info" data-toggle="modal" data-target="#modalDetalhesPaciente<?php echo $paciente['id'] ;?>"><img id="icone-lista" src="assets/images/icones/informacoes.png"></a>
                     </td>
                 </tr>
                 <!-- Modal Detalhes de Paciente -->

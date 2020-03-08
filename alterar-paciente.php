@@ -51,12 +51,14 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
             $paciente->getDataNascimento(), $paciente->getRua(), $paciente->getNumero(), $paciente->getBairro(), $paciente->getCidade(),
             $paciente->getEstado(), $paciente->getCep(), $paciente->getTelefone()) == true){
             $_SESSION['msg'] = "Paciente alterado com sucesso.";
-            header("Location: gerenciar-pacientes.php");
-            exit;
+            ?>
+            <script type="text/javascript">window.location.href="gerenciar-pacientes.php";</script>
+            <?php
         }else{
             $_SESSION['msg'] = "Erro ao tentar alterar paciente.";
-            header("Location: gerenciar-pacientes.php");
-            exit;
+            ?>
+            <script type="text/javascript">window.location.href="gerenciar-pacientes.php";</script>
+            <?php
         }
     }
 }
@@ -69,25 +71,6 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
     <div style="margin-top: 20px; margin-bottom: 20px">
         <h2><span class="badge badge-secondary">Alterar Paciente</span></h2>
     </div>
-    <?php
-    if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){
-        $msg = $_SESSION['msg'];
-        if($msg == "Paciente cadastrado com sucesso."){
-            ?>
-            <div class="alert alert-success"><?php echo $msg;?></div>
-            <?php
-        }elseif($msg == "Erro ao cadastrar paciente."){
-            ?>
-            <div class="alert alert-danger"><?php echo $msg;?></div>
-            <?php
-        }elseif($msg == "Preencha todos os campos e tente realizar o registro novamente."){
-            ?>
-            <div class="alert alert-warning"><?php echo $msg;?></div>
-            <?php
-        }
-        unset($_SESSION['msg']);
-    }
-    ?>
     <div class="col">
         <form class="form-group" method="POST">
 
