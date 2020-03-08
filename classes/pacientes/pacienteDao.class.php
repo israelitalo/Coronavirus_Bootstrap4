@@ -60,10 +60,6 @@
 
             if($sql->rowCount() > 0){
                 $array = $sql->fetchAll();
-            }else{
-                ?>
-                <script type="text/javascript">alert("Nenhum paciente encontrado com o termo pesquisado.");</script>
-                <?php
             }
             return $array;
         }
@@ -72,7 +68,7 @@
             //global $pdo;
             $array = array();
             $sql = $this->pdo->prepare("SELECT p.id, p.id_hospital, p.nome, p.cpf, p.rua, p.numero, p.bairro, p.cidade,
-                                            p.estado, p.cep, p.telefone, p.sexo, p.data_nascimento,
+                                            p.estado, p.cep, p.telefone, p.sexo, p.data_nascimento, p.vida,
                                             (select nome from hospital where p.id_hospital = hospital.id) as hospital 
                                             FROM paciente p, usuario u
                                             WHERE p.id_hospital = u.id_hospital AND p.nome LIKE '%".$busca."%'
@@ -89,7 +85,7 @@
         public function getAllPacienteForUserLogado($idUsuario){
             $array = array();
             $sql = $this->pdo->prepare("SELECT p.id, p.id_hospital, p.nome, p.cpf, p.rua, p.numero, p.bairro, p.cidade,
-                                            p.estado, p.cep, p.telefone,p.sexo, p.data_nascimento,
+                                            p.estado, p.cep, p.telefone,p.sexo, p.data_nascimento, p.vida,
                                             (select nome from hospital where p.id_hospital = hospital.id) as hospital 
                                             FROM paciente p, usuario u 
                                             WHERE p.id_hospital = u.id_hospital
@@ -177,8 +173,10 @@
                 $sql->bindValue(":id", $idPaciente);
                 $sql->execute();
             }
-
+            return true;
         }
+
+
 
     }
 

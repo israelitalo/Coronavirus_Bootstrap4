@@ -36,21 +36,21 @@ if(isset($_GET['busca'])){
     <?php
     if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){
         $msg = $_SESSION['msg'];
-        if($msg == "Data da alta alterada com sucesso."){
+        if($msg == "Data de saída atualizada com sucesso."){
             ?>
             <div class="alert alert-success"><?php echo $msg;?></div>
             <?php
-        }elseif($msg == "Data da alta inserida com sucesso."){
+        }elseif($msg == "Erro ao tentar lançar a data de saída."){
+            ?>
+            <div class="alert alert-danger"><?php echo $msg;?></div>
+            <?php
+        }elseif($msg == "Histórico de paciente excluído com sucesso."){
             ?>
             <div class="alert alert-success"><?php echo $msg;?></div>
             <?php
-        }elseif($msg == "Data do obito alterada com sucesso."){
+        }elseif ($msg = "Erro ao tentar excluir histórico de paciente."){
             ?>
-            <div class="alert alert-success"><?php echo $msg;?></div>
-            <?php
-        }elseif($msg == "Data do obito inserida com sucesso."){
-            ?>
-            <div class="alert alert-success"><?php echo $msg;?></div>
+            <div class="alert alert-danger"><?php echo $msg;?></div>
             <?php
         }
         unset($_SESSION['msg']);
@@ -77,8 +77,8 @@ if(isset($_GET['busca'])){
             <caption>Histórico de Pacientes</caption>
             <thead class="thead-dark">
             <tr>
-                <th>Hospital</th>
                 <th>Paciente</th>
+                <th>Hospital</th>
                 <th>Diagnóstico</th>
                 <th>Data de entrada</th>
                 <th>Data de saída</th>
@@ -88,10 +88,9 @@ if(isset($_GET['busca'])){
             <tbody>
             <?php foreach ($historicos as $historico): ?>
                 <tr>
-                    <td style="width: 20%; padding-top: 20px"><?php echo ucwords($historico['hospital']); ?></td>
                     <td style="width: 15%; padding-top: 20px">
                         <a data-toggle="modal" data-target="#exampleModalLong<?php echo $historico['id'] ;?>" href="#"
-                           class="badge badge-primary">
+                            <?php echo ($historico['motivoalta'] == 2)?'class="badge badge-danger"':'class="badge badge-primary"'; ?> >
                             <span style="font-size: 16px">
                                 <?php
                                 //Para exibir apenas o primeiro e último nome do Paciente.
@@ -103,6 +102,7 @@ if(isset($_GET['busca'])){
                             </span>
                         </a>
                     </td>
+                    <td style="width: 20%; padding-top: 20px"><?php echo ucwords($historico['hospital']); ?></td>
                     <td style="width: 15%; padding-top: 20px"><?php echo ucwords($historico['diagnostico']); ?></td>
                     <td style="width: 15%; padding-top: 20px"><?php echo date('d/m/Y', strtotime($historico['data_entrada'])); ?></td>
                     <td style="width: 15%; padding-top: 20px"><?php

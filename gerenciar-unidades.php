@@ -75,7 +75,7 @@
                     <td class="text-center" style="width: 20%>">
                         <a class="btn btn-outline-warning" href="alterar-empresa.php?id=<?php echo $hospital['id'] ;?>"><img width="26" height="26" onmouseover="alterarAtivo($(this))" id="icone-editar" src="assets/images/icones/alterar.png"></a>
                         <a class="btn btn-outline-danger" href="excluir-empresa.php?id=<?php echo $hospital['id'] ;?>"><img id="icone-excluir" src="assets/images/icones/excluir.png"></a>
-                        <a class="btn btn-outline-info" href="#"><img id="icone-lista" src="assets/images/icones/lista.png"></a>
+                        <a class="btn btn-outline-info" href="#"><img id="icone-lista" src="assets/images/icones/icons8-informações-26.png"></a>
                     </td>
                 </tr>
             <?php endforeach; ?>

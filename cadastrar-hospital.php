@@ -29,7 +29,7 @@
     <div class="col">
         <form class="form-group" method="POST" action="cadastrar-hospital-bd.php">
             <div>
-                <label class="col-form-label-lg" for="nome">Instituição</label>
+                <label class="col-form-label-lg" for="nome">Hospital</label>
                 <input autocomplete="off" type="text" name="nome" class="form-control" id="nomeHospital" placeholder="Nome do Hospital" required>
             </div>
             <div class="row">

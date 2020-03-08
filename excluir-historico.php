@@ -20,10 +20,12 @@ $hd = new HistoricoPacienteDao();
 
 $historico->setId(addslashes($_GET['id']));
 
-if($hd->excluirHistorico($historico->getId())){
+if($hd->excluirHistorico($historico->getId())==true){
+    $_SESSION['msg'] = "Histórico de paciente excluído com sucesso.";
     header("Location: gerenciar-historico-pacientes.php");
     exit;
 }else{
+    $_SESSION['msg'] = "Erro ao tentar excluir histórico de paciente.";
     header("Location: gerenciar-historico-pacientes.php");
     exit;
 }

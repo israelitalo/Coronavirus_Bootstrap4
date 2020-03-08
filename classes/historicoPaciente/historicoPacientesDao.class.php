@@ -122,15 +122,21 @@
         }
 
         public function addHistorico($idHospital, $idPaciente, $idDiagnostico, $dataEntrada){
-            //global $pdo;
-            $sql = $this->pdo->prepare("INSERT INTO historico SET id_hospital = :idHospital, id_paciente = :idPaciente,
-                                            id_diagnostico = :idDiagnostico, data_entrada = :dataEntrada");
-            $sql->bindValue(":idHospital", $idHospital);
+            $sql = $this->pdo->prepare("SELECT p.vida FROM paciente p WHERE p.id = :idPaciente AND p.vida = 1");
             $sql->bindValue(":idPaciente", $idPaciente);
-            $sql->bindValue(":idDiagnostico", $idDiagnostico);
-            $sql->bindValue(":dataEntrada", $dataEntrada);
             $sql->execute();
-            return true;
+
+            if($sql->rowCount() > 0){
+                $sql = $this->pdo->prepare("INSERT INTO historico SET id_hospital = :idHospital, id_paciente = :idPaciente,
+                                            id_diagnostico = :idDiagnostico, data_entrada = :dataEntrada");
+                $sql->bindValue(":idHospital", $idHospital);
+                $sql->bindValue(":idPaciente", $idPaciente);
+                $sql->bindValue(":idDiagnostico", $idDiagnostico);
+                $sql->bindValue(":dataEntrada", $dataEntrada);
+                $sql->execute();
+                return true;
+            }
+        return false;
         }
 
         public function alterarHistorico($idHistorico, $idHospital, $idPaciente, $idDiagnostico, $dataEntrada){
@@ -162,8 +168,15 @@
                 $sql->bindValue(":motivo", $motivo);
                 $sql->bindValue(":idPaciente", $idPaciente);
                 $sql->execute();
+                return true;
+            }elseif($motivo == 1){
+                $sql = $this->pdo->prepare("UPDATE paciente SET paciente.vida = :motivo WHERE 
+                                                      paciente.id = :idPaciente");
+                $sql->bindValue(":motivo", $motivo);
+                $sql->bindValue(":idPaciente", $idPaciente);
+                $sql->execute();
+                return true;
             }
-            return true;
         }
 
         public function excluirHistorico($idHistorico){
@@ -176,51 +189,18 @@
                 $sql->bindValue(":id", $idHistorico);
                 $sql->execute();
             }
-
+            return true;
         }
 
-        public function getHistoricoPacienteAlta($idHistorico, $dataSaida){
-            //global $pdo;
-            $array = array();
-            $sql = $this->pdo->prepare("SELECT h.id, h.id_hospital, h.id_paciente, h.id_diagnostico, h.data_entrada, h.data_saida,
-                                            a.data AS alta,
-                                            (select nome from paciente where h.id_paciente = paciente.id) as paciente,
-                                            (select nome from hospital where h.id_hospital = hospital.id) as hospital,
-                                            (select status from diagnostico_virus where h.id_diagnostico = diagnostico_virus.id) as diagnostico
-                                            FROM historico h, alta a 
-                                            WHERE h.id = :idHistorico 
-                                            AND a.id_historico = :idHistorico 
-                                            AND data = :dataSaida");
-            $sql->bindValue(":idHistorico", $idHistorico);
-            $sql->bindValue(":dataSaida", $dataSaida);
+        public function getDataObitoPaciente($idPaciente){
+            $sql = $this->pdo->prepare("SELECT h.data_saida FROM historico h, paciente p 
+                                                  WHERE h.id_paciente = p.id AND p.id = :idPaciente AND p.vida = 2");
+            $sql->bindValue(":idPaciente", $idPaciente);
             $sql->execute();
-
             if($sql->rowCount() > 0){
-                $array = $sql->fetch();
+                $dataObito = $sql->fetch();
+                return $dataObito;
             }
-            return $array;
-        }
-
-        public function getHistoricoPacienteObito($idHistorico, $dataSaida){
-            //global $pdo;
-            $array = array();
-            $sql = $this->pdo->prepare("SELECT h.id, h.id_hospital, h.id_paciente, h.id_diagnostico, h.data_entrada, h.data_saida,
-                                            o.data AS obito,
-                                            (select nome from paciente where h.id_paciente = paciente.id) as paciente,
-                                            (select nome from hospital where h.id_hospital = hospital.id) as hospital,
-                                            (select status from diagnostico_virus where h.id_diagnostico = diagnostico_virus.id) as diagnostico
-                                            FROM historico h, obito o 
-                                            WHERE h.id = :idHistorico 
-                                            AND o.id_historico = :idHistorico 
-                                            AND data = :dataSaida");
-            $sql->bindValue(":idHistorico", $idHistorico);
-            $sql->bindValue(":dataSaida", $dataSaida);
-            $sql->execute();
-
-            if($sql->rowCount() > 0){
-                $array = $sql->fetch();
-            }
-            return $array;
         }
 
     }

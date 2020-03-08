@@ -40,23 +40,13 @@ $pacientes = new Paciente();
 $hospitais = new UnidadeHospitalar();
 $ud = new UnidadeHospitalarDao();
 
-if(isset($_SESSION['id_usuario'])){
-    $idUsuario = addslashes($_SESSION['id_usuario']);
-    $hospitais = $ud->getHospitalUserLogado($idUsuario);
-    $pacientes = $pd->getPacienteForUserLogado($idUsuario);
-}elseif(isset($_SESSION['id_adm'])){
-    $hospitais = $ud->getAllHospitais();
-    $pacientes = $pd->getPacientes();
-}
-
-if(isset($_POST['hospital']) && !empty($_POST['hospital']) && isset($_POST['paciente']) && !empty($_POST['paciente'])
-   && isset($_POST['saida']) && !empty($_POST['saida']) && isset($_POST['motivo']) && !empty($_POST['motivo'])){
+if(isset($_POST['saida']) && !empty($_POST['saida']) && isset($_POST['motivo']) && !empty($_POST['motivo'])){
 
     $historico->setMotivoAlta(addslashes($_POST['motivo']));
     $historico->setDataSaida(addslashes($_POST['saida']));
 
     if($hd->alterarHistoricoDataSaida($historico->getId(), $historico->getMotivoAlta(), $historico->getDataSaida(), $info['id_paciente'])==true){
-        $_SESSION['msg'] = "Data de saída atualizada com sucesso. Informação enviada para a tabela de altas médicas.";
+        $_SESSION['msg'] = "Data de saída atualizada com sucesso.";
         header('Location: gerenciar-historico-pacientes.php');
     }else{
         $_SESSION['msg'] = "Erro ao tentar lançar a data de saída.";
@@ -77,62 +67,8 @@ if(isset($_POST['hospital']) && !empty($_POST['hospital']) && isset($_POST['paci
     <div class="jumbotron text-center" style="margin-bottom: 5px">
         <h3 style="color: whitesmoke">Paciente: <?php echo $selectedPaciente->getNome();?></h3>
     </div>
-    <?php
-    if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){
-        $msg = $_SESSION['msg'];
-        if($msg = "Data de saída atualizada com sucesso. Informação enviada para a tabela de altas médicas."){
-            ?>
-            <div class="alert alert-success"><?php echo $msg;?></div>
-            <?php
-        }else{
-            $msg = "Erro ao tentar lançar a data de saída.";
-            ?>
-            <div class="alert alert-danger"><?php echo $msg;?></div>
-            <?php
-        }
-        unset($_SESSION['msg']);
-    }
-    ?>
     <div class="col">
         <form class="form-group" method="POST">
-            <label class="col-form-label-lg" hidden for="hospital">Unidade Hospitalar</label>
-            <select class="form-control" name="hospital" hidden required>
-                <option></option>
-                <?php if(isset($_SESSION['id_adm'])): ?>
-                    <?php foreach ($hospitais as $hospital): ?>
-                        <option value="<?php echo $hospital['id'];?>" <?php echo ($info['id_hospital']==$hospital['id'])?'selected="selected"':''; ?> ><?php echo ucwords($hospital['nome']);?></option>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <option value="<?php echo $hospitais['id_hospital']; ?>" <?php echo ($info['id_hospital']==$hospitais['id_hospital'])?'selected="selected"':''; ?> ><?php echo ucwords($hospitais['hospital']); ?></option>
-                <?php endif; ?>
-            </select>
-
-            <label class="col-form-label-lg" hidden for="paciente">Paciente</label>
-            <select class="form-control" hidden name="paciente" required>
-                <option></option>
-                <!--Caso o usuário logado seja adm, todos os pacientes aparecerão para ele.-->
-                <?php if(isset($_SESSION['id_adm'])): ?>
-                    <?php foreach ($pacientes as $paciente): ?>
-                        <option value="<?php echo $paciente['id']; ?>" <?php echo ($info['id_paciente']==$paciente['id'])?'selected="selected"':''; ?> ><?php echo ucwords($paciente['nome']); ?></option>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <!--Caso o usuário logado não seja adm, apenas os pacientes do seu hospital aparecerão para ele.-->
-                    <?php foreach ($pacientes as $paciente): ?>
-                        <option value="<?php echo $paciente['id']; ?>" <?php echo ($info['id_paciente']==$paciente['id'])?'selected="selected"':''; ?> ><?php echo ucwords($paciente['nome']);?></option>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </select>
-
-            <div>
-                <label class="col-form-label-lg" hidden for="diagnostico">Diagnóstico</label>
-                <select class="form-control" hidden name="diagnostico" required>
-                    <option></option>
-                    <?php foreach ($diagnosticos as $diagnostico): ?>
-                        <option value="<?php echo $diagnostico['id']; ?>" <?php echo ($info['id_diagnostico']==$diagnostico['id'])?'selected="selected"':''; ?>><?php echo ucwords($diagnostico['status']);?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
             <div>
                 <label class="col-form-label-lg" for="motivo">Motivo da saída</label>
                 <select class="form-control" name="motivo" id="motivo" required>

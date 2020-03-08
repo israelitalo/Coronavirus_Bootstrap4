@@ -100,8 +100,22 @@ if(isset($_GET['busca']) && $_GET['busca'] != ''){
             </thead>
             <tbody>
             <?php foreach ($pacientes as $paciente): ?>
-                <tr <?php echo ($paciente['vida']==2)?'style="background-color: #f8d7da"':'';?> >
-                    <td style="width: 25%; padding-top: 20px"><?php echo ucwords($paciente['nome']); ?></td>
+                <?php
+                    if($paciente['vida']==2){
+                        require_once 'classes/historicoPaciente/historicoPacientes.class.php';
+                        require_once 'classes/historicoPaciente/historicoPacientesDao.class.php';
+
+                        $historico = new HistoricoPaciente();
+                        $hd = new HistoricoPacienteDao();
+                        $dataObito = $hd->getDataObitoPaciente($paciente['id']);
+                    }
+                ?>
+                <tr>
+                    <td style="width: 25%; padding-top: 20px">
+                        <span style="font-size: 16px" <?php echo ($paciente['vida'] == 2)?'class="badge badge-danger"':''; ?> >
+                            <?php echo ucwords($paciente['nome']);?>
+                        </span>
+                    </td>
                     <td style="width: 22%; padding-top: 20px"><?php echo ucwords($paciente['hospital']); ?></td>
                     <td style="width: 18%; padding-top: 20px"><?php echo $paciente['cpf']; ?></td>
                     <td style="width: 15%; padding-top: 20px">
@@ -112,7 +126,7 @@ if(isset($_GET['busca']) && $_GET['busca'] != ''){
                     <td class="text-center" style="width: 20%>">
                         <a class="btn btn-outline-warning" href="alterar-paciente.php?id=<?php echo $paciente['id']; ?>"><img width="26" height="26" onmouseover="alterarAtivo($(this))" id="icone-editar" src="assets/images/icones/alterar.png"></a>
                         <a class="btn btn-outline-danger" excluir-paciente="Deseja excluir este paciente?" href="excluir-paciente.php?id=<?php echo $paciente['id'] ;?>"><img id="icone-excluir" src="assets/images/icones/excluir.png"></a>
-                        <a class="btn btn-outline-info" data-toggle="modal" data-target="#modalDetalhesPaciente<?php echo $paciente['id'] ;?>"><img id="icone-lista" src="assets/images/icones/lista.png"></a>
+                        <a class="btn btn-outline-info" data-toggle="modal" data-target="#modalDetalhesPaciente<?php echo $paciente['id'] ;?>"><img id="icone-lista" src="assets/images/icones/icons8-informações-26.png"></a>
                     </td>
                 </tr>
                 <!-- Modal Detalhes de Paciente -->
@@ -145,7 +159,8 @@ if(isset($_GET['busca']) && $_GET['busca'] != ''){
                                     <?php if($paciente['vida']==1):?>
                                     <p style="font-size: 18px">Vivo</p>
                                     <?php else:?>
-                                    <p style="font-size: 18px">Óbito em </p>
+                                    <br>
+                                    <p class="badge badge-danger" style="font-size: 18px">Óbito em <?php echo date('d/m/Y', strtotime($dataObito['data_saida']));?></p>
                                     <?php endif;?>
                                 </div>
                             </div>

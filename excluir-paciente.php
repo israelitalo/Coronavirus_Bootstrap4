@@ -20,7 +20,7 @@ $pd = new PacienteDao();
 
 $paciente->setId(addslashes($_GET['id']));
 
-if($pd->excluirPaciente($paciente->getId())){
+if($pd->excluirPaciente($paciente->getId())==true){
     $_SESSION['msg'] = "Paciente excluído(a) com sucesso.";
     header("Location: gerenciar-pacientes.php");
     exit;
