@@ -1,7 +1,9 @@
 <?php
 session_start();
 if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
-    require 'sair.php';
+    ?>
+    <script type="text/javascript">window.location.href="sair.php";</script>
+    <?php
 }
 
 require 'pages/header.php';
@@ -31,7 +33,7 @@ if(isset($_GET['busca'])){
 
 <div class="container">
     <div style="margin-top: 20px; margin-bottom: 20px">
-        <h2><span class="badge badge-secondary">Gerenciar Histórico de Pacientes</span></h2>
+        <h2><span class="badge badge-secondary">Gerenciar Históricos</span></h2>
     </div>
     <?php
     if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){
@@ -110,7 +112,18 @@ if(isset($_GET['busca'])){
                 <tr>
                     <td style="width: 15%; padding-top: 20px">
                         <a data-toggle="modal" data-target="#exampleModalLong<?php echo $historico['id'] ;?>" href="#"
-                            <?php echo ($historico['motivoalta'] == 2)?'class="badge badge-danger"':'class="badge badge-primary"'; ?> >
+                            <?php
+                            if($historico['motivoalta'] == 1){
+                                ?>class="badge badge-success"<?php
+                            }
+                            elseif($historico['motivoalta'] == 2){
+                                ?>class="badge badge-danger"<?php
+                            }
+                            else{
+                                ?>class="badge badge-primary"<?php
+                            }
+                            ?>
+                        >
                             <span style="font-size: 16px">
                                 <?php
                                 //Para exibir apenas o primeiro e último nome do Paciente.

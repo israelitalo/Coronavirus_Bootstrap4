@@ -7,7 +7,7 @@
     }
 
     if(isset($_POST['nome']) && !empty($_POST['nome']) && isset($_POST['login']) && !empty($_POST['login'])
-        && isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['senha']) && !empty($_POST['senha'])){
+        && isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['senha']) && !empty($_POST['senha'])) {
 
         require 'classes/usuarios/usuarios.class.php';
         require_once 'classes/usuarios/usuariosDao.class.php';
@@ -22,9 +22,9 @@
         $usuario->setIdHospital(addslashes($_POST['hospital']));
         $usuario->setTelefone(addslashes($_POST['telefone']));
 
-        if($ud->addUsuario($usuario->getNome(), $usuario->getLogin(), $usuario->getEmail(), $usuario->getSenha(), $usuario->getIdHospital(), $usuario->getTelefone())==true){
+        if ($ud->addUsuario($usuario->getNome(), $usuario->getLogin(), $usuario->getEmail(), $usuario->getSenha(), $usuario->getIdHospital(), $usuario->getTelefone()) == true) {
 
-            $id = $ud->lastInsertId();
+            /*$id = $ud->lastInsertId();
 
             $idMd5 = md5($id);
 
@@ -34,12 +34,12 @@
         }else{
             $_SESSION['msg'] = "Erro ao cadastrar usuário.";
             header('Location: cadastrar-usuario.php');
+        }*/
+
+        } else {
+            $_SESSION['msg'] = "Preencha todos os campos e tente realizar o registro novamente."; //Falta criar div para receber a msg na tela de cadastro.
+            header('Location: cadastrar-usuario.php');
         }
 
     }
-    else{
-        $_SESSION['msg'] = "Preencha todos os campos e tente realizar o registro novamente."; //Falta criar div para receber a msg na tela de cadastro.
-        header('Location: cadastrar-usuario.php');
-    }
-
 ?>

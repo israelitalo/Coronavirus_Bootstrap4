@@ -1,7 +1,9 @@
 <?php
     session_start();
     if(empty($_SESSION['id_adm'])){
-        require 'sair.php';
+        ?>
+        <script type="text/javascript">window.location.href="sair.php";</script>
+        <?php
     }
 
     require 'pages/header.php';
@@ -12,13 +14,14 @@
     $hd = new UnidadeHospitalarDao();
 
     if(isset($_GET['busca'])){
-        $busca = addslashes($_GET['busca']);
-        $hospitais = $hd->getHospitalLike($busca);
-    }else{
-        $hospitais = $hd->getAllHospitais();
-    }
+            $busca = addslashes($_GET['busca']);
+            $hospitais = $hd->getHospitalLike($busca);
+        }else{
+            $hospitais = $hd->getAllHospitais();
+        }
 
 ?>
+
 <script>
     /*$(document).ready(function() {
         $('#listar-hospitais').DataTable({
@@ -35,6 +38,41 @@
     <div style="margin-top: 20px; margin-bottom: 20px">
         <h2><span class="badge badge-secondary">Gerenciar Hospitais</span></h2>
     </div>
+    <?php
+        if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){
+            $msg = $_SESSION['msg'];
+            if($msg == "Hospital alterado com sucesso."){
+                ?>
+                <div class="alert alert-success"><?php echo $msg;?></div>
+                <?php
+            }elseif($msg == "Erro ao tentar alterar Hospital."){
+                ?>
+                <div class="alert alert-danger"><?php echo $msg;?></div>
+                <?php
+            }elseif($msg == "Hospital cadastrado com sucesso."){
+                ?>
+                <div class="alert alert-success"><?php echo $msg;?></div>
+                <?php
+            }elseif($msg == "Erro ao tentar cadastrar hospital."){
+                ?>
+                <div class="alert alert-danger"><?php echo $msg;?></div>
+                <?php
+            }elseif($msg == "Preencha todos os campos e tente novamente."){
+                ?>
+                <div class="alert alert-warning"><?php echo $msg;?></div>
+                <?php
+            }elseif($msg == "O hospital não pode ser excluído, pois está vinculádo ao usuário(a) "){
+                ?>
+                <div class="alert alert-warning"><?php echo $msg." ".ucwords($_SESSION['usuario_hospital']).".";?></div>
+                <?php
+            }elseif($msg == "Hospital excluído com sucesso."){
+                ?>
+                <div class="alert alert-success"><?php echo $msg;?></div>
+                <?php
+            }
+            unset($_SESSION['msg'], $_SESSION['usuario_hospital']);
+        }
+    ?>
     <div class="row">
         <div class="col-6">
             <a class="btn btn-success" href="cadastrar-hospital.php" role="button">Adicionar</a>
@@ -56,7 +94,7 @@
             <caption>Hospitais Cadastrados</caption>
             <thead class="thead-dark">
             <tr>
-                <th>Name</th>
+                <th>Nome</th>
                 <th>CNPJ</th>
                 <th>Telefone</th>
                 <th>Cidade</th>
@@ -66,6 +104,9 @@
             </thead>
             <tbody>
             <?php foreach ($hospitais as $hospital): ?>
+                <?php
+                    $nomeUsuario = $hd->getUsuarioHospital($hospital['id']);
+                ?>
                 <tr>
                     <td style="width: 25%; padding-top: 20px"><?php echo ucwords($hospital['nome']); ?></td>
                     <td style="width: 15%; padding-top: 20px"><?php echo $hospital['cnpj']; ?></td>
@@ -73,11 +114,51 @@
                     <td style="width: 15%; padding-top: 20px"><?php echo ucwords($hospital['cidade']); ?></td>
                     <td style="width: 10%; padding-top: 20px"><?php echo ucwords($hospital['estado']); ?></td>
                     <td class="text-center" style="width: 20%>">
-                        <a class="btn btn-outline-warning" href="alterar-empresa.php?id=<?php echo $hospital['id'] ;?>"><img width="26" height="26" onmouseover="alterarAtivo($(this))" id="icone-editar" src="assets/images/icones/alterar.png"></a>
-                        <a class="btn btn-outline-danger" href="excluir-empresa.php?id=<?php echo $hospital['id'] ;?>"><img id="icone-excluir" src="assets/images/icones/excluir.png"></a>
-                        <a class="btn btn-outline-info" href="#"><img id="icone-lista" src="assets/images/icones/informacoes.png"></a>
+                        <a class="btn btn-outline-warning" href="alterar-hospital.php?id=<?php echo $hospital['id'] ;?>"><img width="26" height="26" onmouseover="alterarAtivo($(this))" id="icone-editar" src="assets/images/icones/alterar.png"></a>
+                        <a class="btn btn-outline-danger" excluir-hospital="Deseja excluir este hospital?" href="excluir-hospital.php?id=<?php echo $hospital['id'] ;?>"><img id="icone-excluir" src="assets/images/icones/excluir.png"></a>
+                        <a class="btn btn-outline-info" data-toggle="modal" data-target="#modalDetalhesPaciente<?php echo $hospital['id'] ;?>"><img id="icone-lista" src="assets/images/icones/informacoes.png"></a>
                     </td>
                 </tr>
+                <!-- Modal Detalhes do Hospital -->
+                <div class="modal fade" id="modalDetalhesPaciente<?php echo $hospital['id'] ;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: #c8cbcf">
+                                <h5 class="modal-title" style="font-size: 20px" id="exampleModalLongTitle"><?php echo ucwords($hospital['nome']); ?></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="background-color: #efefef">
+                                <div class="h4">
+                                    <p class="badge badge-success">Endereço</p>
+                                    <p style="font-size: 18px"><?php echo $hospital['rua'].', ';?>
+                                        <?php echo $hospital['numero'].', ';?>
+                                        <?php echo $hospital['bairro'].', ';?>
+                                        <?php echo $hospital['cep'].', ';?>
+                                        <?php echo $hospital['cidade'].' -';?>
+                                        <?php echo $hospital['estado'];?></p>
+                                    <hr>
+                                    <p class="badge badge-success">Usuário Responsável</p>
+                                    <p style="font-size: 18px">
+                                        <?php
+                                            if($nomeUsuario['nome']!=''){
+                                                echo ucwords($nomeUsuario['nome']);
+                                            }else{
+                                                echo 'Aguardando usuário responsável.';
+                                            }
+                                        ?>
+                                    </p>
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="background-color: #efefef">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIM Modal Detalhes do Hospital -->
             <?php endforeach; ?>
             </tbody>
         </table>
@@ -107,3 +188,4 @@
     </table>
     -->
 </div>
+<script type="text/javascript" src="modal-excluir-hospital.js"></script>

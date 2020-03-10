@@ -9,12 +9,12 @@
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     </head>
     <body>
-        <div class="container" style="border-radius: 5px; width: 40%; max-width: 400px">
+        <div class="container login" style="border-radius: 5px; width: 60%; max-width: 500px">
             <form method="POST" action="login-verification.php">
                 <div align="center" class="form-group">
                     <img style="border-radius: 50px; margin-top: 20px" class="mb-4" src="assets/images/logo/pernambuco.svg.png" alt="" width="72" height="72">
                 </div>
-                <h1 class="h3 mb-3 font-weight-normal">Faça seu login</h1>
+                <h1 class="h3 mb-3 font-weight-normal text-center">Acessar CvSoftware</h1>
                 <div class="form-group">
                     <label for="login" class="sr-only">Login</label>
                     <input type="text" name="login" id="login" class="form-control" placeholder="login" required="" autofocus="">

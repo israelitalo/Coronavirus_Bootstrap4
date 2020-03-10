@@ -20,13 +20,16 @@ $pd = new PacienteDao();
 
 $paciente->setId(addslashes($_GET['id']));
 
-if($pd->excluirPaciente($paciente->getId())==true){
+$countPaciente = $pd->countPacientesEmHistorico($paciente->getId());
+
+if($countPaciente['total'] == 0){
+    $pd->excluirPaciente($paciente->getId());
     $_SESSION['msg'] = "Paciente excluído(a) com sucesso.";
     ?>
     <script type="text/javascript">window.location.href="gerenciar-pacientes.php";</script>
     <?php
 }else{
-    $_SESSION['msg'] = "Erro ao tentar excluir o(a) paciente.";
+    $_SESSION['msg'] = "O paciente não pode ser excluído, pois está vinculádo a um histórico de paciente.";
     ?>
     <script type="text/javascript">window.location.href="gerenciar-pacientes.php";</script>
     <?php

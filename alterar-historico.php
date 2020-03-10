@@ -66,13 +66,13 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
 
 <section class="container">
     <div style="margin-top: 20px; margin-bottom: 20px">
-        <h2><span class="badge badge-secondary">Alterar Histórico de Pacientes</span></h2>
+        <h2><span class="badge badge-secondary">Alterar Histórico</span></h2>
     </div>
     <div class="col">
         <form class="form-group" method="POST">
             <div class="row">
                 <div class="col">
-                    <label class="col-form-label-lg" for="hospital">Unidade Hospitalar</label>
+                    <label class="col-form-label-lg" for="hospital">Hospital</label>
                     <select class="form-control" name="hospital" id="hospitalhistorico" required>
                         <option></option>
                         <?php if(isset($_SESSION['id_adm'])): ?>

@@ -1,7 +1,9 @@
 <?php
 session_start();
 if(empty($_SESSION['id_adm'])){
-    require 'sair.php';
+    ?>
+    <script type="text/javascript">window.location.href="sair.php";</script>
+    <?php
 }
 
 require 'pages/header.php';

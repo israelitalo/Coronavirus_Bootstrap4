@@ -164,16 +164,20 @@
         }
 
         public function excluirPaciente($idPaciente){
-            $sql = $this->pdo->prepare("SELECT * FROM paciente WHERE id = :id");
+            $sql = $this->pdo->prepare("DELETE FROM paciente WHERE id = :id");
             $sql->bindValue(":id", $idPaciente);
+            $sql->execute();
+            return true;
+        }
+
+        public function countPacientesEmHistorico($idPaciente){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total FROM historico h, paciente p WHERE h.id_paciente = p.id AND p.id = :idPaciente");
+            $sql->bindValue(":idPaciente", $idPaciente);
             $sql->execute();
 
             if($sql->rowCount() > 0){
-                $sql = $this->pdo->prepare("DELETE FROM paciente WHERE id = :id");
-                $sql->bindValue(":id", $idPaciente);
-                $sql->execute();
+                return $array = $sql->fetch();
             }
-            return true;
         }
 
 

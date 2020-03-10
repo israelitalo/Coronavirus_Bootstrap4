@@ -1,7 +1,9 @@
 <?php
 session_start();
 if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
-    require 'sair.php';
+    ?>
+    <script type="text/javascript">window.location.href="sair.php";</script>
+    <?php
 }
 
 require 'pages/header.php';
@@ -62,9 +64,9 @@ if(isset($_GET['busca']) && $_GET['busca'] != ''){
                 <div class="alert alert-success"><?php echo $msg?></div>
                 <?php
             }
-            elseif($msg == "Erro ao tentar excluir o(a) paciente."){
+            elseif($msg == "O paciente não pode ser excluído, pois está vinculádo a um histórico de paciente."){
                 ?>
-                <div class="alert alert-danger"><?php echo $msg?></div>
+                <div class="alert alert-warning"><?php echo $msg?></div>
                 <?php
             }elseif($msg == "Erro ao cadastrar paciente."){
                 ?>

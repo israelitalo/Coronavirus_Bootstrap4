@@ -28,4 +28,7 @@ table{
     .navbar-text{
         display: none;
     }
+    .login{
+        width: 60%;
+    }
 }

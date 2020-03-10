@@ -11,7 +11,6 @@ if(isset($_POST['nome']) && !empty($_POST['nome']) && isset($_POST['cnpj']) && !
     && isset($_POST['bairro']) && !empty($_POST['bairro']) && isset($_POST['cidade']) && !empty($_POST['cidade'])
     && isset($_POST['estado']) && !empty($_POST['estado']) && isset($_POST['cep']) && !empty($_POST['cep'])){
 
-    //require 'config.php';
     require 'classes/hospitais/unidadeHospitalar.class.php';
     require 'classes/hospitais/unidadeHospitalarDao.class.php';
 
@@ -30,12 +29,14 @@ if(isset($_POST['nome']) && !empty($_POST['nome']) && isset($_POST['cnpj']) && !
 
     if($ud->addHospital($unidade->getNome(), $unidade->getCnpj(), $unidade->getTelefone(), $unidade->getRua(), $unidade->getNumero(), $unidade->getBairro(), $unidade->getCidade(), $unidade->getEstado(), $unidade->getCep())){
         $_SESSION['msg'] = "Hospital cadastrado com sucesso.";
-        header('Location: cadastrar-hospital.php');
-        exit;
+        ?>
+        <script type="text/javascript">window.location.href="gerenciar-unidades.php";</script>
+        <?php
     }else{
         $_SESSION['msg'] = "Erro ao tentar cadastrar hospital.";
-        header('Location: cadastrar-hospital.php');
-        exit;
+        ?>
+        <script type="text/javascript">window.location.href="gerenciar-unidades.php";</script>
+        <?php
     }
 
 }
