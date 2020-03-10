@@ -13,11 +13,7 @@
     $hospitais = new UnidadeHospitalar();
     $hd = new UnidadeHospitalarDao();
 
-    $countHospitais = $hd->countHospitais();
     $qtPaginas = 5;
-
-    $paginas = $countHospitais['total'] / $qtPaginas;
-
     $pg = 1;
 
     if(isset($_GET['p']) && !empty($_GET['p'])){
@@ -27,9 +23,13 @@
     $p = ($pg - 1) * $qtPaginas;
 
     if(isset($_GET['busca'])){
-            $busca = addslashes($_GET['busca']);
-            $hospitais = $hd->getHospitalLike($busca, $p, $qtPaginas);
+        $busca = addslashes($_GET['busca']);
+        $countHospitaisComLike = $hd->countHospitaisComLike($busca);
+        $paginas = $countHospitaisComLike['total'] / $qtPaginas;
+        $hospitais = $hd->getHospitalLike($busca, $p, $qtPaginas);
     }else{
+        $countHospitais = $hd->countHospitais();
+        $paginas = $countHospitais['total'] / $qtPaginas;
         $hospitais = $hd->getAllHospitais($p, $qtPaginas);
     }
 
@@ -182,7 +182,7 @@
                     $get = $_GET;//Aqui passa tudo que há no $_GET para a variável get.
                     $get['p'] = $i+1;
                     echo http_build_query($get);//Transforma todos os itens que há em $_GET em url.
-                    ?>"><?php echo $i+1; ?></a>
+                    ?>" ><?php echo $i+1; ?></a>
                 </li>
             <?php endfor; ?>
         </ul>

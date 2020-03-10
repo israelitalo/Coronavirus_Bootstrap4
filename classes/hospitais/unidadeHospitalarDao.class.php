@@ -45,6 +45,12 @@
             return $array;
         }
 
+        public function countHospitaisComLike($busca){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total FROM hospital WHERE nome LIKE '%".$busca ."%'");
+            $sql->execute();
+            return $total = $sql->fetch();
+        }
+
         public function getHospitalLike($busca, $p, $qtPaginas){
             //global $pdo;
             $array = array();
