@@ -13,12 +13,25 @@
     $hospitais = new UnidadeHospitalar();
     $hd = new UnidadeHospitalarDao();
 
+    $countHospitais = $hd->countHospitais();
+    $qtPaginas = 5;
+
+    $paginas = $countHospitais['total'] / $qtPaginas;
+
+    $pg = 1;
+
+    if(isset($_GET['p']) && !empty($_GET['p'])){
+        $pg = addslashes($_GET['p']);
+    }
+
+    $p = ($pg - 1) * $qtPaginas;
+
     if(isset($_GET['busca'])){
             $busca = addslashes($_GET['busca']);
-            $hospitais = $hd->getHospitalLike($busca);
-        }else{
-            $hospitais = $hd->getAllHospitais();
-        }
+            $hospitais = $hd->getHospitalLike($busca, $p, $qtPaginas);
+    }else{
+        $hospitais = $hd->getAllHospitais($p, $qtPaginas);
+    }
 
 ?>
 
@@ -162,6 +175,17 @@
             <?php endforeach; ?>
             </tbody>
         </table>
+        <ul class="pagination">
+            <?php for($i=0;$i<$paginas;$i++): ?>
+                <li class="page-item <?php echo ($p==$i)?'active':'';?>">
+                    <a class="page-link" href="gerenciar-unidades.php?<?php
+                    $get = $_GET;//Aqui passa tudo que há no $_GET para a variável get.
+                    $get['p'] = $i+1;
+                    echo http_build_query($get);//Transforma todos os itens que há em $_GET em url.
+                    ?>"><?php echo $i+1; ?></a>
+                </li>
+            <?php endfor; ?>
+        </ul>
     </div>
     <!--Tabela a ser usada com o DataTable
     <table id="listar-hospitais" class="display table table-hover" style="width:100%">

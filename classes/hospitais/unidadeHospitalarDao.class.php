@@ -34,11 +34,10 @@
             return $array;
         }
 
-        public function getAllHospitais(){
-            //global $pdo;
+        public function getAllHospitais($p, $qtPaginas){
             $array = array();
 
-            $sql = $this->pdo->query("SELECT * FROM hospital ORDER BY nome");
+            $sql = $this->pdo->query("SELECT * FROM hospital ORDER BY nome LIMIT $p, $qtPaginas");
 
             if($sql->rowCount() > 0){
                 $array = $sql->fetchAll();
@@ -46,11 +45,11 @@
             return $array;
         }
 
-        public function getHospitalLike($busca){
+        public function getHospitalLike($busca, $p, $qtPaginas){
             //global $pdo;
             $array = array();
 
-            $sql = $this->pdo->prepare("SELECT * FROM hospital WHERE nome LIKE '%".$busca."%' ORDER BY nome");
+            $sql = $this->pdo->prepare("SELECT * FROM hospital WHERE nome LIKE '%".$busca."%' ORDER BY nome LIMIT $p, $qtPaginas");
             $sql->bindValue(":busca", $busca);
             $sql->execute();
 
@@ -110,9 +109,9 @@
         }
 
         public function countHospitais(){
-            $sql = $this->pdo->prepare("SELECT * FROM hospital");
-            $row = $sql->rowCount();
-            return $row;
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total FROM hospital");
+            $sql->execute();
+            return $total = $sql->fetch();
         }
 
         public function countHospitaisEmUsuario($idHospital){
