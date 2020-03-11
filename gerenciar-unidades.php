@@ -30,7 +30,7 @@
     }else{
         $countHospitais = $hd->countHospitais();
         $paginas = $countHospitais['total'] / $qtPaginas;
-        $hospitais = $hd->getAllHospitais($p, $qtPaginas);
+        $hospitais = $hd->getAllHospitaisPaginacao($p, $qtPaginas);
     }
 
 ?>
@@ -156,7 +156,7 @@
                                     <p style="font-size: 18px">
                                         <?php
                                             if($nomeUsuario['nome']!=''){
-                                                echo ucwords($nomeUsuario['nome']);
+                                                echo utf8_decode(ucwords($nomeUsuario['nome']));
                                             }else{
                                                 echo 'Aguardando usuário responsável.';
                                             }
@@ -177,7 +177,7 @@
         </table>
         <ul class="pagination">
             <?php for($i=0;$i<$paginas;$i++): ?>
-                <li class="page-item <?php echo ($p==$i)?'active':'';?>">
+                <li class="page-item">
                     <a class="page-link" href="gerenciar-unidades.php?<?php
                     $get = $_GET;//Aqui passa tudo que há no $_GET para a variável get.
                     $get['p'] = $i+1;

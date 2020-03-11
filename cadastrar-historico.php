@@ -70,7 +70,7 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
                                 <option value="<?php echo $hospital['id'];?>"><?php echo ucwords($hospital['nome']);?></option>
                             <?php endforeach; ?>
                         <?php else: ?>
-                            <option value="<?php echo $hospitais['id_hospital']; ?>"><?php echo ucwords($hospitais['hospital']); ?></option>
+                            <option value="<?php echo $hospitais['id_hospital']; ?>"><?php echo utf8_decode(ucwords($hospitais['hospital'])); ?></option>
                         <?php endif; ?>
                     </select>
                 </div>
@@ -81,12 +81,12 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
                         <!--Caso o usuário logado seja adm, todos os pacientes aparecerão para ele.-->
                         <?php if(isset($_SESSION['id_adm'])): ?>
                             <?php foreach ($pacientes as $paciente): ?>
-                                <option value="<?php echo $paciente['id']; ?>"><?php echo ucwords($paciente['nome']); ?></option>
+                                <option value="<?php echo $paciente['id']; ?>"><?php echo utf8_decode(ucwords($paciente['nome'])); ?></option>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <!--Caso o usuário logado não seja adm, apenas os pacientes do seu hospital aparecerão para ele.-->
                             <?php foreach ($pacientes as $paciente): ?>
-                                <option value="<?php echo $paciente['id']; ?>"><?php echo ucwords($paciente['nome']);?></option>
+                                <option value="<?php echo $paciente['id']; ?>"><?php echo utf8_decode(ucwords($paciente['nome']));?></option>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </select>
@@ -99,7 +99,7 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
                     <select class="form-control" name="diagnostico" required>
                         <option></option>
                         <?php foreach ($diagnosticos as $diagnostico): ?>
-                            <option value="<?php echo $diagnostico['id']; ?>"><?php echo ucwords($diagnostico['status']);?></option>
+                            <option value="<?php echo $diagnostico['id']; ?>"><?php echo utf8_decode(ucwords($diagnostico['status']));?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

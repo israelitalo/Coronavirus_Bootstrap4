@@ -1,30 +1,57 @@
 <?php
-session_start();
-if(empty($_SESSION['id_adm'])){
-    ?>
-    <script type="text/javascript">window.location.href="sair.php";</script>
-    <?php
-}
+    session_start();
+    if(empty($_SESSION['id_adm'])){
+        ?>
+        <script type="text/javascript">window.location.href="sair.php";</script>
+        <?php
+    }
 
-require 'pages/header.php';
-require 'classes/usuarios/usuarios.class.php';
-require 'classes/usuarios/usuariosDao.class.php';
+    require 'pages/header.php';
+    require 'classes/usuarios/usuarios.class.php';
+    require 'classes/usuarios/usuariosDao.class.php';
 
-$usuarios = new Usuarios();
-$ud = new UsuarioDao();
+    $usuarios = new Usuarios();
+    $ud = new UsuarioDao();
 
-if(isset($_GET['busca'])){
-    $busca = addslashes($_GET['busca']);
-    $usuarios = $ud->getUsuarioLike($busca);
-}else{
-    $usuarios = $ud->getUsuarios();
-}
+    if(isset($_GET['busca'])){
+        $busca = addslashes($_GET['busca']);
+        $usuarios = $ud->getUsuarioLike($busca);
+    }else{
+        $usuarios = $ud->getUsuarios();
+    }
 
 ?>
 <div class="container">
     <div style="margin-top: 20px; margin-bottom: 20px">
         <h2><span class="badge badge-secondary">Gerenciar Usuários</span></h2>
     </div>
+    <?php
+        if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])) {
+            $msg = $_SESSION['msg'];
+            if ($msg == "Usuário cadastrado com sucesso.") {
+                ?>
+                <div class="alert alert-success"><?php echo $msg ?></div>
+                <?php
+            } elseif ($msg == "Erro ao cadastrar usuário.") {
+                ?>
+                <div class="alert alert-danger"><?php echo $msg ?></div>
+                <?php
+            }elseif ($msg == "Usuário alterado com sucesso.") {
+                ?>
+                <div class="alert alert-success"><?php echo $msg ?></div>
+                <?php
+            }elseif ($msg == "Erro ao alterar usuário.") {
+                ?>
+                <div class="alert alert-danger"><?php echo $msg ?></div>
+                <?php
+            }elseif ($msg == "Usuário excluído com sucesso.") {
+                ?>
+                <div class="alert alert-danger"><?php echo $msg ?></div>
+                <?php
+            }
+            unset($_SESSION['msg']);
+        }
+    ?>
     <div class="row">
         <div class="col-6">
             <a class="btn btn-success" href="cadastrar-usuario.php" role="button">Adicionar</a>
@@ -58,7 +85,7 @@ if(isset($_GET['busca'])){
                 <tr>
                     <td style="width: 25%; padding-top: 20px"><?php echo ucwords($usuario['nome']); ?></td>
                     <td style="width: 18%; padding-top: 20px"><?php echo $usuario['login']; ?></td>
-                    <td style="width: 22%; padding-top: 20px"><?php echo $usuario['hospital']; ?></td>
+                    <td style="width: 22%; padding-top: 20px"><?php echo ucwords($usuario['hospital']); ?></td>
                     <td style="width: 15%; padding-top: 20px"><?php echo ucwords($usuario['telefone']); ?></td>
                     <td class="text-center" style="width: 20%>">
                         <a class="btn btn-outline-warning" href="alterar-usuario.php?id=<?php echo $usuario['id'] ;?>"><img width="26" height="26" onmouseover="alterarAtivo($(this))" id="icone-editar" src="assets/images/icones/alterar.png"></a>

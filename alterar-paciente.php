@@ -77,7 +77,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
             <div class="row">
                 <div class="col-5">
                     <label class="col-form-label-lg" for="nome">Nome</label>
-                    <input class="form-control" value="<?php echo $info['nome']; ?>" autocomplete="off" type="text" name="nome" id="nomePaciente" required placeholder="Nome do paciente">
+                    <input class="form-control" value="<?php echo ucwords($info['nome']); ?>" autocomplete="off" type="text" name="nome" id="nomePaciente" required placeholder="Nome do paciente">
                 </div>
 
                 <div class="col-4">
@@ -123,30 +123,30 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
             <div class="row">
                 <div class="col-5">
                     <label class="col-form-label-lg" for="cep">CEP</label>
-                    <input class="form-control" value="<?php echo $info['cep']?>" type="text" name="cep" id="cepPaciente" required placeholder="Digite aqui o CEP sem hífen">
+                    <input class="form-control" value="<?php echo $info['cep']; ?>" type="text" name="cep" id="cepPaciente" required placeholder="Digite aqui o CEP sem hífen">
                 </div>
                 <div class="col-4">
                     <label class="col-form-label-lg" for="rua">Rua</label>
-                    <input class="form-control" value="<?php echo $info['rua']?>" type="text" name="rua" id="ruaPaciente" required placeholder="Digite a Rua ou Av.">
+                    <input class="form-control" value="<?php echo $info['rua']; ?>" type="text" name="rua" id="ruaPaciente" required placeholder="Digite a Rua ou Av.">
                 </div>
                 <div class="col-3">
                     <label class="col-form-label-lg" for="numero">Numero</label>
-                    <input class="form-control" value="<?php echo $info['numero']?>" autocomplete="off" type="text" name="numero" id="numeroPaciente" required placeholder="Número da residência">
+                    <input class="form-control" value="<?php echo $info['numero']; ?>" autocomplete="off" type="text" name="numero" id="numeroPaciente" required placeholder="Número da residência">
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-5">
                     <label class="col-form-label-lg" for="bairro">Bairro</label>
-                    <input class="form-control" value="<?php echo $info['bairro']?>" type="text" name="bairro" id="bairroPaciente" required placeholder="Bairro do endereço">
+                    <input class="form-control" value="<?php echo ucwords($info['bairro']);?>" type="text" name="bairro" id="bairroPaciente" required placeholder="Bairro do endereço">
                 </div>
                 <div class="col-4">
                     <label class="col-form-label-lg" for="cidade">Cidade</label>
-                    <input class="form-control" value="<?php echo $info['cidade']?>" type="text" name="cidade" id="cidadePaciente" required placeholder="Cidade do paciente">
+                    <input class="form-control" value="<?php echo ucwords($info['cidade']);?>" type="text" name="cidade" id="cidadePaciente" required placeholder="Cidade do paciente">
                 </div>
                 <div class="col-3">
                     <label class="col-form-label-lg" for="estado">Estado</label>
-                    <input class="form-control" value="<?php echo $info['estado']?>" type="text" name="estado" id="estadoPaciente" required placeholder="Digite aqui a UF do estado">
+                    <input class="form-control" value="<?php echo $info['estado'];?>" type="text" name="estado" id="estadoPaciente" required placeholder="Digite aqui a UF do estado">
                 </div>
             </div>
 

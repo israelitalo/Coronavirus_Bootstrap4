@@ -24,25 +24,6 @@
         <div style="margin-top: 20px; margin-bottom: 20px">
             <h2><span class="badge badge-secondary">Cadastrar Usuários</span></h2>
         </div>
-        <?php
-        if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){
-            $msg = $_SESSION['msg'];
-            if($msg == "Usuário cadastrado com sucesso."){
-                ?>
-                <div class="alert alert-success"><?php echo $msg;?></div>
-                <?php
-            }elseif($msg == "Erro ao cadastrar usuário."){
-                ?>
-                <div class="alert alert-danger"><?php echo $msg;?></div>
-                <?php
-            }elseif($msg == "Preencha todos os campos e tente realizar o registro novamente."){
-                ?>
-                <div class="alert alert-warning"><?php echo $msg;?></div>
-                <?php
-            }
-            unset($_SESSION['msg']);
-        }
-        ?>
         <div class="col">
             <form class="form-group" method="POST" action="cadastrar-usuario-bd.php">
 
@@ -57,7 +38,7 @@
                         <input class="form-control" autocomplete="off" type="text" name="login" id="loginUsuario" required placeholder="Login do usuário">
                     </div>
                     <div class="col">
-                        <label class="col-form-label-lg" for="hospital">Unidade Hospitalar</label>
+                        <label class="col-form-label-lg" for="hospital">Hospital</label>
                         <select class="form-control" name="hospital">
                             <option></option>
                             <?php  foreach ($unidades as $unidade): ?>

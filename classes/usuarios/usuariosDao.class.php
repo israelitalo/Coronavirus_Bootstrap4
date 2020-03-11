@@ -10,8 +10,6 @@
         }
 
         public function login($login, $senha){
-            //global $pdo;
-
             $sql = $this->pdo->prepare("SELECT id FROM usuario WHERE login = :login AND senha = :senha AND ativo = '1'");
             $sql->bindValue(":login", $login);
             $sql->bindValue(":senha", $senha);
@@ -38,7 +36,6 @@
         }
 
         public function getUsuarios(){
-            //global $pdo;
             $array = array();
 
             $sql = $this->pdo->query("SELECT *,
@@ -52,7 +49,6 @@
         }
 
         public function getUsuarioLike($busca){
-            //global $pdo;
             $array = array();
 
             $sql = $this->pdo->prepare("SELECT *,
@@ -68,10 +64,21 @@
             return $array;
         }
 
-        public function addUsuario($nome, $login, $email, $senha, $unidadeHospitalar, $telefone){
-            //global $pdo;
+        public function getIdUserEmail($email){
+            $sql = $this->pdo->prepare("SELECT id FROM usuario WHERE email = :email");
+            $sql->bindValue(":email", $email);
+            $sql->execute();
 
-            $sql= $this->pdo->prepare("INSERT INTO usuario SET ativo = '0', nome = :nome, login = :login, email = :email, senha = :senha, 
+            if($sql->rowCount() > 0){
+                return $id = $sql->fetch();
+            }
+        }
+
+        public function addUsuario($nome, $login, $email, $senha, $unidadeHospitalar, $telefone){
+            /*O ativo deve ser 1 para o usuário conseguir acessar o sistema.
+              Quando a função de enviar e-mail para validar cadastro de usuários, o o insert abaixo será com ativo = 0.
+            */
+            $sql= $this->pdo->prepare("INSERT INTO usuario SET ativo = '1', nome = :nome, login = :login, email = :email, senha = :senha, 
                                             id_hospital = :unidadeHospitalar, telefone = :telefone");
 
             $sql->bindValue(":nome", $nome);
@@ -81,7 +88,28 @@
             $sql->bindValue(":unidadeHospitalar", $unidadeHospitalar);
             $sql->bindValue(":telefone", $telefone);
             $sql->execute();
+
             return true;
+        }
+
+        public function alterarUsuario($id, $hospital, $nome, $login, $email, $telefone, $senha){
+            $sql = $this->pdo->prepare("UPDATE usuario SET ");
+        }
+
+        public function updateActiveUser($id){
+            $sql = $this->pdo->prepare("UPDATE usuario SET ativo = '1' WHERE MD5(id) = :id");
+            $sql->bindValue(":id", $id);
+            $sql->execute();
+        }
+
+        public function getUsuario($id){
+            $sql = $this->pdo->prepare("SELECT * FROM usuario WHERE id = :id");
+            $sql->bindValue(":id", $id);
+            $sql->execute();
+
+            if($sql->rowCount() > 0){
+                return $usuario = $sql->fetch();
+            }
         }
 
     }

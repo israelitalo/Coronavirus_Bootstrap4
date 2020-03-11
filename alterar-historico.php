@@ -91,12 +91,12 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
                         <!--Caso o usuário logado seja adm, todos os pacientes aparecerão para ele.-->
                         <?php if(isset($_SESSION['id_adm'])): ?>
                             <?php foreach ($pacientes as $paciente): ?>
-                                <option value="<?php echo $paciente['id']; ?>" <?php echo ($info['id_paciente']==$paciente['id'])?'selected="selected"':'';?> ><?php echo ucwords($paciente['nome']); ?></option>
+                                <option value="<?php echo $paciente['id']; ?>" <?php echo ($info['id_paciente']==$paciente['id'])?'selected="selected"':'';?> ><?php echo utf8_decode(ucwords($paciente['nome'])); ?></option>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <?php foreach ($pacientes as $paciente): ?>
                                 <!--Caso o usuário logado não seja adm, apenas os pacientes do seu hospital aparecerão para ele.-->
-                                <option value="<?php echo $paciente['id']; ?>" <?php echo ($info['id_paciente']==$paciente['id'])?'selected="selected"':'';?> ><?php echo ucwords($paciente['nome']); ?></option>
+                                <option value="<?php echo $paciente['id']; ?>" <?php echo ($info['id_paciente']==$paciente['id'])?'selected="selected"':'';?> ><?php echo utf8_decode(ucwords($paciente['nome'])); ?></option>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </select>

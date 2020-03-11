@@ -34,10 +34,21 @@
             return $array;
         }
 
-        public function getAllHospitais($p, $qtPaginas){
+        public function getAllHospitaisPaginacao($p, $qtPaginas){
             $array = array();
 
             $sql = $this->pdo->query("SELECT * FROM hospital ORDER BY nome LIMIT $p, $qtPaginas");
+
+            if($sql->rowCount() > 0){
+                $array = $sql->fetchAll();
+            }
+            return $array;
+        }
+
+        public function getAllHospitais(){
+            $array = array();
+
+            $sql = $this->pdo->query("SELECT * FROM hospital ORDER BY nome ");
 
             if($sql->rowCount() > 0){
                 $array = $sql->fetchAll();

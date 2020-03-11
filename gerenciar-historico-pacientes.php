@@ -159,7 +159,7 @@ if(isset($_GET['busca'])){
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header" style="background-color: #c8cbcf">
-                                <h5 class="modal-title" style="font-size: 20px" id="exampleModalLongTitle"><?php echo $historico['paciente'];?></h5>
+                                <h5 class="modal-title" style="font-size: 20px" id="exampleModalLongTitle"><?php echo ucwords($historico['paciente']);?></h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
