@@ -8,7 +8,7 @@
     }
     require_once 'pages/header.php';
 ?>
-<div class="container">
+<div class="container" style="margin-top: 20px; margin-bottom: 20px">
     <?php
     if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){
         $msg = $_SESSION['msg'];

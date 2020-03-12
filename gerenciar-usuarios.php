@@ -46,6 +46,10 @@
                 <?php
             }elseif ($msg == "Usuário excluído com sucesso.") {
                 ?>
+                <div class="alert alert-success"><?php echo $msg ?></div>
+                <?php
+            }elseif ($msg == "Erro ao tentar excluir usuário.") {
+                ?>
                 <div class="alert alert-danger"><?php echo $msg ?></div>
                 <?php
             }
@@ -74,27 +78,61 @@
             <thead class="thead-dark">
             <tr>
                 <th>Nome</th>
-                <th>Login</th>
                 <th>Hospital</th>
-                <th>Telefone</th>
+                <th>Status</th>
                 <th class="text-center">Ações</th>
             </tr>
             </thead>
             <tbody>
             <?php foreach ($usuarios as $usuario): ?>
                 <tr>
-                    <td style="width: 25%; padding-top: 20px"><?php echo ucwords($usuario['nome']); ?></td>
-                    <td style="width: 18%; padding-top: 20px"><?php echo $usuario['login']; ?></td>
-                    <td style="width: 22%; padding-top: 20px"><?php echo ucwords($usuario['hospital']); ?></td>
-                    <td style="width: 15%; padding-top: 20px"><?php echo ucwords($usuario['telefone']); ?></td>
+                    <td style="width: 35%; padding-top: 20px"><?php echo ucwords($usuario['nome']); ?></td>
+                    <td style="width: 30%; padding-top: 20px"><?php echo ucwords($usuario['hospital']); ?></td>
+                    <td style="width: 15%; padding-top: 20px">
+                        <?php
+                            if($usuario['ativo']==1){
+                                echo "Ativo";
+                            }else{
+                                echo "Inativo";
+                            }
+                        ?>
+                    </td>
                     <td class="text-center" style="width: 20%>">
                         <a class="btn btn-outline-warning" href="alterar-usuario.php?id=<?php echo $usuario['id'] ;?>"><img width="26" height="26" onmouseover="alterarAtivo($(this))" id="icone-editar" src="assets/images/icones/alterar.png"></a>
-                        <a class="btn btn-outline-danger" href="excluir-usuario.php?id=<?php echo $usuario['id'] ;?>"><img id="icone-excluir" src="assets/images/icones/excluir.png"></a>
-                        <a class="btn btn-outline-info" href="#"><img id="icone-lista" src="assets/images/icones/informacoes.png"></a>
+                        <a class="btn btn-outline-danger" excluir-usuario="Deseja excluir este usuario?" href="excluir-usuario.php?id=<?php echo $usuario['id'] ;?>"><img id="icone-excluir" src="assets/images/icones/excluir.png"></a>
+                        <a class="btn btn-outline-info" data-toggle="modal" data-target="#modalDetalhesUsuario<?php echo $usuario['id'] ;?>"><img id="icone-lista" src="assets/images/icones/informacoes.png"></a>
                     </td>
                 </tr>
+                <!-- Modal Detalhes do Usuário -->
+                <div class="modal fade" id="modalDetalhesUsuario<?php echo $usuario['id'] ;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: #c8cbcf">
+                                <h5 class="modal-title" style="font-size: 20px" id="exampleModalLongTitle"><?php echo ucwords($usuario['nome']); ?></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="background-color: #efefef">
+                                <div class="h4">
+                                    <p class="badge badge-success">E-mail</p>
+                                    <p style="font-size: 18px"><?php echo $usuario['email'];?></p>
+                                    <hr>
+                                    <p class="badge badge-success">Telefone</p>
+                                    <p style="font-size: 18px"><?php echo $usuario['telefone'];?></p>
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="background-color: #efefef">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIM Modal Detalhes do Usuário -->
             <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 </div>
+<script type="text/javascript" src="modal-excluir-usuario.js"></script>

@@ -122,6 +122,20 @@
             }
         }
 
+        public function excluirUsuario($id){
+            $sql = $this->pdo->prepare("SELECT * FROM usuario WHERE id = :id");
+            $sql->bindValue(":id", $id);
+            $sql->execute();
+
+            if($sql->rowCount() > 0){
+                $sql = $this->pdo->prepare("DELETE FROM usuario WHERE id = :id");
+                $sql->bindValue(":id", $id);
+                $sql->execute();
+
+                return true;
+            }
+        }
+
     }
 
 ?>
