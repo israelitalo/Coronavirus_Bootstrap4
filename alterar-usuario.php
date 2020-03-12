@@ -40,11 +40,20 @@
         $usuario->setLogin(addslashes($_POST['login']));
         $usuario->setEmail(addslashes($_POST['email']));
         $usuario->setTelefone(addslashes($_POST['telefone']));
-        $usuario->setSenha(md5(addslashes($_POST['senha'])));
+        $usuario->setSenha(addslashes(md5($_POST['senha'])));
 
         if($userDao->alterarUsuario($usuario->getId(), $usuario->getIdHospital(), $usuario->getNome(), $usuario->getLogin(),
             $usuario->getEmail(), $usuario->getTelefone(), $usuario->getSenha()) ==true){
 
+            $_SESSION['msg'] = "Usuário alterado com sucesso.";
+            ?>
+            <script type="text/javascript">window.location.href="gerenciar-usuarios.php";</script>
+            <?php
+        }else{
+            $_SESSION['msg'] = "Erro ao alterar usuário.";
+            ?>
+            <script type="text/javascript">window.location.href="gerenciar-usuarios.php";</script>
+            <?php
         }
     }
 
@@ -99,7 +108,7 @@
             </div>
 
             <div class="form-group" style="margin-top: 20px">
-                <button class="btn btn-primary" type="submit">Adicionar</button>
+                <button class="btn btn-primary" type="submit">Alterar</button>
             </div>
         </form>
     </div>

@@ -15,6 +15,17 @@
                     <img style="border-radius: 50px; margin-top: 20px" class="mb-4" src="assets/images/logo/pernambuco.svg.png" alt="" width="72" height="72">
                 </div>
                 <h1 class="h3 mb-3 font-weight-normal text-center">Acessar CvSoftware</h1>
+                <?php
+                if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){
+                    $msg = $_SESSION['msg'];
+                    if($msg == "Dados de acesso inválidos"){
+                        ?>
+                        <div class="alert alert-danger text-center"><?php echo $msg;?></div>
+                        <?php
+                    }
+                    unset($_SESSION['msg']);
+                }
+                ?>
                 <div class="form-group">
                     <label for="login" class="sr-only">Login</label>
                     <input type="text" name="login" id="login" class="form-control" placeholder="login" required="" autofocus="">

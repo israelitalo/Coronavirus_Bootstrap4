@@ -93,7 +93,17 @@
         }
 
         public function alterarUsuario($id, $hospital, $nome, $login, $email, $telefone, $senha){
-            $sql = $this->pdo->prepare("UPDATE usuario SET ");
+            $sql = $this->pdo->prepare("UPDATE usuario SET nome = :nome, login = :login, email = :email, senha = :senha,
+                                                    id_hospital = :id_hospital, telefone = :telefone WHERE id = :id");
+            $sql->bindValue(":id", $id);
+            $sql->bindValue(":nome", $nome);
+            $sql->bindValue(":login", $login);
+            $sql->bindValue(":email", $email);
+            $sql->bindValue(":senha", $senha);
+            $sql->bindValue(":id_hospital", $hospital);
+            $sql->bindValue(":telefone", $telefone);
+            $sql->execute();
+            return true;
         }
 
         public function updateActiveUser($id){

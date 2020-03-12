@@ -18,7 +18,7 @@
         $usuario->setNome(addslashes($_POST['nome']));
         $usuario->setLogin(addslashes($_POST['login']));
         $usuario->setEmail(addslashes($_POST['email']));
-        $usuario->setSenha(md5(addslashes($_POST['senha'])));
+        $usuario->setSenha(addslashes(md5($_POST['senha'])));
         $usuario->setIdHospital(addslashes($_POST['hospital']));
         $usuario->setTelefone(addslashes($_POST['telefone']));
 
