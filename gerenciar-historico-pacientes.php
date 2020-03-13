@@ -1,34 +1,42 @@
 <?php
-session_start();
-if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
-    ?>
-    <script type="text/javascript">window.location.href="sair.php";</script>
-    <?php
-}
-
-require 'pages/header.php';
-require 'classes/historicoPaciente/historicoPacientes.class.php';
-require 'classes/historicoPaciente/historicoPacientesDao.class.php';
-
-$historicos = new HistoricoPaciente();
-$historicoDao = new HistoricoPacienteDao();
-
-if(isset($_SESSION['id_adm'])){
-    $historicos = $historicoDao->getAllHistoricos();
-}elseif(isset($_SESSION['id_usuario'])){
-    $idUsuario = addslashes($_SESSION['id_usuario']);
-    $historicos = $historicoDao->getHistoricoPorUsuario($idUsuario);
-}
-
-if(isset($_GET['busca'])){
-    $busca = addslashes($_GET['busca']);
-    if(isset($_SESSION['id_adm'])){
-        $historicos = $historicoDao->getHistoricoLike($busca);
-    }elseif(isset($_SESSION['id_usuario'])){
-        $historicos = $historicoDao->getHistoricoLikeForUserLogado($busca, $idUsuario);
+    session_start();
+    if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
+        ?>
+        <script type="text/javascript">window.location.href="sair.php";</script>
+        <?php
     }
-}
 
+    require 'pages/header.php';
+    require 'classes/historicoPaciente/historicoPacientes.class.php';
+    require 'classes/historicoPaciente/historicoPacientesDao.class.php';
+
+    $historicos = new HistoricoPaciente();
+    $historicoDao = new HistoricoPacienteDao();
+
+    $qtPaginas = 1;
+    $pg = 1;
+
+    if(isset($_GET['p']) && !empty($_GET['p'])){
+        $pg = addslashes($_GET['p']);
+    }
+
+    $p = ($pg - 1) * $qtPaginas;
+
+    if(isset($_SESSION['id_adm'])){
+        $historicos = $historicoDao->getAllHistoricos();
+    }elseif(isset($_SESSION['id_usuario'])){
+        $idUsuario = addslashes($_SESSION['id_usuario']);
+        $historicos = $historicoDao->getHistoricoPorUsuario($idUsuario);
+    }
+
+    if(isset($_GET['busca'])){
+        $busca = addslashes($_GET['busca']);
+        if(isset($_SESSION['id_adm'])){
+            $historicos = $historicoDao->getHistoricoLike($busca);
+        }elseif(isset($_SESSION['id_usuario'])){
+            $historicos = $historicoDao->getHistoricoLikeForUserLogado($busca, $idUsuario);
+        }
+    }
 ?>
 
 <div class="container">

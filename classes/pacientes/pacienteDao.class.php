@@ -22,6 +22,19 @@
             return $array;
         }
 
+        public function getAllPacientes(){
+            $array = array();
+            $sql = $this->pdo->query("SELECT *,
+                                            (select nome from hospital where paciente.id_hospital = hospital.id)
+                                            as hospital
+                                            FROM paciente ORDER BY nome");
+
+            if($sql->rowCount() > 0){
+                $array = $sql->fetchAll();
+            }
+            return $array;
+        }
+
         //Método para Pacientes vivos, ou seja, com vida = 1
         public function getPacientes(){
             $array = array();
