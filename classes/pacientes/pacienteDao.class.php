@@ -9,12 +9,12 @@
             $this->pdo = $conexao->conectar();
         }
 
-        public function getAllPacientes(){
+        public function getAllPacientesPaginacao($p, $qtPaginas){
             $array = array();
             $sql = $this->pdo->query("SELECT *,
                                             (select nome from hospital where paciente.id_hospital = hospital.id)
                                             as hospital
-                                            FROM paciente ORDER BY nome");
+                                            FROM paciente ORDER BY nome LIMIT $p, $qtPaginas");
 
             if($sql->rowCount() > 0){
                 $array = $sql->fetchAll();
@@ -48,14 +48,13 @@
             return $array;
         }
 
-        public function getPacienteLike($busca){
-            //global $pdo;
+        public function getPacienteLike($busca, $p, $qtPaginas){
             $array = array();
 
             $sql = $this->pdo->prepare("SELECT *,
                                             (select nome from hospital where paciente.id_hospital = hospital.id)
                                             as hospital
-                                            FROM paciente WHERE nome LIKE '%".$busca."%' ORDER BY nome");
+                                            FROM paciente WHERE nome LIKE '%".$busca."%' ORDER BY nome LIMIT $p, $qtPaginas");
             $sql->execute();
 
             if($sql->rowCount() > 0){
@@ -64,7 +63,7 @@
             return $array;
         }
 
-        public function getPacienteLikeForUserLogado($busca, $idUsuario){
+        public function getPacienteLikeForUserLogado($busca, $idUsuario, $p, $qtPaginas){
             //global $pdo;
             $array = array();
             $sql = $this->pdo->prepare("SELECT p.id, p.id_hospital, p.nome, p.cpf, p.rua, p.numero, p.bairro, p.cidade,
@@ -72,7 +71,7 @@
                                             (select nome from hospital where p.id_hospital = hospital.id) as hospital 
                                             FROM paciente p, usuario u
                                             WHERE p.id_hospital = u.id_hospital AND p.nome LIKE '%".$busca."%'
-                                            AND u.id = :idUsuario ORDER BY p.nome");
+                                            AND u.id = :idUsuario ORDER BY p.nome LIMIT $p, $qtPaginas");
             $sql->bindValue(":idUsuario", $idUsuario);
             $sql->execute();
 
@@ -82,14 +81,14 @@
             return $array;
         }
 
-        public function getAllPacienteForUserLogado($idUsuario){
+        public function getAllPacienteForUserLogado($idUsuario, $p, $qtPaginas){
             $array = array();
             $sql = $this->pdo->prepare("SELECT p.id, p.id_hospital, p.nome, p.cpf, p.rua, p.numero, p.bairro, p.cidade,
                                             p.estado, p.cep, p.telefone,p.sexo, p.data_nascimento, p.vida,
                                             (select nome from hospital where p.id_hospital = hospital.id) as hospital 
                                             FROM paciente p, usuario u 
                                             WHERE p.id_hospital = u.id_hospital
-                                            AND u.id = :idUsuario ORDER BY p.nome");
+                                            AND u.id = :idUsuario ORDER BY p.nome LIMIT $p, $qtPaginas");
             $sql->bindValue(":idUsuario", $idUsuario);
             $sql->execute();
 
@@ -180,7 +179,35 @@
             }
         }
 
+        public function countPacientes(){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total FROM paciente");
+            $sql->execute();
+            return $total = $sql->fetch();
+        }
 
+        public function countPacientesUsuario($idUsuario){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total FROM paciente p, usuario u 
+                                                WHERE p.id_hospital = u.id_hospital
+                                                AND u.id = :idUsuario");
+            $sql->bindValue(":idUsuario", $idUsuario);
+            $sql->execute();
+            return $total = $sql->fetch();
+        }
+
+        public function countPacientesUsuarioLike($idUsuario, $busca){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total FROM paciente p, usuario u 
+                                                WHERE p.nome LIKE '%".$busca."%' AND p.id_hospital = u.id_hospital
+                                                AND u.id = :idUsuario");
+            $sql->bindValue(":idUsuario", $idUsuario);
+            $sql->execute();
+            return $total = $sql->fetch();
+        }
+
+        public function countPacientesComLike($busca){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total FROM paciente WHERE nome LIKE '%".$busca."%'");
+            $sql->execute();
+            return $total = $sql->fetch();
+        }
 
     }
 

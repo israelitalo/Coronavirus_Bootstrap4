@@ -1,33 +1,52 @@
 <?php
-session_start();
-if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
-    ?>
-    <script type="text/javascript">window.location.href="sair.php";</script>
-    <?php
-}
-
-require 'pages/header.php';
-require 'classes/pacientes/paciente.class.php';
-require 'classes/pacientes/pacienteDao.class.php';
-
-$pd = new PacienteDao();
-$pacientes = new Paciente();
-
-if(isset($_SESSION['id_adm'])){
-    $pacientes = $pd->getAllPacientes();
-}elseif(isset($_SESSION['id_usuario'])){
-    $idUsuario = addslashes($_SESSION['id_usuario']);
-    $pacientes = $pd->getAllPacienteForUserLogado($idUsuario);
-}
-
-if(isset($_GET['busca']) && $_GET['busca'] != ''){
-    $busca = addslashes($_GET['busca']);
-    if(isset($_SESSION['id_adm'])){
-        $pacientes = $pd->getPacienteLike($busca);
-    }elseif(isset($_SESSION['id_usuario'])){
-        $pacientes = $pd->getPacienteLikeForUserLogado($busca, $idUsuario);
+    session_start();
+    if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
+        ?>
+        <script type="text/javascript">window.location.href="sair.php";</script>
+        <?php
     }
-}
+
+    require 'pages/header.php';
+    require 'classes/pacientes/paciente.class.php';
+    require 'classes/pacientes/pacienteDao.class.php';
+
+    $pd = new PacienteDao();
+    $pacientes = new Paciente();
+
+    $qtPaginas = 1;
+    $pg = 1;
+
+    if(isset($_GET['p']) && !empty($_GET['p'])){
+        $pg = addslashes($_GET['p']);
+    }
+
+    $p = ($pg - 1) * $qtPaginas;
+
+    if(isset($_SESSION['id_adm'])){
+        $countPacientes = $pd->countPacientes();
+        $paginas = $countPacientes['total'] / $qtPaginas;
+        $pacientes = $pd->getAllPacientesPaginacao($p, $qtPaginas);
+    }elseif(isset($_SESSION['id_usuario'])){
+        $idUsuario = addslashes($_SESSION['id_usuario']);
+        $countPacientesUsuario = $pd->countPacientesUsuario($idUsuario);
+        $paginas = $countPacientesUsuario['total'] / $qtPaginas;
+        $pacientes = $pd->getAllPacienteForUserLogado($idUsuario, $p, $qtPaginas);
+    }
+
+    if(isset($_GET['busca']) && $_GET['busca'] != ''){
+        $busca = addslashes($_GET['busca']);
+        if(isset($_SESSION['id_adm'])){
+            $countPacientesComLike = $pd->countPacientesComLike($busca);
+            $paginas = $countPacientesComLike['total'] / $qtPaginas;
+            $pacientes = $pd->getPacienteLike($busca, $p, $qtPaginas);
+
+        }elseif(isset($_SESSION['id_usuario'])){
+            $countPacientesUsuarioLike = $pd->countPacientesUsuarioLike($idUsuario, $busca);
+            $paginas = $countPacientesUsuarioLike['total'] / $qtPaginas;
+            $pacientes = $pd->getPacienteLikeForUserLogado($busca, $idUsuario, $p, $qtPaginas);
+
+        }
+    }
 
 ?>
 <script>
@@ -159,11 +178,11 @@ if(isset($_GET['busca']) && $_GET['busca'] != ''){
                                     <p style="font-size: 18px"><?php echo date('d/m/Y', strtotime($paciente['data_nascimento']));?></p>
                                     <hr>
                                     <p class="badge badge-success">Endereço</p>
-                                    <p style="font-size: 18px"><?php echo $paciente['rua'].', ';?>
+                                    <p style="font-size: 18px"><?php echo ucwords($paciente['rua']).', ';?>
                                     <?php echo $paciente['numero'].', ';?>
-                                    <?php echo $paciente['bairro'].', ';?>
+                                    <?php echo ucwords($paciente['bairro']).', ';?>
                                     <?php echo $paciente['cep'].', ';?>
-                                    <?php echo $paciente['cidade'].' -';?>
+                                    <?php echo ucwords($paciente['cidade']).' -';?>
                                     <?php echo $paciente['estado'];?></p>
                                     <hr>
                                     <p class="badge badge-success">Telefone</p>
@@ -188,6 +207,17 @@ if(isset($_GET['busca']) && $_GET['busca'] != ''){
             <?php endforeach; ?>
             </tbody>
         </table>
+        <ul class="pagination">
+            <?php for($i=0;$i<$paginas;$i++): ?>
+                <li class="page-item">
+                    <a class="page-link" href="gerenciar-pacientes.php?<?php
+                    $get = $_GET;//Aqui passa tudo que há no $_GET para a variável get.
+                    $get['p'] = $i+1;
+                    echo http_build_query($get);//Transforma todos os itens que há em $_GET em url.
+                    ?>" ><?php echo $i+1; ?></a>
+                </li>
+            <?php endfor; ?>
+        </ul>
     </div>
 </div>
 <script type="text/javascript" src="modal-excluir-paciente.js"></script>
