@@ -13,7 +13,7 @@
     $hospitais = new UnidadeHospitalar();
     $hd = new UnidadeHospitalarDao();
 
-    $qtPaginas = 5;
+    $qtPaginas = 10;
     $pg = 1;
 
     if(isset($_GET['p']) && !empty($_GET['p'])){
@@ -145,12 +145,12 @@
                             <div class="modal-body" style="background-color: #efefef">
                                 <div class="h4">
                                     <p class="badge badge-success">Endereço</p>
-                                    <p style="font-size: 18px"><?php echo $hospital['rua'].', ';?>
+                                    <p style="font-size: 18px"><?php echo ucwords($hospital['rua']).', ';?>
                                         <?php echo $hospital['numero'].', ';?>
-                                        <?php echo $hospital['bairro'].', ';?>
+                                        <?php echo ucwords($hospital['bairro']).', ';?>
                                         <?php echo $hospital['cep'].', ';?>
-                                        <?php echo $hospital['cidade'].' -';?>
-                                        <?php echo $hospital['estado'];?></p>
+                                        <?php echo ucwords($hospital['cidade']).' -';?>
+                                        <?php echo ucwords($hospital['estado']);?></p>
                                     <hr>
                                     <p class="badge badge-success">Usuário Responsável</p>
                                     <p style="font-size: 18px">

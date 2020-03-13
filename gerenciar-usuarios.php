@@ -13,12 +13,25 @@
     $usuarios = new Usuarios();
     $ud = new UsuarioDao();
 
-    if(isset($_GET['busca'])){
-        $busca = addslashes($_GET['busca']);
-        $usuarios = $ud->getUsuarioLike($busca);
-    }else{
-        $usuarios = $ud->getUsuarios();
+    $qtPaginas = 5;
+    $pg = 1;
+
+    if(isset($_GET['p']) && !empty($_GET['p'])){
+        $pg = addslashes($_GET['p']);
     }
+
+    $p = ($pg - 1) * $qtPaginas;
+
+if(isset($_GET['busca'])){
+        $busca = addslashes($_GET['busca']);
+        $countUsuariosComLike = $ud->countUsuariosComLike($busca);
+        $paginas = $countUsuariosComLike['total'] / $qtPaginas;
+        $usuarios = $ud->getUsuarioLike($busca, $p, $qtPaginas);
+    }else{
+        $countUsuarios = $ud->countUsuarios();
+        $paginas = $countUsuarios['total'] / $qtPaginas;
+        $usuarios = $ud->getAllUsuariosPaginacao($p, $qtPaginas);
+ }
 
 ?>
 <div class="container">
@@ -133,6 +146,17 @@
             <?php endforeach; ?>
             </tbody>
         </table>
+        <ul class="pagination">
+            <?php for($i=0;$i<$paginas;$i++): ?>
+                <li class="page-item">
+                    <a class="page-link" href="gerenciar-usuarios.php?<?php
+                    $get = $_GET;//Aqui passa tudo que há no $_GET para a variável get.
+                    $get['p'] = $i+1;
+                    echo http_build_query($get);//Transforma todos os itens que há em $_GET em url.
+                    ?>" ><?php echo $i+1; ?></a>
+                </li>
+            <?php endfor; ?>
+        </ul>
     </div>
 </div>
 <script type="text/javascript" src="modal-excluir-usuario.js"></script>

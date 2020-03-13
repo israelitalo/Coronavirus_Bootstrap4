@@ -48,11 +48,11 @@
             return $array;
         }
 
-        public function getUsuarioLike($busca){
+        /*public function getUsuarioLike($busca){
             $array = array();
 
             $sql = $this->pdo->prepare("SELECT *,
-                                            (select nome from hospital where hospital.id = usuario.id_hospital) 
+                                            (select nome from hospital where hospital.id = usuario.id_hospital)
                                             as hospital
                                             FROM usuario WHERE nome LIKE '%".$busca."%' ORDER BY nome");
             $sql->bindValue(":busca", $busca);
@@ -62,7 +62,7 @@
                 $array = $sql->fetchAll();
             }
             return $array;
-        }
+        }*/
 
         public function getIdUserEmail($email){
             $sql = $this->pdo->prepare("SELECT id FROM usuario WHERE email = :email");
@@ -134,6 +134,48 @@
 
                 return true;
             }
+        }
+
+        public function getAllUsuariosPaginacao($p, $qtPaginas){
+            $array = array();
+
+            $sql = $this->pdo->query("SELECT *,
+                                                (select nome from hospital where hospital.id = usuario.id_hospital)
+                                                as hospital
+                                                FROM usuario ORDER BY nome LIMIT $p, $qtPaginas");
+
+            if($sql->rowCount() > 0){
+                $array = $sql->fetchAll();
+            }
+            return $array;
+        }
+
+        public function countUsuarios(){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total FROM usuario");
+            $sql->execute();
+            return $total = $sql->fetch();
+        }
+
+        public function countUsuariosComLike($busca){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total FROM usuario WHERE nome LIKE '%".$busca ."%'");
+            $sql->execute();
+            return $total = $sql->fetch();
+        }
+
+        public function getUsuarioLike($busca, $p, $qtPaginas){
+            $array = array();
+
+            $sql = $this->pdo->prepare("SELECT *,
+                                                (select nome from hospital where hospital.id = usuario.id_hospital)
+                                                as hospital
+                                                FROM usuario WHERE nome LIKE '%".$busca."%' ORDER BY nome LIMIT $p, $qtPaginas");
+            $sql->bindValue(":busca", $busca);
+            $sql->execute();
+
+            if($sql->rowCount() > 0){
+                $array = $sql->fetchAll();
+            }
+            return $array;
         }
 
     }
