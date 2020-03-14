@@ -9,6 +9,22 @@
             $this->pdo = $conexao->conectar();
         }
 
+        public function getAllHistoricosPaginacao($p, $qtPaginas){
+            $array = array();
+            $sql = $this->pdo->query("SELECT *,
+                                            (select nome from paciente where h.id_paciente = paciente.id)
+                                            as paciente,
+                                            (select nome from hospital where h.id_hospital = hospital.id)
+                                            as hospital,
+                                            (select status from diagnostico_virus where h.id_diagnostico = diagnostico_virus.id) as diagnostico
+                                            FROM historico h ORDER BY paciente LIMIT $p, $qtPaginas");
+
+            if($sql->rowCount() > 0){
+                $array = $sql->fetchAll();
+            }
+            return $array;
+        }
+
         //Método para retornar o histórico de todos os hospitais, a ser mostrado quando um adm estiver logado.
         public function getAllHistoricos(){
             //global $pdo;
@@ -66,6 +82,28 @@
             return $array;
         }
 
+        //Método para mostrar apenas o histórico de pacientes de um hospital específico, verificado pelo id do usuário logado, que retém o hospital em questão.
+        public function getAllHistoricoForUserLogado($idUsuario, $p, $qtPaginas){
+            //global $pdo;
+            $array = array();
+            $sql = $this->pdo->prepare("SELECT h.id, h.id_hospital, h.id_paciente, h.id_diagnostico, h.data_entrada, h.data_saida, 
+                                            u.nome, h.motivoalta,
+                                            (select nome from paciente where h.id_paciente = paciente.id)
+                                            as paciente,
+                                            (select nome from hospital where h.id_hospital = hospital.id)
+                                            as hospital,
+                                            (select status from diagnostico_virus where h.id_diagnostico = diagnostico_virus.id) as diagnostico
+                                            FROM historico h, usuario u WHERE h.id_hospital = u.id_hospital AND u.id = :id
+                                            ORDER BY paciente LIMIT $p, $qtPaginas");
+            $sql->bindValue(":id", $idUsuario);
+            $sql->execute();
+
+            if($sql->rowCount() > 0){
+                $array = $sql->fetchAll();
+            }
+            return $array;
+        }
+
         //Método para mostrar o histórico de pacientes conforme o id do Hospital. *Será uso exclusivo do administrador.
         public function getHistoricoPorHospital($idHospital){
             //global $pdo;
@@ -81,9 +119,7 @@
             return $array;
         }
 
-        //Método para retornar os históricos através do termo de busca pesquisado.
-        public function getHistoricoLike($busca){
-            //global $pdo;
+        public function getHistoricoLikePaginacao($busca, $p, $qtPaginas){
             $array = array();
             $sql = $this->pdo->prepare("SELECT h.id, h.id_hospital, h.id_paciente, h.id_diagnostico, h.data_entrada, h.data_saida,
                                             h.motivoalta,
@@ -91,7 +127,24 @@
                                             (select nome from hospital where h.id_hospital = hospital.id)
                                             as hospital,
                                             (select status from diagnostico_virus where h.id_diagnostico = diagnostico_virus.id) as diagnostico
-                                            FROM historico h, paciente p where h.id_paciente = p.id and p.nome like '%".$busca."%';");
+                                            FROM historico h, paciente p WHERE h.id_paciente = p.id AND p.nome LIKE '%".$busca."%' ORDER BY p.nome LIMIT $p, $qtPaginas");
+            $sql->execute();
+
+            if($sql->rowCount() > 0){
+                $array = $sql->fetchAll();
+            }
+            return $array;
+        }
+        //Método para retornar os históricos através do termo de busca pesquisado.
+        public function getHistoricoLike($busca){
+            $array = array();
+            $sql = $this->pdo->prepare("SELECT h.id, h.id_hospital, h.id_paciente, h.id_diagnostico, h.data_entrada, h.data_saida,
+                                            h.motivoalta,
+                                            p.id as id_paciente, p.nome as paciente,
+                                            (select nome from hospital where h.id_hospital = hospital.id)
+                                            as hospital,
+                                            (select status from diagnostico_virus where h.id_diagnostico = diagnostico_virus.id) as diagnostico
+                                            FROM historico h, paciente p where h.id_paciente = p.id and p.nome like '%".$busca."%'");
             $sql->execute();
 
             if($sql->rowCount() > 0){
@@ -100,8 +153,7 @@
             return $array;
         }
 
-        public function getHistoricoLikeForUserLogado($busca, $idUsuario){
-            //global $pdo;
+        public function getHistoricoLikeForUserLogado($busca, $idUsuario, $p, $qtPaginas){
             $array = array();
             $sql = $this->pdo->prepare("SELECT h.id, h.id_hospital, h.id_paciente, h.id_diagnostico, h.data_entrada, h.data_saida,
                                             h.motivoalta,
@@ -110,8 +162,8 @@
                                             as hospital,
                                             (select status from diagnostico_virus where h.id_diagnostico = diagnostico_virus.id) as diagnostico 
                                             FROM historico h, paciente p, usuario u
-                                            WHERE h.id_hospital = u.id_hospital AND h.id_paciente = p.id AND u.id = :idUsuario
-                                            AND p.nome LIKE '%".$busca."%' ORDER BY h.id");
+                                            WHERE h.id_hospital = u.id_hospital AND h.id_paciente = p.id
+                                            AND p.nome LIKE '%".$busca."%' AND u.id = :idUsuario ORDER BY p.nome LIMIT $p, $qtPaginas");
             $sql->bindValue(":idUsuario", $idUsuario);
             $sql->execute();
 
@@ -179,6 +231,12 @@
             }
         }
 
+        public function countHistoricoAll(){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total FROM historico");
+            $sql->execute();
+            return $total = $sql->fetch();
+        }
+
         public function excluirHistorico($idHistorico){
             $sql = $this->pdo->prepare("SELECT * FROM historico WHERE id = :id");
             $sql->bindValue(":id", $idHistorico);
@@ -201,6 +259,34 @@
                 $dataObito = $sql->fetch();
                 return $dataObito;
             }
+        }
+
+        public function countHistoricosUsuario($idUsuario){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total FROM historico h, usuario u 
+                                                WHERE h.id_hospital = u.id_hospital
+                                                AND u.id = :idUsuario");
+            $sql->bindValue(":idUsuario", $idUsuario);
+            $sql->execute();
+            return $total = $sql->fetch();
+        }
+
+        public function countHistoricoComLike($busca){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total,
+                                                  p.nome
+                                                  FROM historico h, paciente p WHERE p.id = h.id_paciente AND p.nome LIKE '%".$busca."%'");
+            $sql->execute();
+            return $total = $sql->fetch();
+        }
+
+        public function countHistoricoUsuarioLike($idUsuario, $busca){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total,
+                                                  p.nome
+                                                  FROM historico h, paciente p, usuario u WHERE h.id_hospital = u.id_hospital
+                                                  AND p.nome LIKE '%".$busca."%' AND h.id_paciente = p.id
+                                                  AND u.id = :idUsuario");
+            $sql->bindValue("idUsuario", $idUsuario);
+            $sql->execute();
+            return $total = $sql->fetch();
         }
 
     }

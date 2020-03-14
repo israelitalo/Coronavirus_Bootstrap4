@@ -13,7 +13,7 @@
     $pd = new PacienteDao();
     $pacientes = new Paciente();
 
-    $qtPaginas = 1;
+    $qtPaginas = 10;
     $pg = 1;
 
     if(isset($_GET['p']) && !empty($_GET['p'])){
@@ -151,7 +151,7 @@
                     </td>
                     <td style="width: 22%; padding-top: 20px"><?php echo ucwords($paciente['hospital']); ?></td>
                     <td style="width: 18%; padding-top: 20px"><?php echo $paciente['cpf']; ?></td>
-                    <td style="width: 15%; padding-top: 20px">
+                    <td style="width: 12%; padding-top: 20px">
                         <?php
                             if($paciente['sexo']=='m'):echo 'Masculino'; else:echo 'Feminino'; endif;
                         ?>

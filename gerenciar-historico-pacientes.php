@@ -13,7 +13,7 @@
     $historicos = new HistoricoPaciente();
     $historicoDao = new HistoricoPacienteDao();
 
-    $qtPaginas = 1;
+    $qtPaginas = 10;
     $pg = 1;
 
     if(isset($_GET['p']) && !empty($_GET['p'])){
@@ -23,18 +23,32 @@
     $p = ($pg - 1) * $qtPaginas;
 
     if(isset($_SESSION['id_adm'])){
-        $historicos = $historicoDao->getAllHistoricos();
+        $countHistorico = $historicoDao->countHistoricoAll();
+        $paginas = $countHistorico['total'] / $qtPaginas;
+        $historicos = $historicoDao->getAllHistoricosPaginacao($p, $qtPaginas);
+        //$historicos = $historicoDao->getAllHistoricos();
     }elseif(isset($_SESSION['id_usuario'])){
         $idUsuario = addslashes($_SESSION['id_usuario']);
-        $historicos = $historicoDao->getHistoricoPorUsuario($idUsuario);
+        $countHistoricoUsuario = $historicoDao->countHistoricosUsuario($idUsuario);
+        $paginas = $countHistoricoUsuario['total'] / $qtPaginas;
+        $historicos = $historicoDao->getAllHistoricoForUserLogado($idUsuario, $p, $qtPaginas);
+        //$historicos = $historicoDao->getHistoricoPorUsuario($idUsuario);
     }
 
     if(isset($_GET['busca'])){
         $busca = addslashes($_GET['busca']);
         if(isset($_SESSION['id_adm'])){
-            $historicos = $historicoDao->getHistoricoLike($busca);
+
+            $countHistoricoComLike = $historicoDao->countHistoricoComLike($busca);
+            $paginas = $countHistoricoComLike['total'] / $qtPaginas;
+            $historicos = $historicoDao->getHistoricoLikePaginacao($busca, $p, $qtPaginas);
+            //$historicos = $historicoDao->getHistoricoLike($busca);
         }elseif(isset($_SESSION['id_usuario'])){
-            $historicos = $historicoDao->getHistoricoLikeForUserLogado($busca, $idUsuario);
+
+            $countHistoricoUsuarioLike = $historicoDao->countHistoricoUsuarioLike($idUsuario, $busca);
+            $paginas = $countHistoricoUsuarioLike['total'] / $qtPaginas;
+            $historicos = $historicoDao->getHistoricoLikeForUserLogado($busca, $idUsuario, $p, $qtPaginas);
+            //$historicos = $historicoDao->getHistoricoLikeForUserLogado($busca, $idUsuario);
         }
     }
 ?>
@@ -193,6 +207,17 @@
             <?php endforeach; ?>
             </tbody>
         </table>
+        <ul class="pagination">
+            <?php for($i=0;$i<$paginas;$i++): ?>
+                <li class="page-item">
+                    <a class="page-link" href="gerenciar-historico-pacientes.php?<?php
+                    $get = $_GET;//Aqui passa tudo que há no $_GET para a variável get.
+                    $get['p'] = $i+1;
+                    echo http_build_query($get);//Transforma todos os itens que há em $_GET em url.
+                    ?>" ><?php echo $i+1; ?></a>
+                </li>
+            <?php endfor; ?>
+        </ul>
     </div>
 </div>
 <script type="text/javascript" src="modal-excluir-historico.js"></script>
