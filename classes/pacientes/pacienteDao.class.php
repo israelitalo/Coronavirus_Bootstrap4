@@ -222,6 +222,18 @@
             return $total = $sql->fetch();
         }
 
+        public function getPacientePorHospital($idHospital){
+            $array = array();
+            $sql = $this->pdo->prepare("SELECT * FROM paciente p WHERE p.id_hospital = :idHospital");
+            $sql->bindValue(":idHospital", $idHospital);
+            $sql->execute();
+
+            if($sql->rowCount() > 0){
+                $array = $sql->fetchAll();
+            }
+            return $array;
+        }
+
     }
 
 ?>

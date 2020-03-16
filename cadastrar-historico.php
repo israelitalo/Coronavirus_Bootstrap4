@@ -79,19 +79,27 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
                     <select class="form-control" name="paciente" id="pacientehistorico" required>
                         <option></option>
                         <!--Caso o usuário logado seja adm, todos os pacientes aparecerão para ele.-->
-                        <?php if(isset($_SESSION['id_adm'])): ?>
-                            <?php foreach ($pacientes as $paciente): ?>
-                                <option value="<?php echo $paciente['id']; ?>"><?php echo ucwords($paciente['nome']); ?></option>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <!--Caso o usuário logado não seja adm, apenas os pacientes do seu hospital aparecerão para ele.-->
-                            <?php foreach ($pacientes as $paciente): ?>
-                                <option value="<?php echo $paciente['id']; ?>"><?php echo ucwords($paciente['nome']);?></option>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+
                     </select>
                 </div>
             </div>
+            <script type="text/javascript">
+                $('#hospitalhistorico').change(function () {
+                    var idHospital = $(this).val();
+                    $.ajax({
+                        type: "POST",
+                        url: "select-pacientes-hospital.php",
+                        data:{
+                            hospital: idHospital
+                        },
+                        success: function (retorno) {
+                            var html = '';
+                            $('#pacientehistorico').html(html);
+                            $('#pacientehistorico').append(retorno);
+                        }
+                    });
+                });
+            </script>
 
             <div class="row">
                 <div class="col">
