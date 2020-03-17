@@ -10,7 +10,6 @@
         }
 
         public function getIdHospital($idUsuario){
-            //global $pdo;
             $sql = $this->pdo->prepare("SELECT id_hospital FROM usuario WHERE usuario.id = :idUsuario");
             $sql->bindValue(":idUsuario", $idUsuario);
             $sql->execute();
@@ -23,7 +22,6 @@
 
         public function getHospital($idHospital){
             $array = array();
-
             $sql = $this->pdo->prepare("SELECT * FROM hospital WHERE hospital.id = :idHospital");
             $sql->bindValue(":idHospital", $idHospital);
             $sql->execute();
@@ -36,7 +34,6 @@
 
         public function getAllHospitaisPaginacao($p, $qtPaginas){
             $array = array();
-
             $sql = $this->pdo->query("SELECT * FROM hospital ORDER BY nome LIMIT $p, $qtPaginas");
 
             if($sql->rowCount() > 0){
@@ -47,7 +44,6 @@
 
         public function getAllHospitais(){
             $array = array();
-
             $sql = $this->pdo->query("SELECT * FROM hospital ORDER BY nome ");
 
             if($sql->rowCount() > 0){
@@ -63,9 +59,7 @@
         }
 
         public function getHospitalLike($busca, $p, $qtPaginas){
-            //global $pdo;
             $array = array();
-
             $sql = $this->pdo->prepare("SELECT * FROM hospital WHERE nome LIKE '%".$busca."%' ORDER BY nome LIMIT $p, $qtPaginas");
             $sql->bindValue(":busca", $busca);
             $sql->execute();
@@ -77,7 +71,6 @@
         }
 
         public function getHospitalUserLogado($id_usuario){
-            //global $pdo;
             $sql = $this->pdo->prepare("SELECT *,
                                             (select nome from hospital where hospital.id = usuario.id_hospital)
                                             as hospital
@@ -155,6 +148,25 @@
 
             if($sql->rowCount() > 0){
                 return $nome = $sql->fetch();
+            }
+        }
+
+        public function getMaiorCasosCorona(){
+            $sql = $this->pdo->query("SELECT id_hospital, 
+                                                  (select nome from hospital where hospital.id = historico.id_hospital)
+                                                  as hospital 
+                                                  FROM historico, hospital GROUP BY id_hospital ORDER BY count(*) DESC LIMIT 1");
+            if($sql->rowCount() > 0){
+                return $hospital = $sql->fetch();
+            }
+        }
+
+        public function countHospitaisHistorico($idHospital){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total FROM historico WHERE id_hospital = :idHospital");
+            $sql->bindValue(":idHospital", $idHospital);
+            $sql->execute();
+            if($sql->rowCount() > 0){
+                return $total = $sql->fetch();
             }
         }
 

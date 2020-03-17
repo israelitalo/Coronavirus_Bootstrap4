@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    if(empty($_SESSION['id_adm'])){
+    if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
         ?>
         <script type="text/javascript">window.location.href="login.php";</script>
         <?php

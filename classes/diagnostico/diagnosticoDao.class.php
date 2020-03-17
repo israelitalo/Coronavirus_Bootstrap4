@@ -11,9 +11,7 @@
         private $pdo;
 
         public function getDiagnosticos(){
-            //global $pdo;
             $array = array();
-
             $sql = $this->pdo->query("SELECT * FROM diagnostico_virus ORDER BY id");
             $sql->execute();
 

@@ -3,6 +3,7 @@
         require 'sair.php';
     }
 
+    //require 'config.php';
     if(isset($_SESSION['id_adm']) && !empty($_SESSION['id_adm'])){
         require 'classes/adm/adm.class.php';
         require 'classes/adm/admDao.class.php';
@@ -38,7 +39,7 @@
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #33b5e5">
 
             <a class="navbar-brand" style="color: whitesmoke" href="./">
-                <img src="assets/images/logo/pernambuco.svg.png" width="30" height="30" class="d-inline-block align-top" style="border-radius: 50px; margin-right: 15px" alt="">
+                <img src="assets/images/logo/cvsoftware_logo.jpeg" width="30" height="30" class="d-inline-block align-top" style="border-radius: 50px; margin-right: 15px" alt="">
                 CvSoftware
             </a>
 

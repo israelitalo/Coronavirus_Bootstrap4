@@ -289,6 +289,13 @@
             return $total = $sql->fetch();
         }
 
+        public function getDiagnosticosPositivos(){
+            $sql = $this->pdo->query("SELECT COUNT(*) as total FROM historico WHERE id_diagnostico = 1");
+            if($sql->rowCount() > 0){
+                return $total = $sql->fetch();
+            }
+        }
+
     }
 
 ?>
