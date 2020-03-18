@@ -23,6 +23,9 @@ table{
 .navbar-text{
     float: left;
 }
+#div-carousel-index{
+    height: 589px;
+}
 
 @media only screen and (max-width: 990px){
     .navbar-text{
@@ -30,5 +33,23 @@ table{
     }
     .login{
         width: 60%;
+    }
+}
+
+@media only screen and (max-width: 575px){
+    #imgcorona0{
+        height: 400px;
+    }
+    #imgcorona1{
+        height: 400px;
+    }
+    #imgcorona2{
+        height: 400px;
+    }
+    #imgcorona3{
+        height: 400px;
+    }
+    #div-carousel-index{
+        height: 400px;
     }
 }

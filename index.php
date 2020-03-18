@@ -26,40 +26,42 @@
 <div class="container-fluid">
 
     <div class="row">
-        <div class="col-sm-5" style="height: 589px; padding: 0; margin-top: 10px">
-            <!-- Carousel -->
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img height="589" class="d-block w-100" src="assets/images/carousel/imagem_0.jpg" alt="First slide">
+        <div class="col-md-5" id="div-carousel-index" style="padding: 0; margin-top: 10px">
+            <div class="align-items-center" style="margin-left: 10px">
+                <!-- Carousel -->
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img id="imgcorona0" height="589" class="d-block w-100" src="assets/images/carousel/imagem_0.jpg" alt="First slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img id="imgcorona1" height="589" class="d-block w-100" src="assets/images/carousel/imagem_1.png" alt="Second slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img id="imgcorona2" height="589" class="d-block w-100" src="assets/images/carousel/imagem_2.jpg" alt="Third slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img id="imgcorona3" height="589" class="d-block w-100" src="assets/images/carousel/imagem_3.png" alt="Four slide">
+                        </div>
                     </div>
-                    <div class="carousel-item">
-                        <img height="589" class="d-block w-100" src="assets/images/carousel/imagem_1.png" alt="Second slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img height="589" class="d-block w-100" src="assets/images/carousel/imagem_2.jpg" alt="Third slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img height="589" class="d-block w-100" src="assets/images/carousel/imagem_3.png" alt="Four slide">
-                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
             </div>
         </div>
-        <div class="col-sm-7" style="padding: 0; margin-top: 10px">
+        <div class="col-md-7" style="padding: 0; margin-top: 10px">
             <div class="col" style="height: 289px; margin-bottom: 10px">
                 <div class="col">
                     <h3><span class="badge badge-secondary">Top nº de atendimentos</span></h3>
