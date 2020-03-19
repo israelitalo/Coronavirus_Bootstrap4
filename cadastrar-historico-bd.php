@@ -9,8 +9,8 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
 if(isset($_POST['hospital']) && !empty($_POST['hospital']) && isset($_POST['paciente']) && !empty($_POST['paciente'])
     && isset($_POST['diagnostico']) && !empty($_POST['diagnostico']) && isset($_POST['entrada']) && !empty($_POST['entrada'])){
 
-    require 'classes/historicoPaciente/historicoPacientes.class.php';
-    require 'classes/historicoPaciente/historicoPacientesDao.class.php';
+    require 'classes/historicoPaciente/HistoricoPacientes.php';
+    require 'classes/historicoPaciente/HistoricoPacientesDao.php';
 
     $historico = new HistoricoPaciente();
     $hd = new HistoricoPacienteDao();

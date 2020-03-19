@@ -7,8 +7,8 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
     <?php
 }
 
-require 'classes/pacientes/paciente.class.php';
-require 'classes/pacientes/pacienteDao.class.php';
+require 'classes/pacientes/Paciente.php';
+require 'classes/pacientes/PacienteDao.php';
 
 if(isset($_POST['nome']) && !empty($_POST['nome']) && isset($_POST['hospital']) && !empty($_POST['hospital'])
     && isset($_POST['cpf']) && !empty($_POST['cpf']) && isset($_POST['cep']) && !empty($_POST['cep'])

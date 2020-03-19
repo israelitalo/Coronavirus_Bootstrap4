@@ -6,9 +6,10 @@
         <?php
     }
 
-    require 'pages/header.php';
-    require 'classes/historicoPaciente/historicoPacientes.class.php';
-    require 'classes/historicoPaciente/historicoPacientesDao.class.php';
+    require_once 'init.php';
+    require_once 'pages/header.php';
+    require 'classes/historicoPaciente/HistoricoPacientes.php';
+    require 'classes/historicoPaciente/HistoricoPacientesDao.php';
 
     $historicos = new HistoricoPaciente();
     $historicoDao = new HistoricoPacienteDao();
@@ -51,8 +52,14 @@
             //$historicos = $historicoDao->getHistoricoLikeForUserLogado($busca, $idUsuario);
         }
     }
-?>
 
+?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
+    <title>Hostórico de Pacientes</title>
+</head>
+<body>
 <div class="container">
     <div style="margin-top: 20px; margin-bottom: 20px">
         <h2><span class="badge badge-secondary">Gerenciar Históricos</span></h2>
@@ -102,7 +109,8 @@
     ?>
     <div class="row">
         <div class="col-6">
-            <a class="btn btn-success" href="cadastrar-historico.php" role="button">Adicionar</a>
+            <a class="btn btn-success" href="cadastrar-historico.php" role="button" style="margin-right: 10px">Adicionar</a>
+            <a class="btn btn-secondary" href="imprimirHistorico.php?busca=<?php echo (isset($_GET['busca']) && !empty($_GET['busca']))?$_GET['busca']:''; ?>" target="_blank" style="color: white">Imprimir</a>
         </div>
         <div class="col-6 align-items-end">
             <!--Input de pesquisa da tabela abaixo-->
@@ -134,17 +142,17 @@
                 <tr>
                     <td style="width: 15%; padding-top: 20px">
                         <a data-toggle="modal" data-target="#exampleModalLong<?php echo $historico['id'] ;?>" href="#"
-                            <?php
-                            if($historico['motivoalta'] == 1){
-                                ?>class="badge badge-success"<?php
-                            }
-                            elseif($historico['motivoalta'] == 2){
-                                ?>class="badge badge-danger"<?php
-                            }
-                            else{
-                                ?>class="badge badge-primary"<?php
-                            }
-                            ?>
+                           <?php
+                           if($historico['motivoalta'] == 1){
+                           ?>class="badge badge-success"<?php
+                           }
+                           elseif($historico['motivoalta'] == 2){
+                           ?>class="badge badge-danger"<?php
+                           }
+                           else{
+                           ?>class="badge badge-primary"<?php
+                        }
+                        ?>
                         >
                             <span style="font-size: 16px">
                                 <?php
@@ -189,11 +197,11 @@
                             <div class="modal-body" style="background-color: #efefef">
                                 <p style="font-size: 20px">Motivo da saída: </p>
                                 <?php
-                                    if($historico['motivoalta']==null):?>
+                                if($historico['motivoalta']==null):?>
                                     <p class="badge badge-warning h4" style="font-size: 18px">Paciente encontra-se na unidade</p>
-                                    <?php elseif($historico['motivoalta']==1):?>
+                                <?php elseif($historico['motivoalta']==1):?>
                                     <p class="badge badge-success h4" style="font-size: 18px">Alta Médica</p>
-                                    <?php elseif($historico['motivoalta']==2):?>
+                                <?php elseif($historico['motivoalta']==2):?>
                                     <p class="badge badge-danger h4" style="font-size: 18px">Óbito</p>
                                 <?php endif;?>
                             </div>
@@ -220,4 +228,5 @@
         </ul>
     </div>
 </div>
+</body>
 <script type="text/javascript" src="modal-excluir-historico.js"></script>

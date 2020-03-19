@@ -1,0 +1,26 @@
+{
+  "name": "israelitalo/Coronavirus_Bootstrap",
+  "description": "Trabalho para fins acadêmicos para controle de casos do corona vírus",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Israel Ítalo B. C. Silva",
+      "email": "israelitalo2012@gmail.com",
+      "role": "Developer",
+      "homepage": "https://israelitalo.ml"
+    }
+  ],
+  "config": {
+    "vendor-dir": "vendor"
+  },
+  "autoload": {
+    "psr-4": {
+      "classes\\": "classes/"
+    }
+  },
+  "require": {
+    "phpmailer/phpmailer": "6.1.*",
+    "dompdf/dompdf": "0.8.*"
+  }
+}

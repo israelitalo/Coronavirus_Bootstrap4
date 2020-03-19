@@ -7,8 +7,8 @@
         <?php
     }
 
-    require_once 'classes/pacientes/paciente.class.php';
-    require_once 'classes/pacientes/pacienteDao.class.php';
+    require_once 'classes/pacientes/Paciente.php';
+    require_once 'classes/pacientes/PacienteDao.php';
 
     if(isset($_POST['hospital'])){
 

@@ -12,8 +12,8 @@ if(empty($_GET['id'])){
     <?php
 }
 
-require 'classes/historicoPaciente/historicoPacientes.class.php';
-require 'classes/historicoPaciente/historicoPacientesDao.class.php';
+require 'classes/historicoPaciente/HistoricoPacientes.php';
+require 'classes/historicoPaciente/HistoricoPacientesDao.php';
 
 $historico = new HistoricoPaciente();
 $hd = new HistoricoPacienteDao();

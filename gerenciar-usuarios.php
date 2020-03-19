@@ -7,8 +7,8 @@
     }
 
     require 'pages/header.php';
-    require 'classes/usuarios/usuarios.class.php';
-    require 'classes/usuarios/usuariosDao.class.php';
+    require 'classes/usuarios/Usuario.php';
+    require 'classes/usuarios/UsuarioDao.php';
 
     $usuarios = new Usuarios();
     $ud = new UsuarioDao();

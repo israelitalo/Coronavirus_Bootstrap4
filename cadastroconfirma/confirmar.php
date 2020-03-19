@@ -3,8 +3,8 @@
     if(isset($_GET['h']) && !empty(['h'])){
         $h = addslashes($_GET['h']);
 
-        require 'classes/usuarios/usuarios.class.php';
-        require 'classes/usuarios/usuariosDao.class.php';
+        require 'classes/usuarios/Usuario.php';
+        require 'classes/usuarios/UsuarioDao.php';
 
         $usuario = new Usuarios();
         $ud = new UsuarioDao();

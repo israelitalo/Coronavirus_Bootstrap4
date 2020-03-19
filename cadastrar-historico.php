@@ -9,12 +9,12 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
 }
 
     require 'pages/header.php';
-    require 'classes/diagnostico/diagnostico.class.php';
-    require 'classes/diagnostico/diagnosticoDao.class.php';
-    require 'classes/hospitais/unidadeHospitalar.class.php';
-    require 'classes/hospitais/unidadeHospitalarDao.class.php';
-    require 'classes/pacientes/pacienteDao.class.php';
-    require 'classes/pacientes/paciente.class.php';
+    require 'classes/diagnostico/Diagnostico.php';
+    require 'classes/diagnostico/DiagnosticoDao.php';
+    require 'classes/hospitais/UnidadeHospitalar.php';
+    require 'classes/hospitais/UnidadeHospitalarDao.php';
+    require 'classes/pacientes/PacienteDao.php';
+    require 'classes/pacientes/Paciente.php';
 
     $diagnosticos = new Diagnostico();
     $dd = new DiagnosticoDao();

@@ -9,8 +9,8 @@
     if(isset($_POST['nome']) && !empty($_POST['nome']) && isset($_POST['login']) && !empty($_POST['login'])
         && isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['senha']) && !empty($_POST['senha'])) {
 
-        require 'classes/usuarios/usuarios.class.php';
-        require_once 'classes/usuarios/usuariosDao.class.php';
+        require 'classes/usuarios/Usuario.php';
+        require_once 'classes/usuarios/UsuarioDao.php';
 
         $usuario = new Usuarios();
         $ud = new UsuarioDao();

@@ -12,8 +12,8 @@ if(empty($_GET['id'])){
     <?php
 }
 
-require 'classes/pacientes/paciente.class.php';
-require 'classes/pacientes/pacienteDao.class.php';
+require 'classes/pacientes/Paciente.php';
+require 'classes/pacientes/PacienteDao.php';
 
 $paciente = new Paciente();
 $pd = new PacienteDao();

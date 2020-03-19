@@ -6,12 +6,13 @@ if(empty($_SESSION['id_adm'])){
     <?php
 }
 
-require_once 'pages/header.php';
+    require_once 'init.php';
+    require_once 'pages/header.php';
 
 if(isset($_GET['id']) && !empty($_GET['id'])){
 
-    require 'classes/hospitais/unidadeHospitalar.class.php';
-    require 'classes/hospitais/unidadeHospitalarDao.class.php';
+    require 'classes/hospitais/UnidadeHospitalar.php';
+    require 'classes/hospitais/UnidadeHospitalarDao.php';
 
     $hospital = new UnidadeHospitalar();
     $hospital->setId(addslashes($_GET['id']));
@@ -56,6 +57,12 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
 }
 
 ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
+    <title>Alterar Hospital</title>
+</head>
+<body>
 <div class="container">
     <div style="margin-top: 20px; margin-bottom: 20px">
         <h2><span class="badge badge-secondary">Alterar Hospitais</span></h2>
@@ -112,3 +119,4 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
         </form>
     </div>
 </div>
+</body>

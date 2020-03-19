@@ -12,8 +12,8 @@
         <?php
     }
 
-    require 'classes/hospitais/unidadeHospitalar.class.php';
-    require 'classes/hospitais/unidadeHospitalarDao.class.php';
+    require 'classes/hospitais/UnidadeHospitalar.php';
+    require 'classes/hospitais/UnidadeHospitalarDao.php';
 
     $hospital = new UnidadeHospitalar();
     $hd = new UnidadeHospitalarDao();

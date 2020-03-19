@@ -6,9 +6,10 @@
         <?php
     }
 
-    require 'pages/header.php';
-    require 'classes/hospitais/unidadeHospitalar.class.php';
-    require 'classes/hospitais/unidadeHospitalarDao.class.php';
+    require_once 'init.php';
+    require_once 'pages/header.php';
+    require 'classes/hospitais/UnidadeHospitalar.php';
+    require 'classes/hospitais/UnidadeHospitalarDao.php';
 
     $hospitais = new UnidadeHospitalar();
     $hd = new UnidadeHospitalarDao();
@@ -34,57 +35,50 @@
     }
 
 ?>
-
-<script>
-    /*$(document).ready(function() {
-        $('#listar-hospitais').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
-                "url": "tabela-empresas.php",
-                "type": "POST"
-            }
-        });
-    });*/
-</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
+    <title>Hospitais</title>
+</head>
+<body>
 <div class="container">
     <div style="margin-top: 20px; margin-bottom: 20px">
         <h2><span class="badge badge-secondary">Gerenciar Hospitais</span></h2>
     </div>
     <?php
-        if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){
-            $msg = $_SESSION['msg'];
-            if($msg == "Hospital alterado com sucesso."){
-                ?>
-                <div class="alert alert-success"><?php echo $msg;?></div>
-                <?php
-            }elseif($msg == "Erro ao tentar alterar Hospital."){
-                ?>
-                <div class="alert alert-danger"><?php echo $msg;?></div>
-                <?php
-            }elseif($msg == "Hospital cadastrado com sucesso."){
-                ?>
-                <div class="alert alert-success"><?php echo $msg;?></div>
-                <?php
-            }elseif($msg == "Erro ao tentar cadastrar hospital."){
-                ?>
-                <div class="alert alert-danger"><?php echo $msg;?></div>
-                <?php
-            }elseif($msg == "Preencha todos os campos e tente novamente."){
-                ?>
-                <div class="alert alert-warning"><?php echo $msg;?></div>
-                <?php
-            }elseif($msg == "O hospital não pode ser excluído, pois está vinculádo ao usuário(a) "){
-                ?>
-                <div class="alert alert-warning"><?php echo $msg." ".ucwords($_SESSION['usuario_hospital']).".";?></div>
-                <?php
-            }elseif($msg == "Hospital excluído com sucesso."){
-                ?>
-                <div class="alert alert-success"><?php echo $msg;?></div>
-                <?php
-            }
-            unset($_SESSION['msg'], $_SESSION['usuario_hospital']);
+    if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){
+        $msg = $_SESSION['msg'];
+        if($msg == "Hospital alterado com sucesso."){
+            ?>
+            <div class="alert alert-success"><?php echo $msg;?></div>
+            <?php
+        }elseif($msg == "Erro ao tentar alterar Hospital."){
+            ?>
+            <div class="alert alert-danger"><?php echo $msg;?></div>
+            <?php
+        }elseif($msg == "Hospital cadastrado com sucesso."){
+            ?>
+            <div class="alert alert-success"><?php echo $msg;?></div>
+            <?php
+        }elseif($msg == "Erro ao tentar cadastrar hospital."){
+            ?>
+            <div class="alert alert-danger"><?php echo $msg;?></div>
+            <?php
+        }elseif($msg == "Preencha todos os campos e tente novamente."){
+            ?>
+            <div class="alert alert-warning"><?php echo $msg;?></div>
+            <?php
+        }elseif($msg == "O hospital não pode ser excluído, pois está vinculádo ao usuário(a) "){
+            ?>
+            <div class="alert alert-warning"><?php echo $msg." ".ucwords($_SESSION['usuario_hospital']).".";?></div>
+            <?php
+        }elseif($msg == "Hospital excluído com sucesso."){
+            ?>
+            <div class="alert alert-success"><?php echo $msg;?></div>
+            <?php
         }
+        unset($_SESSION['msg'], $_SESSION['usuario_hospital']);
+    }
     ?>
     <div class="row">
         <div class="col-6">
@@ -118,7 +112,7 @@
             <tbody>
             <?php foreach ($hospitais as $hospital): ?>
                 <?php
-                    $nomeUsuario = $hd->getUsuarioHospital($hospital['id']);
+                $nomeUsuario = $hd->getUsuarioHospital($hospital['id']);
                 ?>
                 <tr>
                     <td style="width: 25%; padding-top: 20px"><?php echo ucwords($hospital['nome']); ?></td>
@@ -155,11 +149,11 @@
                                     <p class="badge badge-success">Usuário Responsável</p>
                                     <p style="font-size: 18px">
                                         <?php
-                                            if($nomeUsuario['nome']!=''){
-                                                echo utf8_decode(ucwords($nomeUsuario['nome']));
-                                            }else{
-                                                echo 'Aguardando usuário responsável.';
-                                            }
+                                        if($nomeUsuario['nome']!=''){
+                                            echo utf8_decode(ucwords($nomeUsuario['nome']));
+                                        }else{
+                                            echo 'Aguardando usuário responsável.';
+                                        }
                                         ?>
                                     </p>
                                     <hr>
@@ -212,4 +206,5 @@
     </table>
     -->
 </div>
+</body>
 <script type="text/javascript" src="modal-excluir-hospital.js"></script>

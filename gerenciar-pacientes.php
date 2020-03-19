@@ -7,8 +7,8 @@
     }
 
     require 'pages/header.php';
-    require 'classes/pacientes/paciente.class.php';
-    require 'classes/pacientes/pacienteDao.class.php';
+    require 'classes/pacientes/Paciente.php';
+    require 'classes/pacientes/PacienteDao.php';
 
     $pd = new PacienteDao();
     $pacientes = new Paciente();
@@ -135,8 +135,8 @@
             <?php foreach ($pacientes as $paciente): ?>
                 <?php
                     if($paciente['vida']==2){
-                        require_once 'classes/historicoPaciente/historicoPacientes.class.php';
-                        require_once 'classes/historicoPaciente/historicoPacientesDao.class.php';
+                        require_once 'classes/historicoPaciente/HistoricoPacientes.php';
+                        require_once 'classes/historicoPaciente/HistoricoPacientesDao.php';
 
                         $historico = new HistoricoPaciente();
                         $hd = new HistoricoPacienteDao();

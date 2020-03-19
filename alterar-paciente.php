@@ -8,10 +8,10 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
 }
 
 require 'pages/header.php';
-require 'classes/pacientes/paciente.class.php';
-require 'classes/pacientes/pacienteDao.class.php';
-require 'classes/hospitais/unidadeHospitalar.class.php';
-require 'classes/hospitais/unidadeHospitalarDao.class.php';
+require 'classes/pacientes/Paciente.php';
+require 'classes/pacientes/PacienteDao.php';
+require 'classes/hospitais/UnidadeHospitalar.php';
+require 'classes/hospitais/UnidadeHospitalarDao.php';
 
 if(isset($_GET['id']) && !empty($_GET['id'])){
     $paciente = new Paciente();

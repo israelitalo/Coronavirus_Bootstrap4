@@ -1,9 +1,9 @@
 <?php
     session_start();
-    require 'classes/usuarios/usuarios.class.php';
-    require 'classes/usuarios/usuariosDao.class.php';
-    require 'classes/adm/adm.class.php';
-    require 'classes/adm/admDao.class.php';
+    require 'classes/usuarios/Usuario.php';
+    require 'classes/usuarios/UsuarioDao.php';
+    require 'classes/adm/Adm.php';
+    require 'classes/adm/AdmDao.php';
 
     $usuario = new Usuarios();
     $ud = new UsuarioDao();

@@ -8,8 +8,8 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
 }
 
 require 'pages/header.php';
-require 'classes/hospitais/unidadeHospitalar.class.php';
-require 'classes/hospitais/unidadeHospitalarDao.class.php';
+require 'classes/hospitais/UnidadeHospitalar.php';
+require 'classes/hospitais/UnidadeHospitalarDao.php';
 
 $hospitais = new UnidadeHospitalar();
 $ud = new UnidadeHospitalarDao();

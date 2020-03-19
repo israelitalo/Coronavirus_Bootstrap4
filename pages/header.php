@@ -1,40 +1,35 @@
 <?php
     if(empty($_SESSION['id_usuario']) && empty($_SESSION['id_adm'])){
-        require 'sair.php';
+        ?>
+        <script type="text/javascript">window.location.href="sair.php";</script>
+        <?php
     }
 
-    //require 'config.php';
     if(isset($_SESSION['id_adm']) && !empty($_SESSION['id_adm'])){
-        require 'classes/adm/adm.class.php';
-        require 'classes/adm/admDao.class.php';
+        require 'classes/adm/Adm.php';
+        require 'classes/adm/AdmDao.php';
 
         $adm = new Adm();
         $admDao = new AdmDao();
         $nome = $admDao->getNomeAdm(addslashes($_SESSION['id_adm']));
     }
     elseif(isset($_SESSION['id_usuario']) && !empty($_SESSION['id_usuario'])){
-        require 'classes/usuarios/usuarios.class.php';
-        require 'classes/usuarios/usuariosDao.class.php';
+        require 'classes/usuarios/Usuario.php';
+        require 'classes/usuarios/UsuarioDao.php';
 
         $usuario = new Usuarios();
         $ud = new UsuarioDao();
         $nome = $ud->getNomeUsuario(addslashes($_SESSION['id_usuario']));
     }
+
+    include_once 'init.php';
+
 ?>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
-    <title>Estatística - Coronavírus em PE</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <script type="text/javascript" src="assets/js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="assets/js/script.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 </head>
-<body>
     <div class="container-fluid" style="padding: 0">
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #33b5e5">
 

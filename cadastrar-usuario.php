@@ -8,8 +8,8 @@
     }
 
     require 'pages/header.php';
-    require 'classes/hospitais/unidadeHospitalar.class.php';
-    require 'classes/hospitais/unidadeHospitalarDao.class.php';
+    require 'classes/hospitais/UnidadeHospitalar.php';
+    require 'classes/hospitais/UnidadeHospitalarDao.php';
 
     $unidades = new UnidadeHospitalar();
     $ud = new UnidadeHospitalarDao();

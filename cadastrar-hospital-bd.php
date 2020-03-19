@@ -11,8 +11,8 @@ if(isset($_POST['nome']) && !empty($_POST['nome']) && isset($_POST['cnpj']) && !
     && isset($_POST['bairro']) && !empty($_POST['bairro']) && isset($_POST['cidade']) && !empty($_POST['cidade'])
     && isset($_POST['estado']) && !empty($_POST['estado']) && isset($_POST['cep']) && !empty($_POST['cep'])){
 
-    require 'classes/hospitais/unidadeHospitalar.class.php';
-    require 'classes/hospitais/unidadeHospitalarDao.class.php';
+    require 'classes/hospitais/UnidadeHospitalar.php';
+    require 'classes/hospitais/UnidadeHospitalarDao.php';
 
     $unidade = new UnidadeHospitalar();
     $ud = new UnidadeHospitalarDao();
