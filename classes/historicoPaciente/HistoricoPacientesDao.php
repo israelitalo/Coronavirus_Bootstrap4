@@ -173,6 +173,26 @@
             return $array;
         }
 
+        public function getHistoricoLikeForUserLogadoSemPag($busca, $idUsuario){
+            $array = array();
+            $sql = $this->pdo->prepare("SELECT h.id, h.id_hospital, h.id_paciente, h.id_diagnostico, h.data_entrada, h.data_saida,
+                                            h.motivoalta,
+                                            p.id as id_paciente, p.nome as paciente,
+                                            (select nome from hospital where h.id_hospital = hospital.id)
+                                            as hospital,
+                                            (select status from diagnostico_virus where h.id_diagnostico = diagnostico_virus.id) as diagnostico 
+                                            FROM historico h, paciente p, usuario u
+                                            WHERE h.id_hospital = u.id_hospital AND h.id_paciente = p.id
+                                            AND p.nome LIKE '%".$busca."%' AND u.id = :idUsuario ORDER BY p.nome");
+            $sql->bindValue(":idUsuario", $idUsuario);
+            $sql->execute();
+
+            if($sql->rowCount() > 0){
+                $array = $sql->fetchAll();
+            }
+            return $array;
+        }
+
         public function addHistorico($idHospital, $idPaciente, $idDiagnostico, $dataEntrada){
             $sql = $this->pdo->prepare("SELECT p.vida FROM paciente p WHERE p.id = :idPaciente AND p.vida = 1");
             $sql->bindValue(":idPaciente", $idPaciente);

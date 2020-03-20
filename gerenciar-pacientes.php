@@ -44,68 +44,65 @@
             $countPacientesUsuarioLike = $pd->countPacientesUsuarioLike($idUsuario, $busca);
             $paginas = $countPacientesUsuarioLike['total'] / $qtPaginas;
             $pacientes = $pd->getPacienteLikeForUserLogado($busca, $idUsuario, $p, $qtPaginas);
-
         }
     }
 
 ?>
-<script>
-    /*$(document).ready(function() {
-        $('#listar-hospitais').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
-                "url": "tabela-empresas.php",
-                "type": "POST"
-            }
-        });
-    });*/
-</script>
+<head>
+    <meta charset="UTF-8">
+    <?php
+    require_once 'init.php';
+    ?>
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
+    <title>Gerenciar pacientes</title>
+</head>
+<body>
 <div class="container">
     <div style="margin-top: 20px; margin-bottom: 20px">
         <h2><span class="badge badge-secondary">Gerenciar Pacientes</span></h2>
     </div>
     <?php
-        if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){
-            $msg = $_SESSION['msg'];
-            if($msg == "Paciente alterado com sucesso."){
-                ?>
-                <div class="alert alert-success"><?php echo $msg?></div>
-                <?php
-            }
-            elseif($msg == "Erro ao tentar alterar paciente."){
-                ?>
-                <div class="alert alert-danger"><?php echo $msg?></div>
-                <?php
-            }
-            elseif($msg == "Paciente excluído(a) com sucesso."){
-                ?>
-                <div class="alert alert-success"><?php echo $msg?></div>
-                <?php
-            }
-            elseif($msg == "O paciente não pode ser excluído, pois está vinculádo a um histórico de paciente."){
-                ?>
-                <div class="alert alert-warning"><?php echo $msg?></div>
-                <?php
-            }elseif($msg == "Erro ao cadastrar paciente."){
-                ?>
-                <div class="alert alert-danger"><?php echo $msg;?></div>
-                <?php
-            }elseif($msg == "Preencha todos os campos e tente realizar o registro novamente."){
-                ?>
-                <div class="alert alert-warning"><?php echo $msg;?></div>
-                <?php
-            }elseif($msg == "Paciente cadastrado com sucesso."){
-                ?>
-                <div class="alert alert-success"><?php echo $msg;?></div>
-                <?php
-            }
-            unset($_SESSION['msg']);
+    if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])){
+        $msg = $_SESSION['msg'];
+        if($msg == "Paciente alterado com sucesso."){
+            ?>
+            <div class="alert alert-success"><?php echo $msg?></div>
+            <?php
         }
+        elseif($msg == "Erro ao tentar alterar paciente."){
+            ?>
+            <div class="alert alert-danger"><?php echo $msg?></div>
+            <?php
+        }
+        elseif($msg == "Paciente excluído(a) com sucesso."){
+            ?>
+            <div class="alert alert-success"><?php echo $msg?></div>
+            <?php
+        }
+        elseif($msg == "O paciente não pode ser excluído, pois está vinculádo a um histórico de paciente."){
+            ?>
+            <div class="alert alert-warning"><?php echo $msg?></div>
+            <?php
+        }elseif($msg == "Erro ao cadastrar paciente."){
+            ?>
+            <div class="alert alert-danger"><?php echo $msg;?></div>
+            <?php
+        }elseif($msg == "Preencha todos os campos e tente realizar o registro novamente."){
+            ?>
+            <div class="alert alert-warning"><?php echo $msg;?></div>
+            <?php
+        }elseif($msg == "Paciente cadastrado com sucesso."){
+            ?>
+            <div class="alert alert-success"><?php echo $msg;?></div>
+            <?php
+        }
+        unset($_SESSION['msg']);
+    }
     ?>
     <div class="row">
         <div class="col-6">
-            <a class="btn btn-success" href="cadastrar-paciente.php" role="button">Adicionar</a>
+            <a class="btn btn-success" href="cadastrar-paciente.php" role="button" style="margin-right: 10px">Adicionar</a>
+            <a class="btn btn-outline-secondary" href="imprimirPaciente.php?busca=<?php echo (isset($_GET['busca']) && !empty($_GET['busca']))?$_GET['busca']:''; ?>" target="_blank" style="color: white"><img src="assets/images/icones/impressora.png"></a>
         </div>
         <div class="col-6 align-items-end">
             <!--Input de pesquisa da tabela abaixo-->
@@ -134,14 +131,14 @@
             <tbody>
             <?php foreach ($pacientes as $paciente): ?>
                 <?php
-                    if($paciente['vida']==2){
-                        require_once 'classes/historicoPaciente/HistoricoPacientes.php';
-                        require_once 'classes/historicoPaciente/HistoricoPacientesDao.php';
+                if($paciente['vida']==2){
+                    require_once 'classes/historicoPaciente/HistoricoPacientes.php';
+                    require_once 'classes/historicoPaciente/HistoricoPacientesDao.php';
 
-                        $historico = new HistoricoPaciente();
-                        $hd = new HistoricoPacienteDao();
-                        $dataObito = $hd->getDataObitoPaciente($paciente['id']);
-                    }
+                    $historico = new HistoricoPaciente();
+                    $hd = new HistoricoPacienteDao();
+                    $dataObito = $hd->getDataObitoPaciente($paciente['id']);
+                }
                 ?>
                 <tr>
                     <td style="width: 25%; padding-top: 20px">
@@ -153,7 +150,7 @@
                     <td style="width: 18%; padding-top: 20px"><?php echo $paciente['cpf']; ?></td>
                     <td style="width: 12%; padding-top: 20px">
                         <?php
-                            if($paciente['sexo']=='m'):echo 'Masculino'; else:echo 'Feminino'; endif;
+                        if($paciente['sexo']=='m'):echo 'Masculino'; else:echo 'Feminino'; endif;
                         ?>
                     </td>
                     <td class="text-center" style="width: 20%>">
@@ -179,21 +176,21 @@
                                     <hr>
                                     <p class="badge badge-success">Endereço</p>
                                     <p style="font-size: 18px"><?php echo ucwords($paciente['rua']).', ';?>
-                                    <?php echo $paciente['numero'].', ';?>
-                                    <?php echo ucwords($paciente['bairro']).', ';?>
-                                    <?php echo $paciente['cep'].', ';?>
-                                    <?php echo ucwords($paciente['cidade']).' -';?>
-                                    <?php echo $paciente['estado'];?></p>
+                                        <?php echo $paciente['numero'].', ';?>
+                                        <?php echo ucwords($paciente['bairro']).', ';?>
+                                        <?php echo $paciente['cep'].', ';?>
+                                        <?php echo ucwords($paciente['cidade']).' -';?>
+                                        <?php echo $paciente['estado'];?></p>
                                     <hr>
                                     <p class="badge badge-success">Telefone</p>
                                     <p style="font-size: 18px"><?php echo $paciente['telefone'];?></p>
                                     <hr>
                                     <p class="badge badge-success">Status</p>
                                     <?php if($paciente['vida']==1):?>
-                                    <p style="font-size: 18px">Vivo</p>
+                                        <p style="font-size: 18px">Vivo</p>
                                     <?php else:?>
-                                    <br>
-                                    <p class="badge badge-danger" style="font-size: 18px">Óbito em <?php echo date('d/m/Y', strtotime($dataObito['data_saida']));?></p>
+                                        <br>
+                                        <p class="badge badge-danger" style="font-size: 18px">Óbito em <?php echo date('d/m/Y', strtotime($dataObito['data_saida']));?></p>
                                     <?php endif;?>
                                 </div>
                             </div>
@@ -220,4 +217,5 @@
         </ul>
     </div>
 </div>
+</body>
 <script type="text/javascript" src="modal-excluir-paciente.js"></script>

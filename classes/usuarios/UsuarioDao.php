@@ -178,6 +178,22 @@
             return $array;
         }
 
+        public function getUsuarioLikeRel($busca){
+            $array = array();
+
+            $sql = $this->pdo->prepare("SELECT *,
+                                                (select nome from hospital where hospital.id = usuario.id_hospital)
+                                                as hospital
+                                                FROM usuario WHERE nome LIKE '%".$busca."%' ORDER BY nome");
+            $sql->bindValue(":busca", $busca);
+            $sql->execute();
+
+            if($sql->rowCount() > 0){
+                $array = $sql->fetchAll();
+            }
+            return $array;
+        }
+
     }
 
 ?>

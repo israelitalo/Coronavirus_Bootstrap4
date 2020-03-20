@@ -6,7 +6,6 @@
         <?php
     }
 
-    require_once 'init.php';
     require_once 'pages/header.php';
     require 'classes/hospitais/UnidadeHospitalar.php';
     require 'classes/hospitais/UnidadeHospitalarDao.php';
@@ -38,7 +37,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
-    <title>Hospitais</title>
+    <title>Gerenciar Hospitais</title>
+    <?php
+    require_once 'init.php';
+    ?>
 </head>
 <body>
 <div class="container">
@@ -82,7 +84,8 @@
     ?>
     <div class="row">
         <div class="col-6">
-            <a class="btn btn-success" href="cadastrar-hospital.php" role="button">Adicionar</a>
+            <a class="btn btn-success" href="cadastrar-hospital.php" role="button" style="margin-right: 10px">Adicionar</a>
+            <a class="btn btn-outline-secondary" href="imprimirHospitais.php?busca=<?php echo (isset($_GET['busca']) && !empty($_GET['busca']))?$_GET['busca']:''; ?>" target="_blank" style="color: white"><img src="assets/images/icones/impressora.png"></a>
         </div>
         <div class="col-6 align-items-end">
             <!--Input de pesquisa da tabela abaixo-->

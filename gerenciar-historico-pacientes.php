@@ -6,7 +6,6 @@
         <?php
     }
 
-    require_once 'init.php';
     require_once 'pages/header.php';
     require 'classes/historicoPaciente/HistoricoPacientes.php';
     require 'classes/historicoPaciente/HistoricoPacientesDao.php';
@@ -56,6 +55,9 @@
 ?>
 <head>
     <meta charset="UTF-8">
+    <?php
+    require_once 'init.php';
+    ?>
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
     <title>Hostórico de Pacientes</title>
 </head>
@@ -103,6 +105,10 @@
             ?>
             <div class="alert alert-warning"><?php echo $msg;?></div>
             <?php
+        }elseif($msg == "A data de saída deve ser superior a data de entrada."){
+            ?>
+            <div class="alert alert-danger"><?php echo $msg;?></div>
+            <?php
         }
         unset($_SESSION['msg']);
     }
@@ -110,7 +116,7 @@
     <div class="row">
         <div class="col-6">
             <a class="btn btn-success" href="cadastrar-historico.php" role="button" style="margin-right: 10px">Adicionar</a>
-            <a class="btn btn-secondary" href="imprimirHistorico.php?busca=<?php echo (isset($_GET['busca']) && !empty($_GET['busca']))?$_GET['busca']:''; ?>" target="_blank" style="color: white">Imprimir</a>
+            <a class="btn btn-outline-secondary" href="imprimirHistorico.php?busca=<?php echo (isset($_GET['busca']) && !empty($_GET['busca']))?$_GET['busca']:''; ?>" target="_blank" style="color: white"><img src="assets/images/icones/impressora.png"></a>
         </div>
         <div class="col-6 align-items-end">
             <!--Input de pesquisa da tabela abaixo-->

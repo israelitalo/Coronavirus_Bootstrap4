@@ -45,16 +45,28 @@ if(isset($_POST['saida']) && !empty($_POST['saida']) && isset($_POST['motivo']) 
     $historico->setMotivoAlta(addslashes($_POST['motivo']));
     $historico->setDataSaida(addslashes($_POST['saida']));
 
-    if($hd->alterarHistoricoDataSaida($historico->getId(), $historico->getMotivoAlta(), $historico->getDataSaida(), $info['id_paciente'])==true){
-        $_SESSION['msg'] = "Data de saída atualizada com sucesso.";
+    //Verificando se a data de entrada é menor que a data de saída.
+    $dataEntrada = strtotime($info['data_entrada']);
+    $dataSaida = strtotime($historico->getDataSaida());
+
+    if($dataSaida < $dataEntrada){
+        $_SESSION['msg'] = "A data de saída deve ser superior a data de entrada.";
         ?>
         <script type="text/javascript">window.location.href="gerenciar-historico-pacientes.php";</script>
         <?php
+        //fim da verificação.
     }else{
-        $_SESSION['msg'] = "Erro ao tentar lançar a data de saída.";
-        ?>
-        <script type="text/javascript">window.location.href="gerenciar-historico-pacientes.php";</script>
-        <?php
+        if($hd->alterarHistoricoDataSaida($historico->getId(), $historico->getMotivoAlta(), $historico->getDataSaida(), $info['id_paciente'])==true){
+            $_SESSION['msg'] = "Data de saída atualizada com sucesso.";
+            ?>
+            <script type="text/javascript">window.location.href="gerenciar-historico-pacientes.php";</script>
+            <?php
+        }else{
+            $_SESSION['msg'] = "Erro ao tentar lançar a data de saída.";
+            ?>
+            <script type="text/javascript">window.location.href="gerenciar-historico-pacientes.php";</script>
+            <?php
+        }
     }
 
 }
