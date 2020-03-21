@@ -9,7 +9,7 @@
         <?php
     }
 
-    require_once 'pages/header.php';
+    include_once 'pages/header.php';
     require_once 'classes/hospitais/UnidadeHospitalar.php';
     require_once 'classes/hospitais/UnidadeHospitalarDao.php';
     require_once 'classes/historicoPaciente/HistoricoPacientes.php';
@@ -31,13 +31,18 @@
     //Comunicando com API do Corona Vírus:
     $url = 'https://api.coronaanalytic.com/brazil/26';
     $urlBrasil = 'https://api.coronaanalytic.com/world/BR';
-    $casosPe = json_decode(file_get_contents($url));
-    $casosBr = json_decode(file_get_contents($urlBrasil));
+    /*$casosPe = json_decode(file_get_contents($url));
+    $casosBr = json_decode(file_get_contents($urlBrasil));*/
 
-    /*$ch = curl_init($url);
+    $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    $casosBrasil = json_decode(curl_exec($ch));*/
+    $casosPe = json_decode(curl_exec($ch));
+
+    $ch = curl_init($urlBrasil);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $casosBr = json_decode(curl_exec($ch));
 
 ?>
 <body>
@@ -77,18 +82,17 @@
                         </a>
                     </div>
                 </div>
-                <div class="col" style="margin-top: 15px">
-                    <!--<div class="jumbotron-fluid text-center" style="margin-bottom: 20px; background-color: #6c757d; border-radius: 5px; color: whitesmoke"><h5>Links importantes</h5></div>
-                    <div class="row" style="margin-bottom: 20px">
-                        <img style="margin-left: 7%" src="#" width="50" height="50">
-                        <img style="margin-left: 30%" src="#" width="50" height="50">
-                        <img style="margin-left: 30%" src="#" width="50" height="50">
+                <div class="jumbotron-fluid text-center" style="margin-left: 2%; margin-bottom: 20px; margin-top: 20px; background-color: #6c757d; border-radius: 5px; color: whitesmoke"><h5>Links importantes</h5></div>
+                <div class="row" id="links-importantes" style="margin-top: 15px">
+                    <div class="col" id="col-link-1" style="margin-bottom: 20px">
+                        <a id="link-1" href="https://coronavirus.jhu.edu/map.html" target="_blank"><img id="img-link-1" src="assets/images/icones/john-hopkins-logo.jpg" width="120" height="120"></a>
                     </div>
-                    <div class="row" style="margin-bottom: 20px">
-                        <img style="margin-left: 7%" src="#" width="50" height="50">
-                        <img style="margin-left: 30%" src="#" width="50" height="50">
-                        <img style="margin-left: 30%" src="#" width="50" height="50">
-                    </div>-->
+                    <div class="col" id="col-link-2" style="margin-bottom: 20px">
+                        <a id="link-2" href="https://arte.estadao.com.br/ciencia/novo-coronavirus/monitor-pandemia/" target="_blank"><img id="img-link-2" src="assets/images/icones/estadao.png" width="120" height="120"></a>
+                    </div>
+                    <div class="col" id="col-link-3" style="margin-bottom: 20px">
+                        <a id="link-3" href="https://saude.gov.br/" target="_blank"><img id="img-link-3" src="assets/images/icones/mds.png" width="120" height="120"></a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-7" id="div-top-casos" style="margin-top: 10px; transition: 1s">

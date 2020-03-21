@@ -17,86 +17,251 @@ body{
 }
 .dropdown-item{
     font-size: 18px;
-    transition: 1s;
+    transition: 0.5ms;
 }
 table{
     border-radius: 5px;
 }
 .navbar-text{
     float: left;
-    transition: 1s;
+    transition: 0.5ms;
 }
 #div-carousel-index{
-    transition: 1s;
+    transition: 0.5ms;
 }
 #imgcorona0{
-    transition: 1s;
+    transition: 0.5ms;
     margin-right: 10px;
 }
 #imgcorona1{
-    transition: 1s;
+    transition: 0.5ms;
     margin-right: 10px;
 }
 #imgcorona2{
-    transition: 1s;
+    transition: 0.5ms;
     margin-right: 10px;
 }
 #imgcorona3{
-    transition: 1s;
+    transition: 0.5ms;
     margin-right: 10px;
 }
 #div-carousel-index{
-    transition: 1s;
+    transition: 0.5ms;
 }
 #div-top-casos{
-    transition: 1s;
+    transition: 0.5ms;
 }
 #div-col-cima{
-    height: 100%;
-    transition: 1s;
+    ttransition: 0.5ms;
     margin-right: 10px;
 }
 #div-col-baixo{
     height: 100%;
-    transition: 1s;
+    transition: 0.5ms;
     margin-right: 10px;
+}
+
+#col-link-1{
+    margin-left: 3%;
+    transition: 0.5ms;
+}
+
+#col-link-2{
+    margin-left: 5%;
+    transition: 0.5ms;
+}
+
+#col-link-3{
+    margin-left: 5%;
+    transition: 0.5ms;
+}
+
+@media only screen and (max-width: 1242px) and (min-width: 775px){
+    #col-link-1{
+        margin-left: 5px;
+        transition: 0.5ms;
+    }
+    #col-link-2{
+        margin-left: 0;
+        transition: 0.5ms;
+    }
+    #col-link-3{
+        margin-left: 0;
+        transition: 0.5ms;
+    }
+    .col{
+        flex-grow: 0;
+        transition: 0.5ms;
+    }
+}
+
+@media only screen and (max-width: 1115px){
+    #img-link-1{
+        height: 100px;
+        width: 100px;
+        transition: 0.5ms;
+    }
+    #img-link-2{
+        height: 100px;
+        width: 100px;
+        transition: 0.5ms;
+    }
+    #img-link-3{
+        height: 100px;
+        width: 100px;
+        transition: 0.5ms;
+    }
+}
+
+@media only screen and (max-width: 972px){
+    #img-link-1{
+        height: 90px;
+        width: 90px;
+        transition: 0.5ms;
+    }
+    #img-link-2{
+        height: 90px;
+        width: 90px;
+        transition: 0.5ms;
+    }
+    #img-link-3{
+        height: 90px;
+        width: 90px;
+        transition: 0.5ms;
+    }
+}
+
+@media only screen and (max-width: 876px){
+    #img-link-1{
+        height: 80px;
+        width: 80px;
+        transition: 0.5ms;
+    }
+    #img-link-2{
+        height: 80px;
+        width: 80px;
+        transition: 0.5ms;
+    }
+    #img-link-3{
+        height: 80px;
+        width: 80px;
+        transition: 0.5ms;
+    }
+}
+
+@media only screen and (max-width: 827px){
+    #img-link-1{
+        height: 70px;
+        width: 70px;
+        transition: 0.5ms;
+    }
+    #img-link-2{
+        height: 70px;
+        width: 70px;
+        transition: 0.5ms;
+    }
+    #img-link-3{
+        height: 70px;
+        width: 70px;
+        transition: 0.5ms;
+    }
+}
+
+@media only screen and (max-width: 553px){
+    #img-link-1{
+        height: 80px;
+        width: 80px;
+        transition: 0.5ms;
+    }
+    #img-link-2{
+        height: 80px;
+        width: 80px;
+        transition: 0.5ms;
+    }
+    #img-link-3{
+        height: 80px;
+        width: 80px;
+        transition: 0.5ms;
+    }
+    #col-link-1{
+        margin-left: 5%;
+        transition: 0.5ms;
+    }
+    #col-link-2{
+        margin-left: 0;
+        transition: 0.5ms;
+    }
+
+    #col-link-3{
+        margin-left: 0;
+        transition: 0.5ms;
+    }
+}
+
+@media only screen and (max-width: 374px){
+    #img-link-1{
+        height: 50px;
+        width: 50px;
+        transition: 0.5ms;
+    }
+    #img-link-2{
+        height: 50px;
+        width: 50px;
+        transition: 0.5ms;
+    }
+    #img-link-3{
+        height: 50px;
+        width: 50px;
+        transition: 0.5ms;
+    }
+    #col-link-1{
+        margin-left: 5%;
+        transition: 0.5ms;
+    }
+    #col-link-2{
+        margin-left: 0;
+        transition: 0.5ms;
+    }
+    #col-link-3{
+        margin-left: 0;
+        transition: 0.5ms;
+    }
 }
 
 @media only screen and (max-width: 990px){
     .navbar-text{
         display: none;
-        transition: 1s;
+        transition: 0.5ms;
     }
     .login{
         width: 60%;
-        transition: 1s;
+        transition: 0.5ms;
     }
 }
 
 @media only screen and (max-width: 575px){
     #imgcorona0{
         height: 250px;
-        transition: 1s;
+        transition: 0.5ms;
         margin-right: 10px;
     }
     #imgcorona1{
         height: 250px;
-        transition: 1s;
+        transition: 0.5ms;
         margin-right: 10px;
     }
     #imgcorona2{
         height: 250px;
-        transition: 1s;
+        transition: 0.5ms;
         margin-right: 10px;
     }
     #imgcorona3{
         height: 250px;
-        transition: 1s;
+        transition: 0.5ms;
         margin-right: 10px;
     }
     #div-carousel-index{
-        height: 250px;
-        transition: 1s;
+        transition: 0.5ms;
         margin-right: 10px;
     }
 }
@@ -105,44 +270,56 @@ table{
     #imgcorona0{
         width: 100%;
         margin-right: 10px;
-        transition: 1s;
+        transition: 0.5ms;
     }
     #imgcorona1{
         width: 100%;
         margin-right: 10px;
-        transition: 1s;
+        transition: 0.5ms;
     }
     #imgcorona2{
         width: 100%;
         margin-right: 10px;
-        transition: 1s;
+        transition: 0.5ms;
     }
     #imgcorona3{
         width: 100%;
         margin-right: 10px;
-        transition: 1s;
+        transition: 0.5ms;
     }
     #div-carousel-index{
         width: 100%;
         margin-right: 10px;
         height: 100%;
-        transition: 1s;
+        transition: 0.5ms;
     }
     .w-100{
         width: 95%;
     }
     #div-top-casos{
         margin-top: 10px;
-        transition: 1s;
+        transition: 0.5ms;
     }
     #div-col-cima{
         height: 100%;
-        transition: 1s;
+        transition: 0.5ms;
         margin-right: 10px;
     }
     #div-col-baixo{
         height: 100%;
-        transition: 1s;
+        transition: 0.5ms;
         margin-right: 10px;
+    }
+    #col-link-1{
+        margin-left: 15%;
+        transition: 0.5ms;
+    }
+    #col-link-2{
+        margin-left: 10%;
+        transition: 0.5ms;
+    }
+    #col-link-3{
+        margin-left: 10%;
+        transition: 0.5ms;
     }
 }

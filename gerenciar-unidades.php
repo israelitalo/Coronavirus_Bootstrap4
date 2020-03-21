@@ -6,7 +6,7 @@
         <?php
     }
 
-    require_once 'pages/header.php';
+    include 'pages/header.php';
     require 'classes/hospitais/UnidadeHospitalar.php';
     require 'classes/hospitais/UnidadeHospitalarDao.php';
 

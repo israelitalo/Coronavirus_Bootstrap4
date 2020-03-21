@@ -27,8 +27,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
     <title>CvSoftware Covid-19</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -40,7 +38,7 @@
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #33b5e5">
 
             <a class="navbar-brand" style="color: whitesmoke" href="./">
-                <img src="assets/images/logo/cvsoftware_logo.jpeg" width="30" height="30" class="d-inline-block align-top" style="border-radius: 50px; margin-right: 15px" alt="">
+                <img src="assets/images/logo/cvsoftware_logo.jpg" width="30" height="30" class="d-inline-block align-top" style="border-radius: 50px; margin-right: 15px" alt="">
                 CvSoftware
             </a>
 

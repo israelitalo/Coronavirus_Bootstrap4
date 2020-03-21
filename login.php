@@ -12,7 +12,7 @@
         <div class="container login" style="border-radius: 5px; width: 60%; max-width: 500px">
             <form method="POST" action="login-verification.php">
                 <div align="center" class="form-group">
-                    <img style="border-radius: 50%; margin-top: 30px" class="mb-4" src="assets/images/logo/cvsoftware_logo.jpeg" alt="" width="120" height="120">
+                    <img style="border-radius: 50%; margin-top: 30px" class="mb-4" src="assets/images/logo/cvsoftware_logo.jpg" alt="" width="120" height="120">
                 </div>
                 <h1 class="h3 mb-3 font-weight-normal text-center">Acessar CvSoftware</h1>
                 <?php
