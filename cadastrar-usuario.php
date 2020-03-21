@@ -16,10 +16,6 @@
     $unidades = $ud->getAllHospitais();
 
 ?>
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastro de usuário</title>
-</head>
     <section class="container">
         <div style="margin-top: 20px; margin-bottom: 20px">
             <h2><span class="badge badge-secondary">Cadastrar Usuários</span></h2>

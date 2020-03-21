@@ -72,10 +72,6 @@ if(isset($_POST['saida']) && !empty($_POST['saida']) && isset($_POST['motivo']) 
 }
 
 ?>
-<head>
-    <meta charset="UTF-8">
-    <title>Atualização de Histórico de Paciente</title>
-</head>
 <section class="container">
     <div style="margin-top: 20px; margin-bottom: 20px">
         <h2><span class="badge badge-secondary">Registrar Saída</span></h2>

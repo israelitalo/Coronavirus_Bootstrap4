@@ -3,8 +3,6 @@
 
         private $pdo;
 
-        //Conexão local
-
         private $HOST = 'localhost';
         private $USER = 'root';
         private $PASS = '';

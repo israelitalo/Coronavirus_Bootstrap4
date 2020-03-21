@@ -1,14 +1,14 @@
 <?php
     session_start();
 
-    require __DIR__ . "/vendor/autoload.php";
+    //require __DIR__ . "/vendor/autoload.php";
 
     if(empty($_SESSION['id_usuario']) && empty($_SESSION['id_adm'])){
         ?>
         <script type="text/javascript">window.location.href="sair.php";</script>
         <?php
     }
-    require_once 'init.php';
+
     require_once 'pages/header.php';
     require_once 'classes/hospitais/UnidadeHospitalar.php';
     require_once 'classes/hospitais/UnidadeHospitalarDao.php';
@@ -24,19 +24,27 @@
     $hospitais = $hd->getMaiorCasosCorona();
     $counCasos = $hd->countHospitaisHistorico($hospitais['id_hospital']);
 
+    $countObitos = $hd->countObitos();
+
     $countDiagnosticoPositivo = $histDao->getDiagnosticosPositivos();
+
+    //Comunicando com API do Corona Vírus:
+    $url = 'https://api.coronaanalytic.com/brazil/26';
+    $urlBrasil = 'https://api.coronaanalytic.com/world/BR';
+    $casosPe = json_decode(file_get_contents($url));
+    $casosBr = json_decode(file_get_contents($urlBrasil));
+
+    /*$ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $casosBrasil = json_decode(curl_exec($ch));*/
+
 ?>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
-    <title>Estatística covid-19</title>
-</head>
 <body>
     <div class="container-fluid">
-
         <div class="row">
-            <div class="col-md-5" id="div-carousel-index" style="padding: 0; margin-top: 10px">
-                <div class="align-items-center" style="margin-left: 10px">
+            <div class="col-md-5" id="div-carousel-index" style="margin-top: 10px; transition: 1s;">
+                <div class="align-items-center" style="margin-left: 10px; transition: 1s;">
                     <!-- Carousel -->
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
@@ -45,18 +53,18 @@
                             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                             <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
                         </ol>
-                        <div class="carousel-inner">
+                        <div class="carousel-inner" style="border-radius: 5px">
                             <div class="carousel-item active">
-                                <img id="imgcorona0" height="589" class="d-block w-100" src="assets/images/carousel/imagem_0.jpg" alt="First slide">
+                                <img style="border-radius: 5px" id="imgcorona0" height="320" class="d-block w-100" src="assets/images/carousel/imagem_0.jpg" alt="First slide">
                             </div>
                             <div class="carousel-item">
-                                <img id="imgcorona1" height="589" class="d-block w-100" src="assets/images/carousel/imagem_1.png" alt="Second slide">
+                                <img style="border-radius: 5px" id="imgcorona1" height="320" class="d-block w-100" src="assets/images/carousel/imagem_1.png" alt="Second slide">
                             </div>
                             <div class="carousel-item">
-                                <img id="imgcorona2" height="589" class="d-block w-100" src="assets/images/carousel/imagem_2.jpg" alt="Third slide">
+                                <img style="border-radius: 5px" id="imgcorona2" height="320" class="d-block w-100" src="assets/images/carousel/imagem_2.jpg" alt="Third slide">
                             </div>
                             <div class="carousel-item">
-                                <img id="imgcorona3" height="589" class="d-block w-100" src="assets/images/carousel/imagem_3.png" alt="Four slide">
+                                <img style="border-radius: 5px" id="imgcorona3" height="320" class="d-block w-100" src="assets/images/carousel/imagem_3.png" alt="Four slide">
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -69,45 +77,93 @@
                         </a>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-7" style="padding: 0; margin-top: 10px">
-                <div class="col" style="height: 289px; margin-bottom: 10px">
-                    <div class="col">
-                        <h3><span class="badge badge-secondary">Top nº de atendimentos</span></h3>
+                <div class="col" style="margin-top: 15px">
+                    <!--<div class="jumbotron-fluid text-center" style="margin-bottom: 20px; background-color: #6c757d; border-radius: 5px; color: whitesmoke"><h5>Links importantes</h5></div>
+                    <div class="row" style="margin-bottom: 20px">
+                        <img style="margin-left: 7%" src="#" width="50" height="50">
+                        <img style="margin-left: 30%" src="#" width="50" height="50">
+                        <img style="margin-left: 30%" src="#" width="50" height="50">
                     </div>
-                    <div class="col">
-                        <table class="table table-sm bg-light">
-                            <thead></thead>
-                            <tbody>
-                            <tr>
-                                <td><h5><?php echo ucwords($hospitais['hospital']);?></h5></td>
-                                <td><h5><?php echo $counCasos['total'];?> paciente(s)</h5></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col">
-                        <h3><span class="badge badge-secondary">Casos confirmados</span></h3>
-                    </div>
-                    <div class="col">
-                        <table class="table table-sm bg-light">
-                            <thead></thead>
-                            <tbody>
-                            <tr>
-                                <td><h5><?php echo $countDiagnosticoPositivo['total'];?> caso(s)</h5></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col" style="height: 289px">
-
+                    <div class="row" style="margin-bottom: 20px">
+                        <img style="margin-left: 7%" src="#" width="50" height="50">
+                        <img style="margin-left: 30%" src="#" width="50" height="50">
+                        <img style="margin-left: 30%" src="#" width="50" height="50">
+                    </div>-->
                 </div>
             </div>
-
+            <div class="col-md-7" id="div-top-casos" style="margin-top: 10px; transition: 1s">
+                <div class="col" id="div-col-cima">
+                    <div class="jumbotron-fluid text-center" style="background-color: #33b5e5; border-radius: 5px; color: whitesmoke"><h4>Informações CvSoftware</h4></div>
+                    <div class="jumbotron-fluid text-center" style="background-color: #6c757d; border-radius: 5px; color: whitesmoke"><h5>Maior n° de atendimento</h5></div>
+                    <table class="table table-sm bg-light">
+                        <thead></thead>
+                        <tbody>
+                        <tr>
+                            <td style="font-size: 16px"><?php echo ucwords($hospitais['hospital']);?></td>
+                            <td style="font-size: 16px"><?php echo $counCasos['total'];?> paciente(s)</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="jumbotron-fluid text-center" style="background-color: #6c757d; border-radius: 5px; color: whitesmoke"><h5>Casos confirmados</h5></div>
+                    <table class="table table-sm bg-light">
+                        <thead></thead>
+                        <tbody>
+                        <tr>
+                            <td style="font-size: 16px"><?php echo $countDiagnosticoPositivo['total'];?> caso(s)</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="jumbotron-fluid text-center" style="background-color: #6c757d; border-radius: 5px; color: whitesmoke"><h5>Óbitos confirmados</h5></div>
+                    <table class="table table-sm bg-light">
+                        <thead></thead>
+                        <tbody>
+                        <tr>
+                            <td style="font-size: 16px"><?php echo $countObitos['total'];?> óbito(s)</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col" id="div-col-baixo" style="transition: 1s; border-radius: 5px">
+                    <div class="jumbotron-fluid text-center" style="background-color: #33b5e5; border-radius: 5px; color: whitesmoke"><h5>Informações de Pernambuco</h5></div>
+                    <table class="table table-bordered table-responsive-sm table-sm bg-light">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Confirmados</th>
+                            <th>Suspeitos</th>
+                            <th>Negativos</th>
+                            <th>Óbitos</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="font-size: 16px"><?php echo $casosPe->cases; ?></td>
+                            <td style="font-size: 16px"><?php echo $casosPe->suspects; ?></td>
+                            <td style="font-size: 16px"><?php echo $casosPe->refuses; ?></td>
+                            <td style="font-size: 16px"><?php echo $casosPe->deaths; ?></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="jumbotron-fluid text-center" style="background-color: #33b5e5; border-radius: 5px; color: whitesmoke"><h5>Informações do Brasil</h5></div>
+                    <table class="table table-bordered table-responsive-sm table-sm bg-light">
+                        <caption style="font-size: 10px"><?php echo $casosBr->comments; ?> <span class="badge-pill badge-primary"><a style="text-decoration: none; color: whitesmoke; font-size: 11px" href="https://github.com/rodrilima/corona-analytic-api" target="_blank">api</a></span></caption>
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Confirmados</th>
+                            <th>Casos Recentes</th>
+                            <th>Óbitos</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="font-size: 16px"><?php echo $casosBr->cases; ?></td>
+                            <td style="font-size: 16px"><?php echo $casosBr->casesNew; ?></td>
+                            <td style="font-size: 16px"><?php echo $casosBr->deaths; ?></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-
-
     </div>
 </body>
 

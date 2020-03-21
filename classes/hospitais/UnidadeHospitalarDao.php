@@ -173,6 +173,14 @@
             }
         }
 
+        public function countObitos(){
+            $sql = $this->pdo->query("SELECT COUNT(*) AS total FROM paciente WHERE paciente.vida = 2");
+            $sql->execute();
+            if($sql->rowCount() > 0){
+                return $total = $sql->fetch();
+            }
+        }
+
         public function countHospitaisHistorico($idHospital){
             $sql = $this->pdo->prepare("SELECT COUNT(*) AS total FROM historico WHERE id_hospital = :idHospital");
             $sql->bindValue(":idHospital", $idHospital);

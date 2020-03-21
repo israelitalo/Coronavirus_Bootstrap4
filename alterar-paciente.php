@@ -63,10 +63,6 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
     }
 }
 ?>
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastro de usuário</title>
-</head>
 <section class="container">
     <div style="margin-top: 20px; margin-bottom: 20px">
         <h2><span class="badge badge-secondary">Alterar Paciente</span></h2>

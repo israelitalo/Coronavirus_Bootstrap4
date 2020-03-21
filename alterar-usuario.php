@@ -58,10 +58,6 @@
     }
 
 ?>
-<head>
-    <meta charset="UTF-8">
-    <title>Alterar de usuário</title>
-</head>
 <section class="container">
     <div style="margin-top: 20px; margin-bottom: 20px">
         <h2><span class="badge badge-secondary">Alterar Usuário</span></h2>

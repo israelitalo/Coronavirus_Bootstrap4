@@ -21,10 +21,6 @@ if(isset($_SESSION['id_usuario'])){
 }
 
 ?>
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastro de usuário</title>
-</head>
 <section class="container">
     <div style="margin-top: 20px; margin-bottom: 20px">
         <h2><span class="badge badge-secondary">Cadastrar Pacientes</span></h2>

@@ -34,14 +34,6 @@
     }
 
 ?>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
-    <title>Gerenciar Hospitais</title>
-    <?php
-    require_once 'init.php';
-    ?>
-</head>
 <body>
 <div class="container">
     <div style="margin-top: 20px; margin-bottom: 20px">

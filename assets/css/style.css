@@ -13,43 +13,136 @@ body{
 }
 .navbar-text{
     font-size: 20px;
+    transition: 0.5s;
 }
 .dropdown-item{
     font-size: 18px;
+    transition: 1s;
 }
 table{
     border-radius: 5px;
 }
 .navbar-text{
     float: left;
+    transition: 1s;
 }
 #div-carousel-index{
-    height: 589px;
+    transition: 1s;
+}
+#imgcorona0{
+    transition: 1s;
+    margin-right: 10px;
+}
+#imgcorona1{
+    transition: 1s;
+    margin-right: 10px;
+}
+#imgcorona2{
+    transition: 1s;
+    margin-right: 10px;
+}
+#imgcorona3{
+    transition: 1s;
+    margin-right: 10px;
+}
+#div-carousel-index{
+    transition: 1s;
+}
+#div-top-casos{
+    transition: 1s;
+}
+#div-col-cima{
+    height: 100%;
+    transition: 1s;
+    margin-right: 10px;
+}
+#div-col-baixo{
+    height: 100%;
+    transition: 1s;
+    margin-right: 10px;
 }
 
 @media only screen and (max-width: 990px){
     .navbar-text{
         display: none;
+        transition: 1s;
     }
     .login{
         width: 60%;
+        transition: 1s;
     }
 }
 
 @media only screen and (max-width: 575px){
     #imgcorona0{
-        height: 400px;
+        height: 250px;
+        transition: 1s;
+        margin-right: 10px;
     }
     #imgcorona1{
-        height: 400px;
+        height: 250px;
+        transition: 1s;
+        margin-right: 10px;
     }
     #imgcorona2{
-        height: 400px;
+        height: 250px;
+        transition: 1s;
+        margin-right: 10px;
     }
     #imgcorona3{
-        height: 400px;
+        height: 250px;
+        transition: 1s;
+        margin-right: 10px;
     }
     #div-carousel-index{
-        height: 400px;
+        height: 250px;
+        transition: 1s;
+        margin-right: 10px;
+    }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 775px){
+    #imgcorona0{
+        width: 100%;
+        margin-right: 10px;
+        transition: 1s;
+    }
+    #imgcorona1{
+        width: 100%;
+        margin-right: 10px;
+        transition: 1s;
+    }
+    #imgcorona2{
+        width: 100%;
+        margin-right: 10px;
+        transition: 1s;
+    }
+    #imgcorona3{
+        width: 100%;
+        margin-right: 10px;
+        transition: 1s;
+    }
+    #div-carousel-index{
+        width: 100%;
+        margin-right: 10px;
+        height: 100%;
+        transition: 1s;
+    }
+    .w-100{
+        width: 95%;
+    }
+    #div-top-casos{
+        margin-top: 10px;
+        transition: 1s;
+    }
+    #div-col-cima{
+        height: 100%;
+        transition: 1s;
+        margin-right: 10px;
+    }
+    #div-col-baixo{
+        height: 100%;
+        transition: 1s;
+        margin-right: 10px;
     }
 }
