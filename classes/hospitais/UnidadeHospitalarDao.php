@@ -190,6 +190,15 @@
             }
         }
 
+        public function getHospitalForUser($idUsuario){
+            $sql = $this->pdo->prepare("SELECT * FROM hospital h, usuario u WHERE u.id = :id AND h.id = u.id_hospital");
+            $sql->bindValue(":id", $idUsuario);
+            $sql->execute();
+            if($sql->rowCount() > 0){
+                return $hospital = $sql->fetchAll();
+            }
+        }
+
     }
 
 ?>

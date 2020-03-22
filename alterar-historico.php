@@ -27,7 +27,7 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
     if(isset($_SESSION['id_usuario'])){
         $idUsuario = addslashes($_SESSION['id_usuario']);
         $hospitais = $hd->getHospitalUserLogado($idUsuario);
-        $pacientes = $pd->getAllPacienteForUserLogado($idUsuario);
+        $pacientes = $pd->getAllPacienteForUserLogadoSemPag($idUsuario);
     }elseif(isset($_SESSION['id_adm'])){
         $hospitais = $hd->getAllHospitais();
         $pacientes = $pd->getAllPacientes();

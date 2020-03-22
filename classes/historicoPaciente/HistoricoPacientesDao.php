@@ -316,6 +316,15 @@
             }
         }
 
+        public function countHistoricoPositivos($idHospital){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) as total FROM historico WHERE id_diagnostico = 1 AND id_hospital = :id");
+            $sql->bindValue(":id", $idHospital);
+            $sql->execute();
+            if($sql->rowCount() > 0){
+                return $total = $sql->fetch();
+            }
+        }
+
     }
 
 ?>

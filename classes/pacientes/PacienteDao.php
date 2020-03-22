@@ -142,6 +142,23 @@
             return $array;
         }
 
+        public function getAllPacienteForUserLogadoSemPag($idUsuario){
+            $array = array();
+            $sql = $this->pdo->prepare("SELECT p.id, p.id_hospital, p.nome, p.cpf, p.rua, p.numero, p.bairro, p.cidade,
+                                            p.estado, p.cep, p.telefone,p.sexo, p.data_nascimento, p.vida,
+                                            (select nome from hospital where p.id_hospital = hospital.id) as hospital 
+                                            FROM paciente p, usuario u 
+                                            WHERE p.id_hospital = u.id_hospital
+                                            AND u.id = :idUsuario ORDER BY p.nome");
+            $sql->bindValue(":idUsuario", $idUsuario);
+            $sql->execute();
+
+            if($sql->rowCount() > 0){
+                $array = $sql->fetchAll();
+            }
+            return $array;
+        }
+
         public function getAllPacienteForUserLogadoRel($idUsuario){
             $array = array();
             $sql = $this->pdo->prepare("SELECT p.id, p.id_hospital, p.nome, p.cpf, p.rua, p.numero, p.bairro, p.cidade,
@@ -280,6 +297,15 @@
                 $array = $sql->fetchAll();
             }
             return $array;
+        }
+
+        public function getObitosHospital($idHospital){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total FROM paciente p WHERE id_hospital = :idHospital AND vida = 2");
+            $sql->bindValue(":idHospital", $idHospital);
+            $sql->execute();
+            if($sql->rowCount() > 0){
+                return $total = $sql->fetch();
+            }
         }
 
     }

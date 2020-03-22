@@ -14,12 +14,13 @@
         $nome = $admDao->getNomeAdm(addslashes($_SESSION['id_adm']));
     }
     elseif(isset($_SESSION['id_usuario']) && !empty($_SESSION['id_usuario'])){
-        require 'classes/usuarios/Usuario.php';
-        require 'classes/usuarios/UsuarioDao.php';
+        require_once 'classes/usuarios/Usuario.php';
+        require_once 'classes/usuarios/UsuarioDao.php';
 
         $usuario = new Usuarios();
         $ud = new UsuarioDao();
         $nome = $ud->getNomeUsuario(addslashes($_SESSION['id_usuario']));
+
     }
 
 ?>
@@ -53,7 +54,7 @@
                         <a href="gerenciar-usuarios.php" style="color: whitesmoke" class="nav-item nav-link">Gerenciar Usuários</a>
                     <?php endif; ?>
                     <?php if(isset($_SESSION['id_usuario'])):?>
-                        <a href="unidade-hospitalar.php" style="color: whitesmoke" class="nav-item nav-link modal_ajax">Unidade Hospitalar</a>
+                        <a href="unidade-hospitalar.php" class="nav-item nav-link" style="color: whitesmoke">Unidade Hospitalar</a>
                     <?php endif; ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" style="color: whitesmoke" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -71,12 +72,4 @@
             <!-- Se quiser adicionar outro item, deve ser aqui, para deixá-lo no lado direito.-->
             <span class="navbar-text" style="color: whitesmoke"><?php echo strtok(ucwords($nome), ' ');?></span>
         </nav>
-
-        <!-- MODAL UNIDADE HOSPITALAR -->
-        <div class="modal_bg">
-            <div class="modal">
-            </div>
-        </div>
-        <!-- FIM MODAL UNIDADE HOSPITALAR -->
     </div>
-
