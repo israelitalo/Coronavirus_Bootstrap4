@@ -19,8 +19,10 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
     $diagnosticos = new Diagnostico();
     $dd = new DiagnosticoDao();
     $diagnosticos = $dd->getDiagnosticos();
+
     $pacientes = new Paciente();
     $pd = new PacienteDao();
+
     $hospitais = new UnidadeHospitalar();
     $hd = new UnidadeHospitalarDao();
 
@@ -40,6 +42,9 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
         $histDao = new HistoricoPacienteDao();
         $historico->setId(addslashes($_GET['id']));
         $info = $histDao->getHistorico($historico->getId());
+
+        $pacientesDeUmHospital = new Paciente();
+        $pacientesDeUmHospital = $pd->getPacientePorHospital($info['id_hospital']);
     }
 
     if(isset($_POST['hospital']) && !empty($_POST['hospital']) && isset($_POST['paciente']) && !empty($_POST['paciente'])
@@ -63,7 +68,6 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
     }
 
 ?>
-
 <section class="container">
     <div style="margin-top: 20px; margin-bottom: 20px">
         <h2><span class="badge badge-secondary">Alterar Histórico</span></h2>
@@ -73,7 +77,7 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
             <div class="row">
                 <div class="col">
                     <label class="col-form-label-lg" for="hospital">Hospital</label>
-                    <select class="form-control" name="hospital" id="hospitalhistorico" required>
+                    <select class="form-control" name="hospital" id="alterarhospitalhistorico" required>
                         <option></option>
                         <?php if(isset($_SESSION['id_adm'])): ?>
                             <?php foreach ($hospitais as $hospital): ?>
@@ -86,22 +90,30 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
                 </div>
                 <div class="col">
                     <label class="col-form-label-lg" for="paciente">Paciente</label>
-                    <select class="form-control" name="paciente" id="pacientehistorico" required>
-                        <option></option>
-                        <!--Caso o usuário logado seja adm, todos os pacientes aparecerão para ele.-->
-                        <?php if(isset($_SESSION['id_adm'])): ?>
-                            <?php foreach ($pacientes as $paciente): ?>
-                                <option value="<?php echo $paciente['id']; ?>" <?php echo ($info['id_paciente']==$paciente['id'])?'selected="selected"':'';?> ><?php echo utf8_decode(ucwords($paciente['nome'])); ?></option>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <?php foreach ($pacientes as $paciente): ?>
-                                <!--Caso o usuário logado não seja adm, apenas os pacientes do seu hospital aparecerão para ele.-->
-                                <option value="<?php echo $paciente['id']; ?>" <?php echo ($info['id_paciente']==$paciente['id'])?'selected="selected"':'';?> ><?php echo utf8_decode(ucwords($paciente['nome'])); ?></option>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+                    <select class="form-control" name="paciente" id="alterarpacientehistorico" required>
+                        <?php foreach ($pacientesDeUmHospital as $pacienteHospital): ?>
+                        <option value="<?php echo $pacienteHospital['id'];?>" <?php echo ($pacienteHospital['id']==$info['id_paciente'])?'selected="selected"':'';?>><?php echo ucwords($pacienteHospital['nome']);?></option>
+                        <?php endforeach;?>
                     </select>
                 </div>
             </div>
+            <script type="text/javascript">
+                $('#alterarhospitalhistorico').change(function () {
+                    var idHospital = $(this).val();
+                    $.ajax({
+                        type: "POST",
+                        url: "select-pacientes-hospital.php",
+                        data:{
+                            hospital: idHospital
+                        },
+                        success: function (retorno) {
+                            var html = '';
+                            $('#alterarpacientehistorico').html(html);
+                            $('#alterarpacientehistorico').append(retorno);
+                        }
+                    });
+                });
+            </script>
             <div class="row">
                 <div class="col">
                     <label class="col-form-label-lg" for="diagnostico">Diagnóstico</label>
