@@ -29,20 +29,35 @@
     $countDiagnosticoPositivo = $histDao->getDiagnosticosPositivos();
 
     //Comunicando com API do Corona Vírus:
-    $url = 'https://api.coronaanalytic.com/brazil/26';
-    $urlBrasil = 'https://api.coronaanalytic.com/world/BR';
-    /*$casosPe = json_decode(file_get_contents($url));
-    $casosBr = json_decode(file_get_contents($urlBrasil));*/
 
-    $ch = curl_init($url);
+    $urlBrasil2 = 'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1/query?where=OBJECTID=96&outFields=OBJECTID,Country_Region,Last_Update,Confirmed,Recovered,Deaths&outSR=4326&f=json';
+
+    $ch = curl_init($urlBrasil2);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    $casosPe = json_decode(curl_exec($ch));
+    $casosBr2 = json_decode(curl_exec($ch));
 
-    $ch = curl_init($urlBrasil);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    $casosBr = json_decode(curl_exec($ch));
+    //Link para baixar o arquivo CSV de forma automática. Futuramente.
+    $linkCsv = 'https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-total.csv';
+
+    //Lendo arquivo CSV
+    $file = 'csv/cases-brazil-total.csv';
+    $csv = file($file);
+    $estado = '';
+    $casosPe = '';
+    $mortesPe = '';
+    $fonteEstados = 'https://labs.wesleycota.com/sarscov2/br/#fontes';
+    $fonteBrasil = 'https://www.coronavirusnobrasil.org/';
+    foreach ($csv as $row => $line){
+        $row++;
+        $column = str_getcsv($line, ',');
+        //Pegando apenas a linha referente a Pernambuco, e as colunas que nos interessam no momento.
+        if($row == 11){
+            $estado = $column[1];
+            $casosPe = $column[2];
+            $mortesPe = $column[5];
+        }
+    }
 
 ?>
 <body>
@@ -130,38 +145,37 @@
                 <div class="col" id="div-col-baixo" style="transition: 1s; border-radius: 5px">
                     <div class="jumbotron-fluid text-center" style="background-color: #33b5e5; border-radius: 5px; color: whitesmoke"><h5>Informações de Pernambuco</h5></div>
                     <table class="table table-bordered table-responsive-sm table-sm bg-light">
-                        <thead class="thead-light">
+                        <thead class="thead-light text-center">
                         <tr>
-                            <th>Confirmados</th>
-                            <th>Suspeitos</th>
-                            <th>Negativos</th>
-                            <th>Óbitos</th>
+                            <th style="width: 20%">Total de casos</th>
+                            <th style="width: 20%">Total de mortes</th>
+                            <th style="width: 50%">Fonte</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-center">
                         <tr>
-                            <td style="font-size: 16px"><?php echo $casosPe->cases; ?></td>
-                            <td style="font-size: 16px"><?php echo $casosPe->suspects; ?></td>
-                            <td style="font-size: 16px"><?php echo $casosPe->refuses; ?></td>
-                            <td style="font-size: 16px"><?php echo $casosPe->deaths; ?></td>
+                            <td style="font-size: 16px"><?php echo $casosPe;?></td>
+                            <td style="font-size: 16px"><?php echo $mortesPe;?></td>
+                            <td style="font-size: 16px"><a style="text-decoration: none" href="<?php echo $fonteEstados; ?>" target="_blank">casos por estado .CSV</a></td>
                         </tr>
                         </tbody>
                     </table>
                     <div class="jumbotron-fluid text-center" style="background-color: #33b5e5; border-radius: 5px; color: whitesmoke"><h5>Informações do Brasil</h5></div>
                     <table class="table table-bordered table-responsive-sm table-sm bg-light">
-                        <caption style="font-size: 10px"><?php echo $casosBr->comments; ?> <span class="badge-pill badge-primary"><a style="text-decoration: none; color: whitesmoke; font-size: 11px" href="https://github.com/rodrilima/corona-analytic-api" target="_blank">api</a></span></caption>
-                        <thead class="thead-light">
+                        <thead class="thead-light text-center">
                         <tr>
-                            <th>Confirmados</th>
-                            <th>Casos Recentes</th>
-                            <th>Óbitos</th>
+                            <th>Total de casos</th>
+                            <th>Curados</th>
+                            <th>Total de mortes</th>
+                            <th>Fonte</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-center">
                         <tr>
-                            <td style="font-size: 16px"><?php echo $casosBr->cases; ?></td>
-                            <td style="font-size: 16px"><?php echo $casosBr->casesNew; ?></td>
-                            <td style="font-size: 16px"><?php echo $casosBr->deaths; ?></td>
+                            <td style="font-size: 16px"><?php echo $casosBr2->features[0]->attributes->Confirmed; ?></td>
+                            <td style="font-size: 16px"><?php echo $casosBr2->features[0]->attributes->Recovered; ?></td>
+                            <td style="font-size: 16px"><?php echo $casosBr2->features[0]->attributes->Deaths; ?></td>
+                            <td><a style="text-decoration: none" href="<?php echo $fonteBrasil; ?>" target="_blank">coronavirusnobrasil.org</a></td>
                         </tr>
                         </tbody>
                     </table>
