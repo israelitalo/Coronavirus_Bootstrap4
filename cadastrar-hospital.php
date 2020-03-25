@@ -6,7 +6,7 @@
         <?php
     }
 
-    require_once 'pages/header.php';
+    include_once 'pages/header.php';
 
 ?>
 <body>

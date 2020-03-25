@@ -325,6 +325,15 @@
             }
         }
 
+        public function countHistoricoEmAberto($idPaciente){
+            $sql = $this->pdo->prepare("SELECT COUNT(*) AS total FROM historico WHERE id_paciente = :id AND data_saida is null");
+            $sql->bindValue(":id", $idPaciente);
+            $sql->execute();
+            if($sql->rowCount() > 0){
+                return $total = $sql->fetch();
+            }
+        }
+
     }
 
 ?>

@@ -101,6 +101,10 @@
             ?>
             <div class="alert alert-danger"><?php echo $msg;?></div>
             <?php
+        }elseif($msg == "O paciente já possui um histórico sem data de saída informada."){
+            ?>
+            <div class="alert alert-danger"><?php echo $msg;?></div>
+            <?php
         }
         unset($_SESSION['msg']);
     }
