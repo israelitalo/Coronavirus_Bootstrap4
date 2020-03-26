@@ -1,4 +1,4 @@
-<?php
+ <?php
     session_start();
     if(empty($_SESSION['id_adm'])){
         ?>
@@ -14,7 +14,7 @@
     use Classes\Hospitais\UnidadeHospitalar;
     use Classes\Hospitais\UnidadeHospitalarDao;
 
-    include_once("pages/header.php");
+    //include_once("pages/header.php");
     include_once("pages/navbar.php");
 
     $hospitais = new UnidadeHospitalar();
@@ -114,7 +114,13 @@
             <tbody>
             <?php foreach ($hospitais as $hospital): ?>
                 <?php
-                $nomeUsuario = $hd->getUsuarioHospital($hospital['id']);
+                $count = $hd->countHospitaisEmUsuario($hospital['id']);
+                if($count['total'] > 0){
+                    $nomeUsuario = $hd->getUsuarioHospital($hospital['id']);
+                    $usuario = $nomeUsuario['nome'];
+                }elseif($count['total'] <= 0){
+                    $usuario = 'Aguardando usuário responsável.';
+                }
                 ?>
                 <tr>
                     <td style="width: 25%; padding-top: 20px"><?php echo ucwords($hospital['nome']); ?></td>
@@ -149,15 +155,7 @@
                                         <?php echo ucwords($hospital['estado']);?></p>
                                     <hr>
                                     <p class="badge badge-success">Usuário Responsável</p>
-                                    <p style="font-size: 18px">
-                                        <?php
-                                        if($nomeUsuario['nome']!=''){
-                                            echo utf8_decode(ucwords($nomeUsuario['nome']));
-                                        }else{
-                                            echo 'Aguardando usuário responsável.';
-                                        }
-                                        ?>
-                                    </p>
+                                    <p style="font-size: 18px"><?php echo $usuario; ?></p>
                                     <hr>
                                 </div>
                             </div>

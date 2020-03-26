@@ -6,6 +6,7 @@
         <?php
     }
 
+    require_once 'header.php';
 ?>
 <div class="container-fluid" style="padding: 0">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #33b5e5">

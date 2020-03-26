@@ -31,7 +31,7 @@
 
     //Comunicando com API do Corona Vírus:
 
-    $urlBrasil2 = 'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1/query?where=OBJECTID=96&outFields=OBJECTID,Country_Region,Last_Update,Confirmed,Recovered,Deaths&outSR=4326&f=json';
+    $urlBrasil2 = 'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1/query?where=OBJECTID=98&outFields=OBJECTID,Country_Region,Last_Update,Confirmed,Recovered,Deaths&outSR=4326&f=json';
 
     $ch = curl_init($urlBrasil2);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -48,7 +48,7 @@
     $casosPe = '';
     $mortesPe = '';
     $fonteEstados = 'https://labs.wesleycota.com/sarscov2/br/#fontes';
-    $fonteBrasil = 'https://www.coronavirusnobrasil.org/';
+    $fonteBrasil = 'https://coronavirus-disasterresponse.hub.arcgis.com/datasets/bbb2e4f589ba40d692fab712ae37b9ac_1/geoservice?geometry=101.682%2C-38.069%2C-84.294%2C63.033';
     foreach ($csv as $row => $line){
         $row++;
         $column = str_getcsv($line, ',');
