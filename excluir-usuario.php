@@ -6,14 +6,19 @@ if(empty($_SESSION['id_adm'])){
     <?php
 }
 
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Classes\Usuarios\Usuarios;
+use Classes\Usuarios\UsuarioDao;
+
 if(empty($_GET['id'])){
     ?>
     <script type="text/javascript">window.location.href="gerenciar-usuarios.php";</script>
     <?php
 }
 
-require 'classes/usuarios/Usuario.php';
-require 'classes/usuarios/UsuarioDao.php';
+/*require 'Classes/Usuarios/Usuarios.php';
+require 'Classes/Usuarios/UsuarioDao.php';*/
 
 $usuario = new Usuarios();
 $ud = new UsuarioDao();

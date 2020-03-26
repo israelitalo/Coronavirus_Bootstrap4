@@ -6,11 +6,16 @@
         <?php
     }
 
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    use Classes\Usuarios\Usuarios;
+    use Classes\Usuarios\UsuarioDao;
+
     if(isset($_POST['nome']) && !empty($_POST['nome']) && isset($_POST['login']) && !empty($_POST['login'])
         && isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['senha']) && !empty($_POST['senha'])) {
 
-        require 'classes/usuarios/Usuario.php';
-        require_once 'classes/usuarios/UsuarioDao.php';
+        /*require 'Classes/Usuarios/Usuarios.php';
+        require_once 'Classes/Usuarios/UsuarioDao.php';*/
 
         $usuario = new Usuarios();
         $ud = new UsuarioDao();

@@ -6,15 +6,28 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
     <?php
 }
 
-require 'pages/header.php';
-require 'classes/diagnostico/Diagnostico.php';
-require 'classes/diagnostico/DiagnosticoDao.php';
-require 'classes/historicoPaciente/HistoricoPacientes.php';
-require 'classes/historicoPaciente/HistoricoPacientesDao.php';
-require 'classes/hospitais/UnidadeHospitalar.php';
-require 'classes/hospitais/UnidadeHospitalarDao.php';
-require 'classes/pacientes/Paciente.php';
-require 'classes/pacientes/PacienteDao.php';
+include_once 'pages/header.php';
+include_once 'pages/navbar.php';
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Classes\Diagnostico\Diagnostico;
+use Classes\Diagnostico\DiagnosticoDao;
+use Classes\HistoricoPaciente\HistoricoPaciente;
+use Classes\HistoricoPaciente\HistoricoPacienteDao;
+use Classes\Hospitais\UnidadeHospitalar;
+use Classes\Hospitais\UnidadeHospitalarDao;
+use Classes\Pacientes\Paciente;
+use Classes\Pacientes\PacienteDao;
+
+/*require 'Classes/Diagnostico/Diagnostico.php';
+require 'Classes/Diagnostico/DiagnosticoDao.php';
+require 'Classes/HistoricoPaciente/HistoricoPaciente.php';
+require 'Classes/HistoricoPaciente/HistoricoPacienteDao.php';
+require 'Classes/Hospitais/UnidadeHospitalar.php';
+require 'Classes/Hospitais/UnidadeHospitalarDao.php';
+require 'Classes/Pacientes/Paciente.php';
+require 'Classes/Pacientes/PacienteDao.php';*/
 
 if(!empty($_GET['id']) && !empty($_GET['paciente'])) {
     $historico = new HistoricoPaciente();

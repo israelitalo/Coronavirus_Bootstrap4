@@ -1,17 +1,26 @@
 <?php
-session_start();
+    session_start();
 
-if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
-    ?>
-    <script type="text/javascript">window.location.href="sair.php";</script>
-    <?php
-}
+    if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
+        ?>
+        <script type="text/javascript">window.location.href="sair.php";</script>
+        <?php
+    }
 
-require 'pages/header.php';
-require 'classes/pacientes/Paciente.php';
-require 'classes/pacientes/PacienteDao.php';
-require 'classes/hospitais/UnidadeHospitalar.php';
-require 'classes/hospitais/UnidadeHospitalarDao.php';
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    include_once 'pages/header.php';
+    include_once 'pages/navbar.php';
+
+    /*require 'Classes/Pacientes/Paciente.php';
+    require 'Classes/Pacientes/PacienteDao.php';
+    require 'Classes/Hospitais/UnidadeHospitalar.php';
+    require 'Classes/Hospitais/UnidadeHospitalarDao.php';*/
+
+    use Classes\Pacientes\Paciente;
+    use Classes\Pacientes\PacienteDao;
+    use Classes\Hospitais\UnidadeHospitalar;
+    use Classes\Hospitais\UnidadeHospitalarDao;
 
 if(isset($_GET['id']) && !empty($_GET['id'])){
     $paciente = new Paciente();

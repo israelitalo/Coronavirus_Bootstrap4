@@ -7,11 +7,13 @@
         <?php
     }
 
-    use Dompdf\Dompdf;
-
     require_once __DIR__ . '/vendor/autoload.php';
-    require 'classes/pacientes/Paciente.php';
-    require 'classes/pacientes/PacienteDao.php';
+
+    use Dompdf\Dompdf;
+    use Classes\Pacientes\Paciente;
+    use Classes\Pacientes\PacienteDao;
+    /*require 'Classes/Pacientes/Paciente.php';
+    require 'Classes/Pacientes/PacienteDao.php';*/
 
     $pd = new PacienteDao();
     $pacientes = new Paciente();

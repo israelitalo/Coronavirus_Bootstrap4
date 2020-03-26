@@ -2,14 +2,23 @@
 
     session_start();
 
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    use Classes\Hospitais\UnidadeHospitalarDao;
+    use Classes\HistoricoPaciente\HistoricoPacienteDao;
+    use Classes\Pacientes\PacienteDao;
+
+    include_once 'pages/header.php';
+    include_once 'pages/navbar.php';
+
+    /*require_once 'Classes/Hospitais/UnidadeHospitalar.php';
+    require_once 'Classes/Hospitais/UnidadeHospitalarDao.php';
+    require_once 'Classes/HistoricoPaciente/HistoricoPaciente.php';
+    require_once 'Classes/HistoricoPaciente/HistoricoPacienteDao.php';
+    require_once 'Classes/Pacientes/Paciente.php';
+    require_once 'Classes/Pacientes/PacienteDao.php';*/
+
     if(isset($_SESSION['id_usuario']) && !empty($_SESSION['id_usuario'])){
-        include_once 'pages/header.php';
-        require_once 'classes/hospitais/UnidadeHospitalar.php';
-        require_once 'classes/hospitais/UnidadeHospitalarDao.php';
-        require_once 'classes/historicoPaciente/HistoricoPacientes.php';
-        require_once 'classes/historicoPaciente/HistoricoPacientesDao.php';
-        require_once 'classes/pacientes/Paciente.php';
-        require_once 'classes/pacientes/PacienteDao.php';
 
         $hd = new UnidadeHospitalarDao();
         $idHospital = $hd->getIdHospital($_SESSION['id_usuario']);

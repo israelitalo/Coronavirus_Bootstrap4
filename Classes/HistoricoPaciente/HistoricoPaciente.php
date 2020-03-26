@@ -1,4 +1,5 @@
 <?php
+    namespace Classes\HistoricoPaciente;
     class HistoricoPaciente {
 
         private $id;

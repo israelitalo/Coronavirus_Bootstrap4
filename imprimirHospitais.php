@@ -7,11 +7,13 @@
         <?php
     }
 
-    use Dompdf\Dompdf;
-
     require_once __DIR__ . '/vendor/autoload.php';
-    require 'classes/hospitais/UnidadeHospitalar.php';
-    require 'classes/hospitais/UnidadeHospitalarDao.php';
+
+    use Dompdf\Dompdf;
+    use Classes\Hospitais\UnidadeHospitalar;
+    use Classes\Hospitais\UnidadeHospitalarDao;
+    /*require 'Classes/Hospitais/UnidadeHospitalar.php';
+    require 'Classes/Hospitais/UnidadeHospitalarDao.php';*/
 
     $hospitais = new UnidadeHospitalar();
     $hd = new UnidadeHospitalarDao();

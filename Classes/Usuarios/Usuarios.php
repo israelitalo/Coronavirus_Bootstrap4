@@ -1,4 +1,5 @@
 <?php
+    namespace Classes\Usuarios;
     class Usuarios{
 
         private $id;

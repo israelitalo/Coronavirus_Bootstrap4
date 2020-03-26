@@ -8,13 +8,24 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
     <?php
 }
 
-    require 'pages/header.php';
-    require 'classes/diagnostico/Diagnostico.php';
-    require 'classes/diagnostico/DiagnosticoDao.php';
-    require 'classes/hospitais/UnidadeHospitalar.php';
-    require 'classes/hospitais/UnidadeHospitalarDao.php';
-    require 'classes/pacientes/PacienteDao.php';
-    require 'classes/pacientes/Paciente.php';
+    include_once 'pages/header.php';
+    include_once 'pages/navbar.php';
+
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    use Classes\Diagnostico\Diagnostico;
+    use Classes\Diagnostico\DiagnosticoDao;
+    use Classes\Hospitais\UnidadeHospitalar;
+    use Classes\Hospitais\UnidadeHospitalarDao;
+    use Classes\Pacientes\Paciente;
+    use Classes\Pacientes\PacienteDao;
+
+    /*require 'Classes/Diagnostico/Diagnostico.php';
+    require 'Classes/Diagnostico/DiagnosticoDao.php';
+    require 'Classes/Hospitais/UnidadeHospitalar.php';
+    require 'Classes/Hospitais/UnidadeHospitalarDao.php';
+    require 'Classes/Pacientes/PacienteDao.php';
+    require 'Classes/Pacientes/Paciente.php';*/
 
     $diagnosticos = new Diagnostico();
     $dd = new DiagnosticoDao();

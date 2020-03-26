@@ -1,4 +1,6 @@
 <?php
+    namespace Classes\Adm;
+
     class Adm{
 
         private $id;

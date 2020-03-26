@@ -6,14 +6,19 @@
         <?php
     }
 
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    use Classes\Hospitais\UnidadeHospitalar;
+    use Classes\Hospitais\UnidadeHospitalarDao;
+
     if(empty($_GET['id'])){
         ?>
         <script type="text/javascript">window.location.href="gerenciar-unidades.php";</script>
         <?php
     }
 
-    require 'classes/hospitais/UnidadeHospitalar.php';
-    require 'classes/hospitais/UnidadeHospitalarDao.php';
+    /*require 'Classes/Hospitais/UnidadeHospitalar.php';
+    require 'Classes/Hospitais/UnidadeHospitalarDao.php';*/
 
     $hospital = new UnidadeHospitalar();
     $hd = new UnidadeHospitalarDao();

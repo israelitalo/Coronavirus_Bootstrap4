@@ -7,11 +7,20 @@
         <?php
     }
 
-    require 'pages/header.php';
-    require 'classes/hospitais/UnidadeHospitalar.php';
-    require 'classes/hospitais/UnidadeHospitalarDao.php';
-    require 'classes/usuarios/Usuario.php';
-    require 'classes/usuarios/UsuarioDao.php';
+    include_once 'pages/header.php';
+    include_once 'pages/navbar.php';
+
+    require_once __DIR__. '/vendor/autoload.php';
+
+    /*require 'Classes/Hospitais/UnidadeHospitalar.php';
+    require 'Classes/Hospitais/UnidadeHospitalarDao.php';
+    require 'Classes/Usuarios/Usuarios.php';
+    require 'Classes/Usuarios/UsuarioDao.php';*/
+
+    use Classes\Hospitais\UnidadeHospitalar;
+    use Classes\Hospitais\UnidadeHospitalarDao;
+    use Classes\Usuarios\Usuarios;
+    use Classes\Usuarios\UsuarioDao;
 
     $unidades = new UnidadeHospitalar();
     $ud = new UnidadeHospitalarDao();

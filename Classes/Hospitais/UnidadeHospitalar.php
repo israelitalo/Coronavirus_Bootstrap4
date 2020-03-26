@@ -1,21 +1,17 @@
 <?php
-    class Paciente{
-
-        //Todos os métodos abaixo serão serão apagados, e serão implementados os gets e seters para cada atributo.
+    namespace Classes\Hospitais;
+    class UnidadeHospitalar{
 
         private $id;
-        private $idHospital;
         private $nome;
-        private $cpf;
-        private $sexo;
-        private $dataNascimento;
+        private $cnpj;
+        private $telefone;
         private $rua;
         private $numero;
         private $bairro;
         private $cidade;
         private $estado;
         private $cep;
-        private $telefone;
 
         public function getId()
         {
@@ -25,16 +21,6 @@
         public function setId($id)
         {
             $this->id = $id;
-        }
-
-        public function getIdHospital()
-        {
-            return $this->idHospital;
-        }
-
-        public function setIdHospital($idHospital)
-        {
-            $this->idHospital = $idHospital;
         }
 
         public function getNome()
@@ -47,34 +33,24 @@
             $this->nome = $nome;
         }
 
-        public function getCpf()
+        public function getCnpj()
         {
-            return $this->cpf;
+            return $this->cnpj;
         }
 
-        public function setCpf($cpf)
+        public function setCnpj($cnpj)
         {
-            $this->cpf = $cpf;
+            $this->cnpj = $cnpj;
         }
 
-        public function getSexo()
+        public function getTelefone()
         {
-            return $this->sexo;
+            return $this->telefone;
         }
 
-        public function setSexo($sexo)
+        public function setTelefone($telefone)
         {
-            $this->sexo = $sexo;
-        }
-
-        public function getDataNascimento()
-        {
-            return $this->dataNascimento;
-        }
-
-        public function setDataNascimento($dataNascimento)
-        {
-            $this->dataNascimento = $dataNascimento;
+            $this->telefone = $telefone;
         }
 
         public function getRua()
@@ -137,16 +113,5 @@
             $this->cep = $cep;
         }
 
-        public function getTelefone()
-        {
-            return $this->telefone;
-        }
-
-        public function setTelefone($telefone)
-        {
-            $this->telefone = $telefone;
-        }
-
     }
-
 ?>

@@ -1,5 +1,5 @@
 <?php
-
+    namespace Classes\Diagnostico;
     class Diagnostico{
 
         private $id;

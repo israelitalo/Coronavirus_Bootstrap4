@@ -7,11 +7,17 @@ if(empty($_SESSION['id_adm'])){
 }
 
     require_once 'pages/header.php';
+    include_once 'pages/navbar.php';
+
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    use Classes\Hospitais\UnidadeHospitalar;
+    use Classes\Hospitais\UnidadeHospitalarDao;
 
 if(isset($_GET['id']) && !empty($_GET['id'])){
 
-    require 'classes/hospitais/UnidadeHospitalar.php';
-    require 'classes/hospitais/UnidadeHospitalarDao.php';
+    /*require 'Classes/Hospitais/UnidadeHospitalar.php';
+    require 'Classes/Hospitais/UnidadeHospitalarDao.php';*/
 
     $hospital = new UnidadeHospitalar();
     $hospital->setId(addslashes($_GET['id']));

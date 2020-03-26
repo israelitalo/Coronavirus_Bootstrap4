@@ -7,8 +7,13 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
     <?php
 }
 
-require 'classes/pacientes/Paciente.php';
-require 'classes/pacientes/PacienteDao.php';
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Classes\Pacientes\Paciente;
+use Classes\Pacientes\PacienteDao;
+
+/*require 'Classes/Pacientes/Paciente.php';
+require 'Classes/Pacientes/PacienteDao.php';*/
 
 if(isset($_POST['nome']) && !empty($_POST['nome']) && isset($_POST['hospital']) && !empty($_POST['hospital'])
     && isset($_POST['cpf']) && !empty($_POST['cpf']) && isset($_POST['cep']) && !empty($_POST['cep'])

@@ -7,9 +7,16 @@
         <?php
     }
 
-    require 'pages/header.php';
-    require 'classes/hospitais/UnidadeHospitalar.php';
-    require 'classes/hospitais/UnidadeHospitalarDao.php';
+    include_once 'pages/header.php';
+    include_once 'pages/navbar.php';
+
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    use Classes\Hospitais\UnidadeHospitalar;
+    use Classes\Hospitais\UnidadeHospitalarDao;
+
+    /*require 'Classes/Hospitais/UnidadeHospitalar.php';
+    require 'Classes/Hospitais/UnidadeHospitalarDao.php';*/
 
     $unidades = new UnidadeHospitalar();
     $ud = new UnidadeHospitalarDao();

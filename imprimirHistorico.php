@@ -7,11 +7,13 @@
         <?php
     }
 
-    use Dompdf\Dompdf;
-
     require_once __DIR__ . '/vendor/autoload.php';
-    require_once 'classes/historicoPaciente/HistoricoPacientes.php';
-    require_once 'classes/historicoPaciente/HistoricoPacientesDao.php';
+
+    use Dompdf\Dompdf;
+    use Classes\HistoricoPaciente\HistoricoPaciente;
+    use Classes\HistoricoPaciente\HistoricoPacienteDao;
+    /*require_once 'Classes/HistoricoPaciente/HistoricoPaciente.php';
+    require_once 'Classes/HistoricoPaciente/HistoricoPacienteDao.php';*/
 
     $historicos = new HistoricoPaciente();
     $historicoDao = new HistoricoPacienteDao();

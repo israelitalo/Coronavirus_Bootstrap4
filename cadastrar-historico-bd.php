@@ -1,16 +1,21 @@
 <?php
-session_start();
-if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
-    ?>
-    <script type="text/javascript">window.location.href="sair.php";</script>
-    <?php
-}
+    session_start();
+    if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
+        ?>
+        <script type="text/javascript">window.location.href="sair.php";</script>
+        <?php
+    }
+
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    use Classes\HistoricoPaciente\HistoricoPaciente;
+    use Classes\HistoricoPaciente\HistoricoPacienteDao;
 
 if(isset($_POST['hospital']) && !empty($_POST['hospital']) && isset($_POST['paciente']) && !empty($_POST['paciente'])
     && isset($_POST['diagnostico']) && !empty($_POST['diagnostico']) && isset($_POST['entrada']) && !empty($_POST['entrada'])){
 
-    require 'classes/historicoPaciente/HistoricoPacientes.php';
-    require 'classes/historicoPaciente/HistoricoPacientesDao.php';
+    /*require 'Classes/HistoricoPaciente/HistoricoPaciente.php';
+    require 'Classes/HistoricoPaciente/HistoricoPacienteDao.php';*/
 
     $historico = new HistoricoPaciente();
     $hd = new HistoricoPacienteDao();

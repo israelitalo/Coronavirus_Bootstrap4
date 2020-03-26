@@ -7,10 +7,6 @@ namespace Composer\Autoload;
 class ComposerStaticInitf1ea202ca55006e4dab90e322f31208c
 {
     public static $prefixLengthsPsr4 = array (
-        'c' => 
-        array (
-            'classes\\' => 8,
-        ),
         'S' => 
         array (
             'Svg\\' => 4,
@@ -27,13 +23,13 @@ class ComposerStaticInitf1ea202ca55006e4dab90e322f31208c
         array (
             'Dompdf\\' => 7,
         ),
+        'C' => 
+        array (
+            'Classes\\' => 8,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'classes\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/classes',
-        ),
         'Svg\\' => 
         array (
             0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
@@ -49,6 +45,10 @@ class ComposerStaticInitf1ea202ca55006e4dab90e322f31208c
         'Dompdf\\' => 
         array (
             0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
+        ),
+        'Classes\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Classes',
         ),
     );
 

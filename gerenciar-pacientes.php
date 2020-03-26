@@ -6,9 +6,18 @@
         <?php
     }
 
-    require 'pages/header.php';
-    require 'classes/pacientes/Paciente.php';
-    require 'classes/pacientes/PacienteDao.php';
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    include_once 'pages/header.php';
+    include_once 'pages/navbar.php';
+
+    /*require 'Classes/Pacientes/Paciente.php';
+    require 'Classes/Pacientes/PacienteDao.php';*/
+
+    use Classes\Pacientes\Paciente;
+    use Classes\Pacientes\PacienteDao;
+    use Classes\HistoricoPaciente\HistoricoPaciente;
+    use Classes\HistoricoPaciente\HistoricoPacienteDao;
 
     $pd = new PacienteDao();
     $pacientes = new Paciente();
@@ -124,8 +133,8 @@
             <?php foreach ($pacientes as $paciente): ?>
                 <?php
                 if($paciente['vida']==2){
-                    require_once 'classes/historicoPaciente/HistoricoPacientes.php';
-                    require_once 'classes/historicoPaciente/HistoricoPacientesDao.php';
+                    require_once 'Classes/HistoricoPaciente/HistoricoPaciente.php';
+                    require_once 'Classes/HistoricoPaciente/HistoricoPacienteDao.php';
 
                     $historico = new HistoricoPaciente();
                     $hd = new HistoricoPacienteDao();

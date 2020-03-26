@@ -1,4 +1,7 @@
 <?php
+    namespace Classes\Conexao;
+    use PDO;
+    use PDOException;
         class Conexao {
 
         private $pdo;

@@ -1,6 +1,7 @@
 <?php
-
-    require_once 'classes/conexao/Conexao.php';
+    namespace Classes\Diagnostico;
+    //require_once 'Classes/Conexao/Conexao.php';
+    use Classes\Conexao\Conexao;
     class DiagnosticoDao{
 
         public function __construct(){

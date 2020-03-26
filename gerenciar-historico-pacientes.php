@@ -6,9 +6,16 @@
         <?php
     }
 
-    require_once 'pages/header.php';
-    require 'classes/historicoPaciente/HistoricoPacientes.php';
-    require 'classes/historicoPaciente/HistoricoPacientesDao.php';
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    include_once 'pages/header.php';
+    include_once 'pages/navbar.php';
+
+    /*require 'Classes/HistoricoPaciente/HistoricoPaciente.php';
+    require 'Classes/HistoricoPaciente/HistoricoPacienteDao.php';*/
+
+    use Classes\HistoricoPaciente\HistoricoPaciente;
+    use Classes\HistoricoPaciente\HistoricoPacienteDao;
 
     $historicos = new HistoricoPaciente();
     $historicoDao = new HistoricoPacienteDao();

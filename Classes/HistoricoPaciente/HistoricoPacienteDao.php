@@ -1,5 +1,8 @@
 <?php
-    require_once 'classes/conexao/Conexao.php';
+    namespace Classes\HistoricoPaciente;
+    require_once __DIR__ . '/../../vendor/autoload.php';
+    //require_once 'Classes/Conexao/Conexao.php';
+    use Classes\Conexao\Conexao;
     class HistoricoPacienteDao{
 
         private $pdo;

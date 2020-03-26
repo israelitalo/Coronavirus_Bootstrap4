@@ -6,9 +6,16 @@
         <?php
     }
 
-    require 'pages/header.php';
-    require 'classes/usuarios/Usuario.php';
-    require 'classes/usuarios/UsuarioDao.php';
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    include_once 'pages/header.php';
+    include_once 'pages/navbar.php';
+
+    /*require 'Classes/Usuarios/Usuarios.php';
+    require 'Classes/Usuarios/UsuarioDao.php';*/
+
+    use Classes\Usuarios\Usuarios;
+    use Classes\Usuarios\UsuarioDao;
 
     $usuarios = new Usuarios();
     $ud = new UsuarioDao();

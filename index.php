@@ -1,19 +1,20 @@
 <?php
     session_start();
 
-    //require __DIR__ . "/vendor/autoload.php";
+    require_once __DIR__ . "/vendor/autoload.php";
 
-    if(empty($_SESSION['id_usuario']) && empty($_SESSION['id_adm'])){
-        ?>
-        <script type="text/javascript">window.location.href="sair.php";</script>
-        <?php
-    }
+    use Classes\Hospitais\UnidadeHospitalar;
+    use Classes\Hospitais\UnidadeHospitalarDao;
+    use Classes\HistoricoPaciente\HistoricoPaciente;
+    use Classes\HistoricoPaciente\HistoricoPacienteDao;
 
     include_once 'pages/header.php';
-    require_once 'classes/hospitais/UnidadeHospitalar.php';
-    require_once 'classes/hospitais/UnidadeHospitalarDao.php';
-    require_once 'classes/historicoPaciente/HistoricoPacientes.php';
-    require_once 'classes/historicoPaciente/HistoricoPacientesDao.php';
+    include_once 'pages/navbar.php';
+
+    /*require_once 'Classes/Hospitais/UnidadeHospitalar.php';
+    require_once 'Classes/Hospitais/UnidadeHospitalarDao.php';
+    require_once 'Classes/HistoricoPaciente/HistoricoPacientes.php';
+    require_once 'Classes/HistoricoPaciente/HistoricoPacientesDao.php';*/
 
     $hospitais = new UnidadeHospitalar();
     $hd = new UnidadeHospitalarDao();

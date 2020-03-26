@@ -7,11 +7,13 @@
         <?php
     }
 
-    use Dompdf\Dompdf;
-
     require_once __DIR__ . '/vendor/autoload.php';
-    require 'classes/usuarios/Usuario.php';
-    require 'classes/usuarios/UsuarioDao.php';
+
+    use Dompdf\Dompdf;
+    use Classes\Usuarios\Usuarios;
+    use Classes\Usuarios\UsuarioDao;
+    /*require 'Classes/Usuarios/Usuarios.php';
+    require 'Classes/Usuarios/UsuarioDao.php';*/
 
     $usuarios = new Usuarios();
     $ud = new UsuarioDao();

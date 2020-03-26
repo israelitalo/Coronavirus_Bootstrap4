@@ -1,5 +1,9 @@
 <?php
-    require_once 'classes/conexao/Conexao.php';
+    namespace Classes\Hospitais;
+    //require_once 'Classes/Conexao/Conexao.php';
+    require_once __DIR__ . "/../../vendor/autoload.php";
+
+    use Classes\Conexao\Conexao;
     class UnidadeHospitalarDao{
 
         private $pdo;
@@ -15,7 +19,7 @@
             $sql->execute();
 
             if($sql->rowCount() > 0){
-                $idHospital = $sql->fetch(PDO::FETCH_ASSOC);
+                $idHospital = $sql->fetch();
             }
             return $idHospital['id_hospital'];
         }

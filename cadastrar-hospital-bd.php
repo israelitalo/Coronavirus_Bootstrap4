@@ -6,13 +6,18 @@ if(empty($_SESSION['id_adm'])){
     <?php
 }
 
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    use Classes\Hospitais\UnidadeHospitalar;
+    use Classes\Hospitais\UnidadeHospitalarDao;
+
 if(isset($_POST['nome']) && !empty($_POST['nome']) && isset($_POST['cnpj']) && !empty($_POST['cnpj'])
     && isset($_POST['telefone']) && !empty($_POST['telefone']) && isset($_POST['rua']) && !empty($_POST['numero'])
     && isset($_POST['bairro']) && !empty($_POST['bairro']) && isset($_POST['cidade']) && !empty($_POST['cidade'])
     && isset($_POST['estado']) && !empty($_POST['estado']) && isset($_POST['cep']) && !empty($_POST['cep'])){
 
-    require 'classes/hospitais/UnidadeHospitalar.php';
-    require 'classes/hospitais/UnidadeHospitalarDao.php';
+    /*require 'Classes/Hospitais/UnidadeHospitalar.php';
+    require 'Classes/Hospitais/UnidadeHospitalarDao.php';*/
 
     $unidade = new UnidadeHospitalar();
     $ud = new UnidadeHospitalarDao();
