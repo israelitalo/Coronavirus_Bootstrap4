@@ -27,7 +27,8 @@ if(isset($_POST['hospital']) && !empty($_POST['hospital']) && isset($_POST['paci
 
     //Verificar aqui se existe um histórico com data de entrada anterior à data cadastrada, sem data de saída.
     $countHistoricoEmAberto = $hd->countHistoricoEmAberto($historico->getIdPaciente());
-    if($countHistoricoEmAberto > 0){
+
+    if($countHistoricoEmAberto['total'] > 0){
         $_SESSION['msg'] = "O paciente já possui um histórico sem data de saída informada.";
         ?>
         <script type="text/javascript">window.location.href="gerenciar-historico-pacientes.php";</script>
