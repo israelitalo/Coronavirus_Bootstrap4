@@ -36,11 +36,11 @@
                 </div>
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col-6">
                         <label class="col-form-label-lg" for="login">Login</label>
                         <input class="form-control" autocomplete="off" type="text" name="login" id="loginUsuario" required placeholder="Login do usuário">
                     </div>
-                    <div class="col">
+                    <div class="col-6">
                         <label class="col-form-label-lg" for="hospital">Hospital</label>
                         <select class="form-control" name="hospital">
                             <option></option>
@@ -52,12 +52,12 @@
                 </div>
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col-6">
                         <label class="col-form-label-lg" for="email">E-mail</label>
                         <input class="form-control" type="email" name="email" id="emailUsuario" required placeholder="E-mail do usuário">
                     </div>
 
-                    <div class="col">
+                    <div class="col-6">
                         <label class="col-form-label-lg" for="senha">Senha</label>
                         <input class="form-control" autocomplete="off" type="password" name="senha" id="senhaUsuario" required placeholder="Senha do usuário">
                     </div>

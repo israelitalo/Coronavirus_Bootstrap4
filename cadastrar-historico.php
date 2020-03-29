@@ -72,7 +72,7 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
     <div class="col">
         <form class="form-group" method="POST" action="cadastrar-historico-bd.php">
             <div class="row">
-                <div class="col">
+                <div class="col-6">
                     <label class="col-form-label-lg" for="hospital">Hospital</label>
                     <select class="form-control" name="hospital" id="hospitalhistorico" required>
                         <option></option>
@@ -85,7 +85,7 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
                         <?php endif; ?>
                     </select>
                 </div>
-                <div class="col">
+                <div class="col-6">
                     <label class="col-form-label-lg" for="paciente">Paciente</label>
                     <select class="form-control" name="paciente" id="pacientehistorico" required>
                         <option></option>
@@ -113,7 +113,7 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
             </script>
 
             <div class="row">
-                <div class="col">
+                <div class="col-6">
                     <label class="col-form-label-lg" for="diagnostico">Diagnóstico</label>
                     <select class="form-control" name="diagnostico" required>
                         <option></option>
@@ -122,7 +122,7 @@ if(empty($_SESSION['id_adm']) && empty($_SESSION['id_usuario'])){
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="col">
+                <div class="col-6">
                     <label class="col-form-label-lg" for="entrada">Data de Entrada</label>
                     <input class="form-control" type="date" name="entrada" id="dataEntrada" required>
                 </div>

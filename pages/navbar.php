@@ -6,7 +6,7 @@
         <?php
     }
 
-    require_once 'header.php';
+    include_once 'header.php';
 ?>
 <div class="container-fluid" style="padding: 0">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #33b5e5">
@@ -23,19 +23,27 @@
         <div class="navbar-collapse collapse" id="navbarMenu">
             <div class="navbar-nav">
                 <?php if(isset($_SESSION['id_adm'])):?>
-                    <a href="gerenciar-unidades.php" style="color: whitesmoke" class="nav-item nav-link">Gerenciar Hospitais</a>
-                    <a href="gerenciar-usuarios.php" style="color: whitesmoke" class="nav-item nav-link">Gerenciar Usuários</a>
+                    <a href="gerenciar-unidades.php" style="color: whitesmoke" class="nav-item nav-link">Hospitais</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" style="color: whitesmoke" href="#" id="navbarDropdownUsuario" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Usuários
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownUsuario" style="background-color: #33b5e5">
+                            <a href="gerenciar-usuarios.php" style="background-color: #33b5e5; color: whitesmoke" class="dropdown-item nav-link">Usuários</a>
+                            <a href="gerenciar-adm.php" style="background-color: #33b5e5; color: whitesmoke" class="dropdown-item nav-link">Administradores</a>
+                        </div>
+                    </li>
                 <?php endif; ?>
                 <?php if(isset($_SESSION['id_usuario'])):?>
-                    <a href="unidade-hospitalar.php" class="nav-item nav-link" style="color: whitesmoke">Unidade Hospitalar</a>
+                    <a href="unidade-hospitalar.php" class="nav-item nav-link" style="color: whitesmoke">Meu Hospital</a>
                 <?php endif; ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" style="color: whitesmoke" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Pacientes
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #33b5e5">
-                        <a href="gerenciar-pacientes.php" style="background-color: #33b5e5; color: whitesmoke" class="dropdown-item nav-link">Gerenciar Pacientes</a>
-                        <a href="gerenciar-historico-pacientes.php" style="background-color: #33b5e5; color: whitesmoke" class="dropdown-item nav-link">Histórico</a>
+                        <a href="gerenciar-pacientes.php" style="background-color: #33b5e5; color: whitesmoke" class="dropdown-item nav-link">Pacientes</a>
+                        <a href="gerenciar-historico-pacientes.php" style="background-color: #33b5e5; color: whitesmoke" class="dropdown-item nav-link">Históricos</a>
                     </div>
                 </li>
                 <a href="./sair.php" class="nav-item nav-link" style="color: whitesmoke" >Sair</a>
