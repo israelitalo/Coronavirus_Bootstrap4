@@ -38,12 +38,11 @@
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     $casosBr2 = json_decode(curl_exec($ch));
 
-    //Link para baixar o arquivo CSV de forma automática. Futuramente.
-    $linkCsv = 'https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-total.csv';
-
     //Lendo arquivo CSV
-    $file = 'csv/cases-brazil-total.csv';
-    $csv = file($file);
+    //$file = 'csv/cases-brazil-total.csv';
+    //Link para ler o csv direto do navegador.
+    $linkCsv = 'https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-total.csv';
+    $csv = file($linkCsv);
     $estado = '';
     $casosPe = '';
     $mortesPe = '';
