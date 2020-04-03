@@ -156,7 +156,7 @@ if(isset($_GET['busca'])){
         </table>
         <ul class="pagination">
             <?php for($i=0;$i<$paginas;$i++): ?>
-                <li class="page-item">
+                <li class="page-item <?php echo ($_GET['p']-1 == $i)?'active':'' ;?>">
                     <a class="page-link" href="gerenciar-usuarios.php?<?php
                     $get = $_GET;//Aqui passa tudo que há no $_GET para a variável get.
                     $get['p'] = $i+1;

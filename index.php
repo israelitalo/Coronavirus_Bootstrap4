@@ -31,7 +31,7 @@
 
     //Comunicando com API do Corona Vírus:
 
-    $urlBrasil2 = 'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1/query?where=OBJECTID=102&outFields=OBJECTID,Country_Region,Last_Update,Confirmed,Recovered,Deaths&outSR=4326&f=json';
+    $urlBrasil2 = 'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/Coronavirus_2019_nCoV_Cases/FeatureServer/1/query?where=OBJECTID=103&outFields=OBJECTID,Country_Region,Last_Update,Confirmed,Recovered,Deaths&outSR=4326&f=json';
 
     $ch = curl_init($urlBrasil2);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
