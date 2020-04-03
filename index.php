@@ -41,7 +41,7 @@
     //Lendo arquivo CSV
     //$file = 'csv/cases-brazil-total.csv';
     //Link para ler o csv direto do navegador.
-    $linkCsv = 'https://labs.wesleycota.com/sarscov2/br/github/cases-brazil-total.csv';
+    $linkCsv = 'https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-total.csv';
     $csv = file($linkCsv);
     $estado = '';
     $casosPe = '';
