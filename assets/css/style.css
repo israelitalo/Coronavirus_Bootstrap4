@@ -323,3 +323,9 @@ table{
         transition: 0.5ms;
     }
 }
+
+@media only screen and (min-width: 0px){
+    .col-sm-12{
+        margin-top: 15px;
+    }
+}

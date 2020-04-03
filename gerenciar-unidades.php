@@ -1,44 +1,44 @@
- <?php
-    session_start();
-    if(empty($_SESSION['id_adm'])){
-        ?>
-        <script type="text/javascript">window.location.href="sair.php";</script>
-        <?php
-    }
+<?php
+session_start();
+if(empty($_SESSION['id_adm'])){
+    ?>
+    <script type="text/javascript">window.location.href="sair.php";</script>
+    <?php
+}
 
-    require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
-    /*require 'Classes/Hospitais/UnidadeHospitalar.php';
-    require 'Classes/Hospitais/UnidadeHospitalarDao.php';*/
+/*require 'Classes/Hospitais/UnidadeHospitalar.php';
+require 'Classes/Hospitais/UnidadeHospitalarDao.php';*/
 
-    use Classes\Hospitais\UnidadeHospitalar;
-    use Classes\Hospitais\UnidadeHospitalarDao;
+use Classes\Hospitais\UnidadeHospitalar;
+use Classes\Hospitais\UnidadeHospitalarDao;
 
-    //include_once("pages/header.php");
-    include_once("pages/navbar.php");
+//include_once("pages/header.php");
+include_once("pages/navbar.php");
 
-    $hospitais = new UnidadeHospitalar();
-    $hd = new UnidadeHospitalarDao();
+$hospitais = new UnidadeHospitalar();
+$hd = new UnidadeHospitalarDao();
 
-    $qtPaginas = 10;
-    $pg = 1;
+$qtPaginas = 6;
+$pg = 1;
 
-    if(isset($_GET['p']) && !empty($_GET['p'])){
-        $pg = addslashes($_GET['p']);
-    }
+if(isset($_GET['p']) && !empty($_GET['p'])){
+    $pg = addslashes($_GET['p']);
+}
 
-    $p = ($pg - 1) * $qtPaginas;
+$p = ($pg - 1) * $qtPaginas;
 
-    if(isset($_GET['busca'])){
-        $busca = addslashes($_GET['busca']);
-        $countHospitaisComLike = $hd->countHospitaisComLike($busca);
-        $paginas = $countHospitaisComLike['total'] / $qtPaginas;
-        $hospitais = $hd->getHospitalLike($busca, $p, $qtPaginas);
-    }else{
-        $countHospitais = $hd->countHospitais();
-        $paginas = $countHospitais['total'] / $qtPaginas;
-        $hospitais = $hd->getAllHospitaisPaginacao($p, $qtPaginas);
-    }
+if(isset($_GET['busca'])){
+    $busca = addslashes($_GET['busca']);
+    $countHospitaisComLike = $hd->countHospitaisComLike($busca);
+    $paginas = $countHospitaisComLike['total'] / $qtPaginas;
+    $hospitais = $hd->getHospitalLike($busca, $p, $qtPaginas);
+}else{
+    $countHospitais = $hd->countHospitais();
+    $paginas = $countHospitais['total'] / $qtPaginas;
+    $hospitais = $hd->getAllHospitaisPaginacao($p, $qtPaginas);
+}
 
 ?>
 <body>
@@ -82,11 +82,11 @@
     }
     ?>
     <div class="row">
-        <div class="col-6">
+        <div class="col-sm-12 col-md-6 col-xl-6">
             <a class="btn btn-success" href="cadastrar-hospital.php" role="button" style="margin-right: 10px">Adicionar</a>
             <a class="btn btn-outline-secondary" href="imprimirHospitais.php?busca=<?php echo (isset($_GET['busca']) && !empty($_GET['busca']))?$_GET['busca']:''; ?>" target="_blank" style="color: white"><img src="assets/images/icones/impressora.png"></a>
         </div>
-        <div class="col-6 align-items-end">
+        <div class="col-sm-12 col-md-6 col-xl-6 align-items-end">
             <!--Input de pesquisa da tabela abaixo-->
             <form class="form-group" method="GET">
                 <div class="input-group mb-3">
@@ -181,30 +181,6 @@
             <?php endfor; ?>
         </ul>
     </div>
-    <!--Tabela a ser usada com o DataTable
-    <table id="listar-hospitais" class="display table table-hover" style="width:100%">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>CNPJ</th>
-            <th>Telefone</th>
-            <th>Cidade</th>
-            <th>Estado</th>
-            <th>Ações</th>
-        </tr>
-        </thead>
-        <tfoot>
-        <tr>
-            <th>Name</th>
-            <th>CNPJ</th>
-            <th>Telefone</th>
-            <th>Cidade</th>
-            <th>Estado</th>
-            <th>Ações</th>
-        </tr>
-        </tfoot>
-    </table>
-    -->
 </div>
 </body>
 <script type="text/javascript" src="modal-excluir-hospital.js"></script>

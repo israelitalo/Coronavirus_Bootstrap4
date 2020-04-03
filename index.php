@@ -41,7 +41,7 @@
     //Lendo arquivo CSV
     //$file = 'csv/cases-brazil-total.csv';
     //Link para ler o csv direto do navegador.
-    $linkCsv = 'https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-total.csv';
+    $linkCsv = 'https://labs.wesleycota.com/sarscov2/br/github/cases-brazil-total.csv';
     $csv = file($linkCsv);
     $estado = '';
     $casosPe = '';
@@ -62,7 +62,7 @@
 ?>
 <body>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" style="margin-top: 15px">
             <div class="col-md-5" id="div-carousel-index" style="margin-top: 10px; transition: 1s;">
                 <div class="align-items-center" style="margin-left: 10px; transition: 1s;">
                     <!-- Carousel -->

@@ -22,7 +22,7 @@
     $pd = new PacienteDao();
     $pacientes = new Paciente();
 
-    $qtPaginas = 10;
+    $qtPaginas = 6;
     $pg = 1;
 
     if(isset($_GET['p']) && !empty($_GET['p'])){
@@ -101,12 +101,12 @@
     }
     ?>
     <div class="row">
-        <div class="col-6">
+        <div class="col-sm-12 col-md-6 col-xl-6">
             <a class="btn btn-success" href="cadastrar-paciente.php" role="button" style="margin-right: 10px">Adicionar</a>
             <a class="btn btn-outline-secondary" href="imprimirPaciente.php?busca=<?php echo (isset($_GET['busca']) && !empty($_GET['busca']))?$_GET['busca']:''; ?>" target="_blank" style="color: white"><img src="assets/images/icones/impressora.png"></a>
             <button style="height: 25px; width: 25px; margin-top: 15px; margin-left: 10px" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Óbito"></button>
         </div>
-        <div class="col-6 align-items-end">
+        <div class="col-sm-12 col-md-6 col-xl-6 align-items-end">
             <!--Input de pesquisa da tabela abaixo-->
             <form class="form-group" method="GET">
                 <div class="input-group mb-3">
